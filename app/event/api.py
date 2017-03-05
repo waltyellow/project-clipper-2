@@ -12,3 +12,8 @@ def create(event_id):
 def update(event_id):
     ret = str(event_id) + 'update'
     return ret
+
+@server.route(rule='/events/<string:event_id>', endpoint='fetchevent', methods=['GET'])
+def fetch(event_id):
+    ret = str(event_id) + 'fetch'
+    return ret
