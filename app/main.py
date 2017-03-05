@@ -1,10 +1,27 @@
 from flask import *
 from app import server
 from app.event import api
+import os
 
-@server.route('/')
-def hello_world2():
-    return 'Hello HOME and ONLY HOME!'
+
+@server.route('/<string:name>')
+def index(name):
+    return render_template(name + '.html')
+
+
+@server.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(server.root_path,
+                                     endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
 
 
 @server.route(rule='/example/<string:event_id>/create', endpoint='optional')

@@ -1,0 +1,38 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/lib/bootstrap.min.css') }}" rel="stylesheet">
+    <title>Campus Assistant</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Campus Assistant</h1>
+        <hr class="explore" />
+        <div class="row">
+            <div class="col-xs-6">
+                <a class="btn btn-primary btn-block homepage-button" role="button" href="food_entertainment">Food &amp; Entertainment</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-primary btn-block homepage-button" role="button" href="events">Events</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6">
+                <a class="btn btn-primary btn-block homepage-button" role="button" href="study_spaces">Study Spaces</a>
+            </div>
+            <div class="col-xs-6">
+                <a class="btn btn-primary btn-block homepage-button" role="button" href="campus_buildings">Campus Buildings</a>
+            </div>
+        </div>
+        <br /><br />
+        <hr class="questions" />
+        <form class="form-inline">
+            <div class="form-group">
+                <input type="text" class="form-control" id="enterQuestion" placeholder="Enter a question">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        <a class="btn btn-primary btn-block homepage-button" href="#">Browse previously asked</a>
+    </div>
+</body>

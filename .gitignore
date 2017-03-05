@@ -2,3 +2,5 @@ lib/**
 .idea/**
 *.pyc
 **/*.pyc
+
+**/.sass-cache

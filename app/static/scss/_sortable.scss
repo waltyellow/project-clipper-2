@@ -1,0 +1,20 @@
+$bar-height: 40px;
+
+#sort-options {
+    height: $bar-height;
+    width: 100%;
+    display: flex;
+}
+
+.sort-button {
+    @include button($secondary1, $primary1, $primary1-highlight, $border1, 0px);
+    line-height: $bar-height;
+    border-left: 0px;
+    flex-basis: 100%;
+
+    font-size: 120%;
+
+    &:last-child {
+        border-right: 0px;
+    }
+}

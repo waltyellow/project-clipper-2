@@ -1,0 +1,39 @@
+<html>
+<head>
+    <link rel="stylesheet" href="css/events.css?$date" />
+    <title>Events - Campus Assistant</title>
+</head>
+<body>
+    <div id="content">
+        <div id="title-bar">
+            <h1>Events</h1>
+        </div>
+        <div id="sort-options">
+            <a class="sort-button" href="#">Top</a>
+            <a class="sort-button" href="#">Soon</a>
+            <a class="sort-button" href="#">Distance</a>
+        </div>
+        <div id="list-container">
+        	#foreach($event in $events)
+            	<div class="list-item">
+            		<div class="top-row">
+		            	<div class="event-name">
+		            		<h3>$event</h3>
+		            	</div>
+		            	<div class="event-expand">
+		            		<a href="#">Show Event</a>
+		            	</div>
+		            </div>
+		            <div class="bottom-row">
+		            	<div class="event-location">
+		            		<p>Somewhere</p>
+		            	</div>
+		            	<div class="event-datetime">
+		            		<p>Feb 3 2017 6:30PM</p>
+		            	</div>
+		           	</div>
+	            </div>
+	        #end
+        </div>
+    </div>
+</body>

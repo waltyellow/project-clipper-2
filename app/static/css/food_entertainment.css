@@ -1,0 +1,58 @@
+html, body {
+  background: #CCCCCC;
+  margin: 0px;
+  padding: 0px; }
+
+body {
+  font-size: 16px; }
+
+h1 {
+  font-size: 250%;
+  text-align: center;
+  color: #333333; }
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px; } }
+#list-container {
+  width: 100%; }
+
+.list-item {
+  height: 75px;
+  padding: 5px;
+  border-bottom: 1px solid #000000; }
+  .list-item:nth-child(odd) {
+    background: #CCCCCC; }
+
+#title-bar {
+  height: 60px;
+  width: 100%;
+  /*display: flex;*/ }
+  #title-bar h1 {
+    line-height: 65px; }
+
+#sort-options {
+  height: 40px;
+  width: 100%;
+  display: flex; }
+
+.sort-button {
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  border-radius: 0px;
+  color: #FFFFFF;
+  text-decoration: none;
+  text-align: center;
+  background: #333333;
+  border: #000000 1px solid;
+  line-height: 40px;
+  border-left: 0px;
+  flex-basis: 100%;
+  font-size: 120%; }
+  .sort-button:hover {
+    background: #666666; }
+  .sort-button:last-child {
+    border-right: 0px; }
+
+/*# sourceMappingURL=food_entertainment.css.map */

@@ -1,0 +1,52 @@
+$primary1: #333333;   // dark background, borders, dark text
+$primary1-highlight: #666666;
+$secondary1: #FFFFFF; // light color
+$border1: #000000;
+$primary2: #AAAAFF;   // button background
+$primary2-highlight: #8888FF;
+$secondary2: #000000; // button highlight
+$border2: #333399;
+
+html, body {
+    background: #CCCCCC;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 250%;
+    text-align: center;
+    color: $primary1;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 730px;
+    }
+}
+
+@mixin border-radius($radius) {
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin button($text-color, $bg-color, $bg-hover-color, $border-color, $border-radius) {
+    @include border-radius($border-radius);
+
+    color: $text-color;
+    text-decoration: none;
+    text-align: center;
+
+    background: $bg-color;
+    border: $border-color 1px solid;
+
+    &:hover {
+        background: $bg-hover-color;
+    }
+}
