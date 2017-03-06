@@ -2,9 +2,10 @@ from flask import *
 from app import server
 from app.event import api
 
+
 @server.route('/')
 def hello_world2():
-    return 'Hello HOME and ONLY HOME!'
+    return 'hello'
 
 
 @server.route(rule='/example/<string:event_id>/create', endpoint='optional')
