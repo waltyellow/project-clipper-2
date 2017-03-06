@@ -5639,8 +5639,7 @@ h1 {
 .container {
   height: 100%;
   background: #FFFFFF;
-  padding-left: 0px;
-  padding-right: 0px;
+  padding: 0px;
   border-left: 1px solid #000000;
   border-right: 1px solid #000000; }
 
@@ -5664,7 +5663,7 @@ h1 {
   width: 100%;
   /*display: flex;*/ }
   #title-bar h1 {
-    line-height: 65px; }
+    line-height: 55px; }
 
 hr {
   border-width: 0px;
