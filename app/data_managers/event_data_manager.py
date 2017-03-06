@@ -3,6 +3,7 @@ from pymongo import MongoClient
 from pymongo.collection import ReturnDocument
 from bson.objectid import ObjectId
 from app.models.event import Event
+import base64
 from typing import Any
 
 
@@ -23,8 +24,14 @@ class EventDataManager:
 
     @staticmethod
     def convert_to_event_id(_id: ObjectId) -> str:
-        event_id = str(_id)
+        event_id = base64.urlsafe_b64encode(_id.binary).decode("utf-8")
+        event_id = 'ev-'+event_id
         return event_id
+
+    @staticmethod
+    def convert_to_object_id(event_id: str) -> ObjectId:
+        return ObjectId(base64.urlsafe_b64decode(event_id[3:]))
+
 
     def create_empty_event_without_id(self):
         event_dict = Event().__dict__
@@ -47,7 +54,7 @@ class EventDataManager:
 
     def find_event_by_id(self, event_id: str):
         print('finding event' + event_id)
-        event_dict = self.event_collection.find_one({'_id': ObjectId(event_id)})
+        event_dict = self.event_collection.find_one({'_id': EventDataManager.convert_to_object_id(event_id)})
         if event_dict is None:
             return None
         if event_dict['deleted']:
@@ -60,17 +67,17 @@ class EventDataManager:
     def replace_one_event(self, event: Event):
         print('replacing event' + event.event_id)
         event_dict = event.__dict__
-        self.event_collection.replace_one({'_id': ObjectId(event.event_id)}, event_dict)
+        self.event_collection.replace_one({'_id': EventDataManager.convert_to_object_id(event.event_id)}, event_dict)
 
     '''updates one key of the event by event_id'''
 
     def update_one_event_by_diff(self, event_id: str, key: str, new_value: Any):
-        self.event_collection.update_one({'_id': ObjectId(event_id)}, {'$set': {key: new_value}})
+        self.event_collection.update_one({'_id': EventDataManager.convert_to_object_id(event_id)}, {'$set': {key: new_value}})
 
     '''deletes an event by event_id'''
 
     def delete_event_by_id(self, event_id: str):
-        self.event_collection.update_one({'_id': ObjectId(event_id)}, {'$set': {'deleted': True}})
+        self.event_collection.update_one({'_id': EventDataManager.convert_to_object_id(event_id)}, {'$set': {'deleted': True}})
 
 
 def test():
@@ -88,6 +95,15 @@ def test():
     eventDataManager.update_one_event_by_diff(founded_event.event_id,'name','pl4')
     eventDataManager.delete_event_by_id(str(newEvent.event_id))
     eventDataManager.find_event_by_id(str(newEvent.event_id))
+
+def test2():
+    # _id = ObjectId('58bd00034f6d73ae4811b7f5')
+    # print(_id.binary)
+    # event_id = base64.urlsafe_b64encode(_id.binary).decode("utf-8")
+    # print(str(event_id))
+    # bi = base64.urlsafe_b64decode(event_id)
+    # print(bi)
+    print('ev-WL2wUk9tc7v2hxKG'[3:])
 
 
 if __name__ == '__main__':
