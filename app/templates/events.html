@@ -1,10 +1,10 @@
-<html>
-<head>
-    <link rel="stylesheet" href="css/events.css?$date" />
-    <title>Events - Campus Assistant</title>
-</head>
-<body>
-    <div id="content">
+{% extends "layout.html" %}
+
+{% block stylesheet %}<link href="{{ url_for('static', filename='css/events.css') }}" rel="stylesheet">{% endblock %}
+
+{% block title %}Events - Campus Assistant{% endblock %}
+
+{% block content %}
         <div id="title-bar">
             <h1>Events</h1>
         </div>
@@ -14,11 +14,10 @@
             <a class="sort-button" href="#">Distance</a>
         </div>
         <div id="list-container">
-        	#foreach($event in $events)
             	<div class="list-item">
             		<div class="top-row">
 		            	<div class="event-name">
-		            		<h3>$event</h3>
+		            		<h3>Event name</h3>
 		            	</div>
 		            	<div class="event-expand">
 		            		<a href="#">Show Event</a>
@@ -33,7 +32,5 @@
 		            	</div>
 		           	</div>
 	            </div>
-	        #end
         </div>
-    </div>
-</body>
+{% endblock %}

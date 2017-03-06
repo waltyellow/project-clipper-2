@@ -1,13 +1,18 @@
+@import 'lib/bootstrap.min';
+
+@function highlight($color) {
+    @return lighten($color, 5%);
+}
+
 $primary1: #333333;   // dark background, borders, dark text
-$primary1-highlight: #666666;
 $secondary1: #FFFFFF; // light color
 $border1: #000000;
-$primary2: #AAAAFF;   // button background
-$primary2-highlight: #8888FF;
+$primary2: #6666FF;   // button background
 $secondary2: #000000; // button highlight
 $border2: #333399;
 
 html, body {
+    height: 100%;
     background: #CCCCCC;
     margin: 0px;
     padding: 0px;
@@ -23,30 +28,23 @@ h1 {
     color: $primary1;
 }
 
+.container {
+    height: 100%;
+    background: #FFFFFF;
+}
+
 @media (min-width: 768px) {
     .container {
-        max-width: 730px;
+        max-width: 600px;
     }
 }
 
-@mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    -moz-border-radius: $radius;
-    -ms-border-radius: $radius;
-    border-radius: $radius;
-}
-
-@mixin button($text-color, $bg-color, $bg-hover-color, $border-color, $border-radius) {
-    @include border-radius($border-radius);
-
-    color: $text-color;
-    text-decoration: none;
-    text-align: center;
-
-    background: $bg-color;
-    border: $border-color 1px solid;
+.btn-default {
+    background-color: $primary2;
+    border-color: $border2;
 
     &:hover {
-        background: $bg-hover-color;
+        background-color: highlight($primary2);
+        border-color: highlight($border2);
     }
 }
