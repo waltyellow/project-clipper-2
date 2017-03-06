@@ -5658,7 +5658,7 @@ h1 {
     border-color: #28546a;
     color: white; }
 
-#list-container {
+.list-container {
   width: 100%; }
 
 .list-item {
@@ -5669,7 +5669,6 @@ h1 {
     background: #CCCCCC; }
 
 .sort-options {
-  height: 40px;
   width: 100%; }
 
 #title-bar {
@@ -5678,6 +5677,13 @@ h1 {
   /*display: flex;*/ }
   #title-bar h1 {
     line-height: 55px; }
+
+.list-container {
+  position: relative;
+  top: -3px; }
+
+.sort-options {
+  z-index: 10; }
 
 .list-item {
   display: flex;
