@@ -8,7 +8,7 @@ def create(event_id):
     return ret
 
 
-@server.route(rule='/events/<string:event_id>/update', endpoint='updateevent', methods=['GET'])
+@server.route(rule='/events/<string:event_id>/update', methods=['GET'])
 def update(event_id):
     ret = str(event_id) + 'update'
     return ret
