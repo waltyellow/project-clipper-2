@@ -1,13 +1,18 @@
+@import 'lib/bootstrap.min';
+
+@function highlight($color) {
+    @return lighten($color, 5%);
+}
+
 $primary1: #333333;   // dark background, borders, dark text
-$primary1-highlight: #666666;
 $secondary1: #FFFFFF; // light color
 $border1: #000000;
-$primary2: #AAAAFF;   // button background
-$primary2-highlight: #8888FF;
-$secondary2: #000000; // button highlight
-$border2: #333399;
+$primary2: #2F637C;   // button background
+$secondary2: #F7F7F2;
+$border2: darken($primary2, 10%);
 
 html, body {
+    height: 100%;
     background: #CCCCCC;
     margin: 0px;
     padding: 0px;
@@ -23,30 +28,37 @@ h1 {
     color: $primary1;
 }
 
+.container {
+    height: 100%;
+    background: #FFFFFF;
+
+    padding-left: 0px;
+    padding-right: 0px;
+
+    border-left: 1px solid $border1;
+    border-right: 1px solid $border1;
+}
+
 @media (min-width: 768px) {
     .container {
-        max-width: 730px;
+        max-width: 600px;
     }
 }
 
-@mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    -moz-border-radius: $radius;
-    -ms-border-radius: $radius;
-    border-radius: $radius;
+.sub-container {
+    padding: 0px 15px;
 }
 
-@mixin button($text-color, $bg-color, $bg-hover-color, $border-color, $border-radius) {
-    @include border-radius($border-radius);
+.btn-default {
+    background-color: $primary2;
+    border-color: $border2;
 
-    color: $text-color;
-    text-decoration: none;
-    text-align: center;
-
-    background: $bg-color;
-    border: $border-color 1px solid;
+    color: $secondary2;
 
     &:hover {
-        background: $bg-hover-color;
+        background-color: highlight($primary2);
+        border-color: highlight($border2);
+
+        color: highlight($secondary2);
     }
 }
