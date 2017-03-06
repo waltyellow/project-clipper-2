@@ -5636,6 +5636,12 @@ h1 {
   text-align: center;
   color: #333333; }
 
+hr {
+  border-width: 0px;
+  border-top: 1px solid #000000;
+  height: 0px;
+  margin-bottom: 20px; }
+
 .container {
   height: 100%;
   background: #FFFFFF;
@@ -5672,11 +5678,11 @@ h1 {
   width: 100%; }
 
 #title-bar {
-  height: 60px;
+  height: 50px;
   width: 100%;
   /*display: flex;*/ }
   #title-bar h1 {
-    line-height: 55px; }
+    line-height: 45px; }
 
 .list-container {
   position: relative;

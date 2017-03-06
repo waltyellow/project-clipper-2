@@ -5671,36 +5671,30 @@ hr {
   #title-bar h1 {
     line-height: 45px; }
 
-hr {
-  text-align: center; }
-  hr:after {
-    display: inline-block;
-    position: relative;
-    top: -13px;
-    font-size: 120%;
-    background: #FFFFFF;
-    color: #333333;
-    padding: 0px 10px; }
-  hr.explore:after {
-    content: 'Explore'; }
-  hr.questions:after {
-    content: 'Ask a question'; }
+.event-container {
+  border-bottom: 1px solid #000000;
+  position: relative;
+  top: -3px;
+  display: flex; }
+  .event-container h2, .event-container h4 {
+    margin: 5px 0px; }
 
-.homepage-button {
-  padding: 30px 10px; }
-  @media (min-width: 768px) {
-    .homepage-button {
-      font-size: 120%; } }
+.back-button {
+  position: relative;
+  z-index: 10; }
 
-.question-form {
-  width: 100%;
+.list-item {
   display: flex;
-  justify-content: space-between; }
+  flex-flow: column; }
 
-.question-entry {
-  flex: 1 1 100%; }
+.details-panel {
+  flex: 1 1 100%;
+  padding: 5px; }
 
-.question-search {
-  flex: 0 1 auto; }
+.right-panel {
+  flex: 0 1 auto;
+  padding: 5px;
+  border-left: 1px solid #000000;
+  background: #CCCCCC; }
 
-/*# sourceMappingURL=index.css.map */
+/*# sourceMappingURL=event.css.map */

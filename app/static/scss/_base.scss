@@ -28,6 +28,13 @@ h1 {
     color: $primary1;
 }
 
+hr {
+    border-width: 0px;
+    border-top: 1px solid $border1;
+    height: 0px;
+    margin-bottom: 20px;
+}
+
 .container {
     height: 100%;
     background: #FFFFFF;
