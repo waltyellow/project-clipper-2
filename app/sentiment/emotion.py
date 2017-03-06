@@ -37,7 +37,7 @@ def comment_sentics_average(word_count,comment_sentics):
 
 def add_mood_tags(comment_mood_tags,sn,word):
     current_tags = sn.moodtags(word)
-    print word, current_tags
+    #print word, current_tags
     for tag in current_tags:
         if tag not in comment_mood_tags:
             comment_mood_tags.append(tag)
@@ -52,7 +52,7 @@ def word_parser(comment):
     for i in words:
 
         try:
-            word_emotion(i, sn)
+            #word_emotion(i, sn)
             polarity_intense += float(sn.polarity_intense(i))
             #print sn.sentics(i)
             sentics_values(i,sn,comment_sentics)
@@ -77,11 +77,11 @@ def fileOpen(filename):
 
 
 def main(argv):
-    #input_comment = input("please enter comment")
-    #input_comment.translate(None,string.punctuation)
-    #word_parser(input_comment.translate(None,string.punctuation))
-    input_file = input("enter file name")
-    fileOpen(input_file)
+    input_comment = input("please enter comment:")
+    input_comment.translate(None,string.punctuation)
+    word_parser(input_comment.translate(None,string.punctuation))
+    #input_file = input("enter file name")
+    #fileOpen(input_file)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
