@@ -4,18 +4,6 @@ import getopt
 import string
 from senticnet.senticnet import Senticnet
 
-# print 'Number of arguments:', len(sys.argv), 'arguments.'
-# print 'Argument List:', str(sys.argv)
-
-# sn = Senticnet()
-# concept_info = sn.concept('football')
-# polarity_value = sn.polarity_value('love')
-# polarity_intense = sn.polarity_intense('love')
-# moodtags = sn.moodtags('love')
-# semantics = sn.semantics('love')
-# sentics = sn.sentics('love')
-# print(concept_info)
-
 
 def word_emotion(word,sn):
     concept_info = sn.concept(word)
