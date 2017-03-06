@@ -19,7 +19,7 @@ from senticnet.senticnet import Senticnet
 
 def word_emotion(word,sn):
     concept_info = sn.concept(word)
-    print word, ":", concept_info
+    print(word, ":", concept_info)
 
 
 def sentics_values(word,sn,comment_sentics):
@@ -63,15 +63,16 @@ def word_parser(comment):
                 total_word_count -= 1
             pass
     comment_sentics_average(total_word_count,comment_sentics)
-    print "comment sentics", comment_sentics
-    print "polarity intense: ",polarity_intense/total_word_count
-    print "mood tags:", comment_mood_tags
+    print("comment sentics", comment_sentics)
+    print("polarity intense: ",polarity_intense/total_word_count)
+    print("mood tags:", comment_mood_tags)
+
 
 def fileOpen(filename):
     fp = open(filename)
     lines = fp.read().splitlines()
     for line in lines:
-        print line.translate(None,string.punctuation)
+        print(line.translate(None,string.punctuation))
         word_parser(line.translate(None,string.punctuation))
 
 
