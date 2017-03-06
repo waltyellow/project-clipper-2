@@ -52,6 +52,9 @@ class Event:
     def __str__(self):
         return json.dumps(self.__dict__)
 
+    def toJson(self):
+        return self.__str__()
+
 ### not used below ###
 
 # def event_decoder():

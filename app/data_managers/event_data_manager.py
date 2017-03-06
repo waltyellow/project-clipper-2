@@ -62,11 +62,20 @@ class EventDataManager:
             return None
         return Event.event_from_dict(event_dict)
 
+    def find_all_events(self):
+        event_dicts = self.event_collection.find({})
+        events = []
+        for event_dict in event_dicts:
+            events.append(Event.event_from_dict(event_dict))
+        return events
+
+
     '''re-inserts an event and replaces it'''
 
     def replace_one_event(self, event: Event):
         print('replacing event' + event.event_id)
         event_dict = event.__dict__
+        event_dict['deleted'] = False
         self.event_collection.replace_one({'_id': EventDataManager.convert_to_object_id(event.event_id)}, event_dict)
 
     '''updates one key of the event by event_id'''
@@ -93,8 +102,11 @@ def test():
     eventDataManager.replace_one_event(founded_event)
     print(founded_event)
     eventDataManager.update_one_event_by_diff(founded_event.event_id,'name','pl4')
-    eventDataManager.delete_event_by_id(str(newEvent.event_id))
+    #eventDataManager.delete_event_by_id(str(newEvent.event_id))
     eventDataManager.find_event_by_id(str(newEvent.event_id))
+    es = eventDataManager.find_all_events()
+    for e in es:
+        print(e)
 
 def test2():
     # _id = ObjectId('58bd00034f6d73ae4811b7f5')
@@ -103,7 +115,11 @@ def test2():
     # print(str(event_id))
     # bi = base64.urlsafe_b64decode(event_id)
     # print(bi)
-    print('ev-WL2wUk9tc7v2hxKG'[3:])
+    # print('ev-WL2wUk9tc7v2hxKG'[3:])
+    eventDataManager = EventDataManager()
+    es = eventDataManager.find_all_events()
+
+
 
 
 if __name__ == '__main__':
