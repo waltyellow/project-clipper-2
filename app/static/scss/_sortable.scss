@@ -1,19 +1,6 @@
 $bar-height: 40px;
 
-#sort-options {
+.sort-options {
     height: $bar-height;
     width: 100%;
-    display: flex;
-}
-
-.sort-button {
-    line-height: $bar-height;
-    border-left: 0px;
-    flex-basis: 100%;
-
-    font-size: 120%;
-
-    &:last-child {
-        border-right: 0px;
-    }
 }

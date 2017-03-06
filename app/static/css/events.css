@@ -5638,17 +5638,21 @@ h1 {
 
 .container {
   height: 100%;
-  background: #FFFFFF; }
+  background: #FFFFFF;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000; }
 
 @media (min-width: 768px) {
   .container {
     max-width: 600px; } }
 .btn-default {
-  background-color: #6666FF;
-  border-color: #333399; }
+  background-color: #2F637C;
+  border-color: #214557;
+  color: #F7F7F2; }
   .btn-default:hover {
-    background-color: #8080ff;
-    border-color: #3939ac; }
+    background-color: #36728e;
+    border-color: #28546a;
+    color: white; }
 
 #list-container {
   width: 100%; }
@@ -5660,18 +5664,9 @@ h1 {
   .list-item:nth-child(odd) {
     background: #CCCCCC; }
 
-#sort-options {
+.sort-options {
   height: 40px;
-  width: 100%;
-  display: flex; }
-
-.sort-button {
-  line-height: 40px;
-  border-left: 0px;
-  flex-basis: 100%;
-  font-size: 120%; }
-  .sort-button:last-child {
-    border-right: 0px; }
+  width: 100%; }
 
 #title-bar {
   height: 60px;

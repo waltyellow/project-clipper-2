@@ -5638,17 +5638,21 @@ h1 {
 
 .container {
   height: 100%;
-  background: #FFFFFF; }
+  background: #FFFFFF;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000; }
 
 @media (min-width: 768px) {
   .container {
     max-width: 600px; } }
 .btn-default {
-  background-color: #6666FF;
-  border-color: #333399; }
+  background-color: #2F637C;
+  border-color: #214557;
+  color: #F7F7F2; }
   .btn-default:hover {
-    background-color: #8080ff;
-    border-color: #3939ac; }
+    background-color: #36728e;
+    border-color: #28546a;
+    color: white; }
 
 #title-bar {
   height: 60px;
@@ -5659,14 +5663,14 @@ h1 {
 
 hr {
   border-width: 0px;
-  border-top: 1px solid #6666FF;
+  border-top: 2px solid #214557;
   text-align: center;
   height: 0px;
   margin-bottom: 20px; }
   hr:after {
     display: inline-block;
     position: relative;
-    top: -10px;
+    top: -13px;
     font-size: 120%;
     background: #FFFFFF;
     color: #333333;
@@ -5677,8 +5681,7 @@ hr {
     content: 'Ask a question'; }
 
 .homepage-button {
-  padding: 30px 10px;
-  margin-bottom: 20px; }
+  padding: 30px 10px; }
   @media (min-width: 768px) {
     .homepage-button {
       font-size: 120%; } }

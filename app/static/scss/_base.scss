@@ -7,9 +7,9 @@
 $primary1: #333333;   // dark background, borders, dark text
 $secondary1: #FFFFFF; // light color
 $border1: #000000;
-$primary2: #6666FF;   // button background
-$secondary2: #000000; // button highlight
-$border2: #333399;
+$primary2: #2F637C;   // button background
+$secondary2: #F7F7F2;
+$border2: darken($primary2, 10%);
 
 html, body {
     height: 100%;
@@ -31,6 +31,9 @@ h1 {
 .container {
     height: 100%;
     background: #FFFFFF;
+
+    border-left: 1px solid $border1;
+    border-right: 1px solid $border1;
 }
 
 @media (min-width: 768px) {
@@ -43,8 +46,12 @@ h1 {
     background-color: $primary2;
     border-color: $border2;
 
+    color: $secondary2;
+
     &:hover {
         background-color: highlight($primary2);
         border-color: highlight($border2);
+
+        color: highlight($secondary2);
     }
 }

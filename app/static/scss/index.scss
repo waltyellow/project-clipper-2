@@ -3,7 +3,7 @@
 
 hr {
     border-width: 0px;
-    border-top: 1px solid $primary2;
+    border-top: 2px solid $border2;
     text-align: center;
     height: 0px;
     margin-bottom: 20px;
@@ -11,7 +11,7 @@ hr {
     &:after {
         display: inline-block;
         position: relative;
-        top: -10px;
+        top: -13px;
         font-size: 120%;
         background: #FFFFFF;
         color: $primary1;
@@ -29,7 +29,6 @@ hr {
 
 .homepage-button {
     padding: 30px 10px;
-    margin-bottom: 20px;
 
     @media (min-width: 768px) {
         font-size: 120%;
