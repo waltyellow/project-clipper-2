@@ -63,3 +63,21 @@ class FoodDataManager:
         self.food_collection.update_one({'_id': FoodDataManager.convert_to_object_id(food_id)},{'$set':{'deleted': True}})
 
 
+    def find_food(self, food_id: str):
+        print('finding food ' + food_id)
+        food_dict = self.food_collection.find_one({'_id':FoodDataManager.convert_to_object_id(food_id)})
+        if food_dict is None:
+            return None
+        elif food_dict['deleted']:
+            print(str(food_id) + ' has been deleted')
+            return None
+        else:
+            return Location.location_from_dict(food_dict)
+
+
+    def find_all_food(self):
+        food_dicts = self.food_collection.find({'type':'food'})
+        foods = []
+        for food_dict in food_dicts:
+            foods.append(Location.location_from_dict(food_dict))
+        return foods
