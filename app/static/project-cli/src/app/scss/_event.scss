@@ -1,0 +1,38 @@
+.event-container {
+    border-bottom: 1px solid $border1;
+
+    position: relative;
+    top: -3px;
+
+    display: flex;
+
+    h2, h4 {
+        margin: 5px 0px;
+    }
+}
+
+.back-button {
+    position: relative;
+    z-index: 10;
+}
+
+.list-item {
+	display: flex;
+	flex-flow: column;
+}
+
+.details-panel {
+    flex: 1 1 100%;
+
+    padding: 5px;
+}
+
+.right-panel {
+    flex: 0 1 auto;
+
+    padding: 5px;
+
+    border-left: 1px solid $border1;
+
+    background: #CCCCCC;
+}

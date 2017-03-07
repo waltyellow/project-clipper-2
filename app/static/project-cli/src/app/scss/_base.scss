@@ -1,0 +1,60 @@
+@import 'lib/bootstrap';
+
+@function highlight($color) {
+    @return lighten($color, 5%);
+}
+
+$primary1: #333333;   // dark background, borders, dark text
+$secondary1: #FFFFFF; // light color
+$border1: #000000;
+$primary2: #2F637C;   // button background
+$secondary2: #F7F7F2;
+$border2: darken($primary2, 10%);
+
+html, body {
+    height: 100%;
+    background: #CCCCCC;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-size: 16px;
+}
+
+h1 {
+    font-size: 250%;
+    text-align: center;
+    color: $primary1;
+}
+
+hr {
+    border-width: 0px;
+    border-top: 1px solid $border1;
+    height: 0px;
+    margin-bottom: 20px;
+}
+
+.container {
+    height: 100%;
+    background: #FFFFFF;
+
+    padding: 0px;
+
+    border-left: 1px solid $border1;
+    border-right: 1px solid $border1;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 600px;
+    }
+}
+
+.sub-container {
+    padding: 0px 15px;
+}
+
+.btn-default {
+    @include button-variant($primary2, $secondary2, $border2);
+}
