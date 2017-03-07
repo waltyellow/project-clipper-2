@@ -4,9 +4,10 @@ from app.event import api
 import os
 
 
-@server.route('/<string:name>')
-def index(name):
-    return render_template(name + '.html')
+
+@server.route('/')
+def hello_world2():
+    return 'hello'
 
 
 @server.context_processor
@@ -22,6 +23,7 @@ def dated_url_for(endpoint, **values):
                                      endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
+
 
 
 @server.route(rule='/example/<string:event_id>/create', endpoint='optional')

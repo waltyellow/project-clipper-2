@@ -2,11 +2,7 @@
 @import 'titled';
 
 hr {
-    border-width: 0px;
-    border-top: 1px solid $border1;
     text-align: center;
-    height: 0px;
-    margin-bottom: 20px;
 
     &:after {
         display: inline-block;

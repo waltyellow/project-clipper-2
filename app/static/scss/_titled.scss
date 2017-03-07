@@ -1,4 +1,4 @@
-$title-height: 60px;
+$title-height: 50px;
 
 #title-bar {
     height: $title-height;
@@ -6,6 +6,6 @@ $title-height: 60px;
     /*display: flex;*/
 
     h1 {
-        line-height: $title-height + 5;
+        line-height: $title-height - 5;
     }
 }
