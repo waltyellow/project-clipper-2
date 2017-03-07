@@ -5,8 +5,9 @@ import { HttpModule } from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap';
 
 import { AppComponent } from './app.component';
-import { MenuComponent } from './menu.component';
-import { CONST_ROUTING } from './app.routing';
+import { HomeComponent } from './home/home.component';
+import { routing } from './app.routing';
+import { EventComponent } from './events/event.component';
 import { EventsComponent } from './events/events.component';
 import { EntertainmentsComponent } from './entertainments/entertainments.component';
 import { BuildingsComponent } from './buildings/buildings.component';
@@ -16,7 +17,8 @@ import { QuestionsComponent } from './questions/questions.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
+    HomeComponent,
+    EventComponent,
     EventsComponent,
     EntertainmentsComponent,
     BuildingsComponent,
@@ -28,7 +30,7 @@ import { QuestionsComponent } from './questions/questions.component';
     FormsModule,
     HttpModule,
     AlertModule.forRoot(),
-    CONST_ROUTING
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]

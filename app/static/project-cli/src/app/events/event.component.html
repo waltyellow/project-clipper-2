@@ -1,0 +1,23 @@
+<div id="title-bar">
+    <h1>Events</h1>
+</div>
+<a class="btn btn-default btn-block back-button" href="events" role="button">Back to event list</a>
+<div class="event-container">
+    <div class="details-panel">
+        <h2>#event.name#</h2>
+        <p>#event.details#</p>
+    </div>
+    <div class="right-panel">
+        <h4><b>Location:</b></h4>
+        <h4>#event.location#</h4>
+        <br />
+        <!-- #if event.duration
+            <h3>Time: #event.starttime# to #event.starttime + event.duration#</h3>
+        #else -->
+        <h4><b>Time:</b></h4>
+        <h4>#event.starttime#</h4>
+        <br />
+        <h4><b>Emotion score:</b></h4>
+        <h4>#event.emotion#</h4>
+    </div>
+</div>
