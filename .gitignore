@@ -51,3 +51,4 @@ fabric.properties
 **/*.pyc
 **/.sass-cache
 app/static/project-cli/node_modules/*
+**/__pycache__
