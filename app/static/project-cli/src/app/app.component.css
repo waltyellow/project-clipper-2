@@ -5840,36 +5840,38 @@ hr {
   padding: 0px 15px; }
 
 .btn-default {
-  color: #2F637C;
-  background-color: #F7F7F2;
+  color: #F7F7F2;
+  background-color: #2F637C;
   border-color: #214557; }
   .btn-default:focus, .btn-default.focus {
-    color: #2F637C;
-    background-color: #e4e4d2;
+    color: #F7F7F2;
+    background-color: #214557;
     border-color: black; }
   .btn-default:hover {
-    color: #2F637C;
-    background-color: #e4e4d2;
+    color: #F7F7F2;
+    background-color: #214557;
     border-color: #10222b; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
-    color: #2F637C;
-    background-color: #e4e4d2;
+    color: #F7F7F2;
+    background-color: #214557;
     border-color: #10222b; }
     .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
-      color: #2F637C;
-      background-color: #d6d6bc;
+      color: #F7F7F2;
+      background-color: #17313d;
       border-color: black; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-image: none; }
   .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled.focus, .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default.focus {
-    background-color: #F7F7F2;
+    background-color: #2F637C;
     border-color: #214557; }
   .btn-default .badge {
-    color: #F7F7F2;
-    background-color: #2F637C; }
+    color: #2F637C;
+    background-color: #F7F7F2; }
 
 .list-container {
-  width: 100%; }
+  width: 100%;
+  position: relative;
+  top: -3px; }
 
 .list-item {
   height: 75px;
@@ -5879,7 +5881,8 @@ hr {
     background: #CCCCCC; }
 
 .sort-options {
-  width: 100%; }
+  width: 100%;
+  z-index: 10; }
 
 #title-bar {
   height: 50px;
@@ -5914,14 +5917,7 @@ hr {
   border-left: 1px solid #000000;
   background: #CCCCCC; }
 
-.list-container {
-  position: relative;
-  top: -3px; }
-
-.sort-options {
-  z-index: 10; }
-
-.list-item {
+.event-list-item {
   display: flex;
   flex-flow: column; }
 

@@ -1,13 +1,4 @@
-.list-container {
-    position: relative;
-    top: -3px;
-}
-
-.sort-options {
-    z-index: 10;
-}
-
-.list-item {
+.event-list-item {
 	display: flex;
 	flex-flow: column;
 }

@@ -56,5 +56,5 @@ hr {
 }
 
 .btn-default {
-    @include button-variant($primary2, $secondary2, $border2);
+    @include button-variant($secondary2, $primary2, $border2);
 }
