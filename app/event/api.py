@@ -1,9 +1,12 @@
 from app import server
-from flask import make_response, request
+from flask import make_response, request, current_app, Flask
+from flask_cors import CORS, cross_origin
 import json
 from app.models.event import Event
 from app.data_managers.event_data_manager import EventDataManager
 
+app = Flask(__name__)
+CORS(app)
 
 @server.route(rule='/events/create', endpoint='event_create_get', methods=['GET'])
 def fetch_template():
@@ -17,6 +20,7 @@ def create_event():
     decoded_json = request.get_data().decode("utf-8")
     posted_dict = json.loads(decoded_json)
     posted_event = Event.event_from_dict(posted_dict)
+    posted_event.headers.add('Access-Control-Allow-Origin', '*')
     dm.insert_event_one(posted_event)
     return posted_event.toJson()
 
@@ -34,6 +38,7 @@ def get_one(event_id: str):
 
 
 @server.route(rule='/events/', endpoint='list_events', methods=['GET'])
+@cross_origin(origin='*')
 def list_all():
     dm = EventDataManager()
     events = dm.find_all_events()

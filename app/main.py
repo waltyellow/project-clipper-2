@@ -3,8 +3,6 @@ from app import server
 from app.event import api
 import os
 
-
-
 @server.route('/')
 def hello_world2():
     return 'hello'
