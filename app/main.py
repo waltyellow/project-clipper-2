@@ -1,8 +1,10 @@
 from flask import *
+from flask_cors import CORS, cross_origin
 from app import server
 from app.event import api
 from app.message import api
 import os
+CORS(server)
 
 @server.route('/')
 def hello_world2():

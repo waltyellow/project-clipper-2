@@ -1,14 +1,11 @@
 from app import server
-from flask import make_response, request, current_app, Flask
+from flask import make_response, request, current_app
 from flask_cors import CORS, cross_origin
 import json
 from app.models.event import Event
 from app.data_managers.event_data_manager import EventDataManager
 from app.data_managers.message_data_manager import MessageDataManager
 from app.sentiment.emotion import emotion_data
-
-app = Flask(__name__)
-CORS(app)
 
 @server.route(rule='/events/create', endpoint='event_create_get', methods=['GET'])
 def fetch_template():
@@ -35,13 +32,11 @@ def complete_update(event_id: str):
 
 
 @server.route(rule='/events/<string:event_id>', endpoint='get_one_event', methods=['GET'])
-@cross_origin(origin='*')
 def get_one(event_id: str):
     return EventDataManager().find_event_by_id(event_id).toJson()
 
 
 @server.route(rule='/events/', endpoint='list_events', methods=['GET'])
-@cross_origin(origin='*')
 def list_all():
     dm = EventDataManager()
     events = dm.find_all_events()

@@ -1,8 +1,8 @@
 from app import server
-from flask import make_response, request
+from flask import make_response, request, current_app
+from flask_cors import CORS, cross_origin
 import json
 from app.data_managers.message_data_manager import MessageDataManager
-
 
 @server.route(rule='/messages/create', endpoint='message_create_get', methods=['GET'])
 def fetch_template():
