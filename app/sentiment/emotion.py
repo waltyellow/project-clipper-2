@@ -2,6 +2,7 @@ __author__ = 'navyakandkuri'
 import sys
 import getopt
 import string
+import json
 from senticnet.senticnet import Senticnet
 
 
@@ -37,6 +38,8 @@ def word_parser(comment):
     comment_mood_tags = []
     words = comment.split(" ")
     total_word_count = len(words)
+    final_output = {'sentics':{'sensitivity': '0', 'attention': '0', 'pleasantness': '0', 'aptitude': '0', 'polarity': '0'}
+        ,'mood tags':{}}
     for i in words:
 
         try:
@@ -51,9 +54,21 @@ def word_parser(comment):
                 total_word_count -= 1
             pass
     comment_sentics_average(total_word_count,comment_sentics)
-    print("comment sentics", comment_sentics)
-    print("polarity intense: ",polarity_intense/total_word_count)
-    print("mood tags:", comment_mood_tags)
+    final_output['sentics']['polarity'] = polarity_intense/total_word_count
+    final_output['mood tags'] = comment_mood_tags
+    for output in final_output['sentics']:
+        if output in comment_sentics:
+            final_output['sentics'][output] = comment_sentics[output]
+        #print output, final_output['sentics'][output]
+
+    #print("comment sentics", comment_sentics)
+    #print("polarity intense: ",polarity_intense/total_word_count)
+    #print("mood tags:", comment_mood_tags)
+    #print final_output
+   # print("final output",final_output)
+    json_output = json.dumps(final_output)
+    print json_output
+    return json_output
 
 
 def fileOpen(filename):
@@ -69,8 +84,7 @@ def main(argv):
     input_comment = input("please enter comment:")
     input_comment.translate(None,string.punctuation)
     word_parser(input_comment.translate(None,string.punctuation))
-    #input_file = input("enter file name")
-    #fileOpen(input_file)
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])
