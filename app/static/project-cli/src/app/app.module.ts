@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { routing } from './app.routing';
 import { EventComponent } from './events/event.component';
+import { EventService } from './events/event.service'
 import { EventsComponent } from './events/events.component';
 import { EntertainmentsComponent } from './entertainments/entertainments.component';
 import { BuildingsComponent } from './buildings/buildings.component';
@@ -32,7 +33,7 @@ import { QuestionsComponent } from './questions/questions.component';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [],
+  providers: [EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';   
 import {ViewEncapsulation} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { EventService } from './event.service'
+import { Event }        from './event';
+
 
 @Component({
   selector: 'app-events',
@@ -8,10 +12,11 @@ import {ViewEncapsulation} from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class EventsComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  public events: Event[];
+  constructor(private eventService: EventService) {
   }
 
+  ngOnInit() {
+    this.eventService.getEvents().subscribe(events => this.events = events['events'])
+  }
 }
