@@ -3,6 +3,7 @@ from flask import make_response, request
 import json
 from app.models.event import Event
 from app.data_managers.event_data_manager import EventDataManager
+from app.data_managers.message_data_manager import MessageDataManager
 from app.sentiment.emotion import emotion_data
 
 
@@ -49,5 +50,5 @@ def add_comment():
     comment_json = request.get_data().decode("utf-8")
     comment_dict = json.loads(comment_json)
     comment_dict['message_senti_score'] = sum(emotion_data(comment_dict['message'])['sentics'].values())
-    # comment_dict = MessageDataManager.create(comment_dict) #=> updated dict
+    comment_dict = MessageDataManager.insert_message_one(comment_dict) #=> updated dict
     return json.dumps(dict(message_senti_score=comment_dict['message_senti_score']))
