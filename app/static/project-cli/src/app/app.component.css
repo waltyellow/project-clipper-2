@@ -5891,13 +5891,29 @@ hr {
   #title-bar h1 {
     line-height: 45px; }
 
+h2, h3 {
+  margin: 5px 0px; }
+
+h4 {
+  margin: 0px; }
+
 .event-container {
-  border-bottom: 1px solid #000000;
   position: relative;
   top: -3px;
   display: flex; }
-  .event-container h2, .event-container h4 {
-    margin: 5px 0px; }
+
+.comments-container {
+  border-bottom: 1px solid #214557; }
+
+.comments-header {
+  padding-left: 5px; }
+
+.single-comment {
+  width: 100%;
+  padding: 5px;
+  border-top: 1px solid #214557; }
+  .single-comment:nth-child(even) {
+    background: #EECC99; }
 
 .back-button {
   position: relative;
@@ -5915,6 +5931,8 @@ hr {
   flex: 0 1 auto;
   padding: 5px;
   border-left: 1px solid #000000;
+  border-bottom: 1px solid #000000;
+  border-bottom-left-radius: 3px;
   background: #CCCCCC; }
 
 .event-list-item {
@@ -5952,7 +5970,7 @@ hr {
   padding: 5px 5px 5px 0px;
   text-align: right; }
   .event-expand a {
-    padding: 5px; }
+    padding: 2px; }
 
 .event-datetime {
   margin: 0px 0px 0px 50%;
