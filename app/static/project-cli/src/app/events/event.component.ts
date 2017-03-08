@@ -5,8 +5,6 @@ import { EventService } from './event.service'
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class EventComponent implements OnInit {
 

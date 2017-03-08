@@ -4,6 +4,8 @@ from flask_cors import CORS, cross_origin
 import json
 from app.models.event import Event
 from app.data_managers.event_data_manager import EventDataManager
+from app.data_managers.message_data_manager import MessageDataManager
+from app.sentiment.emotion import emotion_data
 
 app = Flask(__name__)
 CORS(app)
@@ -46,3 +48,12 @@ def list_all():
     for event in events:
         event_dicts.append(event.__dict__)
     return json.dumps({'events': event_dicts})
+
+
+@server.route(rule='/messages/create', endpoint='add_comment', methods=['POST'])
+def add_comment():
+    comment_json = request.get_data().decode("utf-8")
+    comment_dict = json.loads(comment_json)
+    comment_dict['message_senti_score'] = sum(emotion_data(comment_dict['message'])['sentics'].values())
+    comment_dict = MessageDataManager.insert_message_one(comment_dict) #=> updated dict
+    return json.dumps(dict(message_senti_score=comment_dict['message_senti_score']))

@@ -8,8 +8,6 @@ import { Event }        from './event';
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
-  styleUrls: ['./events.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class EventsComponent implements OnInit {
   public events: Event[];

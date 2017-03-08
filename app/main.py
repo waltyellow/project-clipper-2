@@ -1,6 +1,7 @@
 from flask import *
 from app import server
 from app.event import api
+from app.message import api
 import os
 
 @server.route('/')
