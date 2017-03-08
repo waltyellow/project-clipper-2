@@ -45,7 +45,7 @@ def list_all():
     return json.dumps({'events': event_dicts})
 
 
-@server.route(rule='/messages/create', endpoint='add_comment', methods=['GET'])
+@server.route(rule='/messages/create', endpoint='add_comment', methods=['POST'])
 def add_comment():
     comment_dict = request.form
     comment_dict['message_senti_score'] = sum(emotion_data(comment_dict['message_body'])['sentics'].values())
