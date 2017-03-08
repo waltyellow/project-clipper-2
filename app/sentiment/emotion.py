@@ -33,7 +33,7 @@ def add_mood_tags(comment_mood_tags,sn,word):
 
 
 def emotion_data(comment):
-    comment = comment.translate(None, string.punctuation)
+    comment = comment.translate({ord(c): '' for c in string.punctuation})
     sn = Senticnet()
     polarity_intense = 0
     comment_sentics = {'sensitivity': 0, 'attention': 0, 'pleasantness': 0, 'aptitude': 0}
