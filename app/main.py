@@ -34,6 +34,7 @@ def create2(event_id):
     return redirect(url)
 
 
+
 @server.route(rule='/example/<string:event_id>/update')
 def update2(event_id):
     ret = str(event_id) + ' -> example update'
