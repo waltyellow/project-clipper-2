@@ -11,14 +11,8 @@
         <h4><b>Location</b></h4>
         <span>Ex. location</span>
         <br /><br />
-        <!-- #if event.duration
-            <h3>Time: #event.starttime# to #event.starttime + event.duration#</h3>
-        #else -->
         <h4><b>Time</b></h4>
         <span>2/11/17 6:30pm</span>
-        <br /><br />
-        <h4><b>Emotion score</b></h4>
-        <span>Ex. score</span>
     </div>
 </div>
 <div class="comments-container">
@@ -32,11 +26,13 @@
         </form>
     </div>
     <div class="single-comment">
-        <b>example-user1</b><br />
+        <span><b>example-user1</b></span><span class="excitement-score">[excitement score: 5]</span>
+        <br />
         <span>This event is going to be awesome!</span>
     </div>
     <div class="single-comment">
-        <b>example-user2</b><br />
+        <span><b>example-user2</b></span><span class="excitement-score">[excitement score: 3]</span>
+        <br />
         <span>I love events at locations!</span>
     </div>
 </div>

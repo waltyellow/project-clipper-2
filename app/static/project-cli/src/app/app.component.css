@@ -5915,6 +5915,9 @@ h4 {
   .single-comment:nth-child(odd) {
     background: #EECC99; }
 
+.excitement-score {
+  float: right; }
+
 .back-button {
   position: relative;
   z-index: 10; }

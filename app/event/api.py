@@ -48,6 +48,7 @@ def list_all():
 @server.route(rule='/messages/create', endpoint='add_comment', methods=['POST'])
 def add_comment():
     comment_dict = request.form
-    comment_dict['message_senti_score'] = sum(emotion_data(comment_dict['message_body'])['sentics'].values())
+    comment_sentics = emotion_data(comment_dict['message_body'])['sentics']
+    comment_dict['message_senti_score'] = sum(comment_sentics.values())
     comment_dict = MessageDataManager.insert_message_one(comment_dict)
     return json.dumps(dict(message_senti_score=comment_dict['message_senti_score']))
