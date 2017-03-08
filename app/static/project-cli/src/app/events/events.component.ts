@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { EventService } from './event.service'
-import { Event }        from './event';
+import { Eventx }        from './eventx';
 
 
 @Component({
@@ -10,7 +10,7 @@ import { Event }        from './event';
   templateUrl: './events.component.html',
 })
 export class EventsComponent implements OnInit {
-  public events: Event[];
+  public events: Eventx[];
   constructor(private eventService: EventService) {
   }
 

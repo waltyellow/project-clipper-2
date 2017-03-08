@@ -4,18 +4,18 @@
 <a class="btn btn-default btn-block back-button" href="events" role="button">Back to event list</a>
 <div class="event-container">
     <div class="details-panel">
-        <h2>Example event</h2>
+        <h2>{{event? event.name : ''}}</h2>
         <p>This is an event that is taking place for a reason and will be located at a place and things</p>
     </div>
     <div class="right-panel">
         <h4><b>Location</b></h4>
-        <span>Ex. location</span>
+        <span>{{event? event.location : ''}}</span>
         <br /><br />
         <!-- #if event.duration
             <h3>Time: #event.starttime# to #event.starttime + event.duration#</h3>
         #else -->
         <h4><b>Time</b></h4>
-        <span>2/11/17 6:30pm</span>
+        <span>{{event? event.start_time : ''}}</span>
         <br /><br />
         <h4><b>Emotion score</b></h4>
         <span>Ex. score</span>

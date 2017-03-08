@@ -35,6 +35,7 @@ def complete_update(event_id: str):
 
 
 @server.route(rule='/events/<string:event_id>', endpoint='get_one_event', methods=['GET'])
+@cross_origin(origin='*')
 def get_one(event_id: str):
     return EventDataManager().find_event_by_id(event_id).toJson()
 
