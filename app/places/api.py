@@ -16,12 +16,9 @@ def update(place_id):
 
 @server.route(rule='/place/search', endpoint='searchPlace')
 def search(place_id):
-    PlacesDataManager.find_all_places()
-    ret = str(place_id) + 'search place'
-    return ret
+    return PlacesDataManager.find_all_places(PlacesDataManager)
 
 
 @server.route(rule='/place/<string:place_id>', endpoint='fetchPlace')
 def fetch(place_id):
-    ret = str(place_id) + 'fetch'
-    return ret
+    return PlacesDataManager.find_place(PlacesDataManager,place_id)

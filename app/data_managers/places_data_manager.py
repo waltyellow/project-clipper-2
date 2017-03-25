@@ -42,7 +42,7 @@ class PlacesDataManager:
         place_dict['deleted'] = False
         place_dict['type'] = 'place'
         self.place_collection.insert_one(place_dict)
-        place.place_id = FoodDataManager.convert_to_place_id(place_dict['_id'])
+        place.place_id = PlacesDataManager.convert_to_place_id(place_dict['_id'])
         self.replace_one_place(place)
         print('inserted place ' + place.place_id)
         return place
@@ -53,20 +53,20 @@ class PlacesDataManager:
         place_dict = place.__dict__
         place_dict['deleted'] = False
         place_dict['type'] = 'place'
-        self.place_collection.replace_one({'_id': FoodDataManager.convert_to_object_id(place.place_id)},place_dict)
+        self.place_collection.replace_one({'_id': PlacesDataManager.convert_to_object_id(place.place_id)},place_dict)
 
 
     def update_one_place(self, place_id: str, key: str, new_val: Any):
-        self.place_collection.update_one({'id': FoodDataManager.convert_to_object_id(place_id)},{'$set':{key: new_val}})
+        self.place_collection.update_one({'id': PlacesDataManager.convert_to_object_id(place_id)},{'$set':{key: new_val}})
 
 
     def delete_place(self, place_id: str):
-        self.place_collection.update_one({'_id': FoodDataManager.convert_to_object_id(place_id)},{'$set':{'deleted': True}})
+        self.place_collection.update_one({'_id': PlacesDataManager.convert_to_object_id(place_id)},{'$set':{'deleted': True}})
 
 
     def find_place(self, place_id: str):
         print('finding place ' + place_id)
-        place_dict = self.place_collection.find_one({'_id':FoodDataManager.convert_to_object_id(place_id)})
+        place_dict = self.place_collection.find_one({'_id':PlacesDataManager.convert_to_object_id(place_id)})
         if place_dict is None:
             return None
         elif place_dict['deleted']:
