@@ -3,12 +3,12 @@ import json
 from bson import ObjectId
 
 
-class Location:
+class Places:
 
     @staticmethod
-    def location_from_dict(map):
-        loc = Location(
-            location_id=map['location_id'],
+    def places_from_dict(map):
+        loc = Places(
+            places_id=map['location_id'],
             geo_coordinate = map['geo_coordinate'],
             senti_score=map['senti_score'],
             location_type=map['location_type'],
@@ -24,7 +24,7 @@ class Location:
                  location_type='',
                  keywords=''
                  ):
-        self.location_id = location_id
+        self.places_id = location_id
         self.geo_coordinate = geo_coordinate
         self.senti_score = senti_score
         self.location_type = location_type

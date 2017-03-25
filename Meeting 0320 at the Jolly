@@ -1,0 +1,6 @@
+This week's goal:
+  - Deploy AppCDN on the cl1 server
+  - Deploy FlaskBackend on cl1
+  - Backend: finish all paths and data valdators and schemas for Places, Events, Messages (Geospactial)
+  - Emotions: stem the words for emotions and deploy that service Kamil mentions.
+  - Poster abstract (administrative)
