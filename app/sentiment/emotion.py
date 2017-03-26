@@ -81,24 +81,57 @@ def stem_and_lemmatize(sentence):
     sno = SnowballStemmer('english')
     lemma = WordNetLemmatizer()
     sn = Senticnet()
+    polarity_intense = 0
+    comment_sentics = {'sensitivity': 0, 'attention': 0, 'pleasantness': 0, 'aptitude': 0}
+    comment_mood_tags = []
+    total_word_count = len(sentence)
+    final_output = {'sentics':{'sensitivity': '0', 'attention': '0', 'pleasantness': '0', 'aptitude': '0', 'polarity': '0'}
+        ,'mood tags':{}}
     for i in sentence:
         try:
-            word_emotion(i,sn)
+            #word_emotion(i,sn)
+            polarity_intense += float(sn.polarity_intense(i))
+            sentics_values(i,sn,comment_sentics)
+            add_mood_tags(comment_mood_tags,sn,i)
         except KeyError:
             print "This word does not exist"
             try:
                 current_word = lemma.lemmatize(i)
-                word_emotion(current_word,sn)
+                #word_emotion(current_word,sn)
+                polarity_intense += float(sn.polarity_intense(current_word))
+                sentics_values(current_word,sn,comment_sentics)
+                add_mood_tags(comment_mood_tags,sn,current_word)
             except KeyError:
                 print("This didnt work again")
                 try:
-                    word_emotion(sno.stem(current_word),sn)
+                   # word_emotion(sno.stem(current_word),sn)
+                    current_word = sno.stem(current_word)
+                    polarity_intense += float(sn.polarity_intense(current_word))
+                    sentics_values(current_word,sn,comment_sentics)
+                    add_mood_tags(comment_mood_tags,sn,current_word)
                 except KeyError:
                     print("cry")
                     try:
-                        word_emotion(en.verb.present(i),sn)
+                        #word_emotion(en.verb.present(i),sn)
+                        current_word = en.verb.present(i)
+                        polarity_intense += float(sn.polarity_intense(current_word))
+                        sentics_values(current_word,sn,comment_sentics)
+                        add_mood_tags(comment_mood_tags,sn,current_word)
                     except KeyError:
                         print 'cry again'
+                        print i
+                        if(total_word_count>1):
+                             total_word_count -= 1
+                        pass
+    comment_sentics_average(total_word_count,comment_sentics)
+    final_output['sentics']['polarity'] = polarity_intense/total_word_count
+    final_output['mood tags'] = comment_mood_tags
+    for output in final_output['sentics']:
+        if output in comment_sentics:
+            final_output['sentics'][output] = comment_sentics[output]
+    json_output = json.dumps(final_output)
+    print json_output
+    return json_output
 
 
 
