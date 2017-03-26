@@ -1,0 +1,11 @@
+$title-height: 50px;
+
+#title-bar {
+    height: $title-height;
+    width: 100%;
+    /*display: flex;*/
+
+    h1 {
+        line-height: $title-height - 5;
+    }
+}
