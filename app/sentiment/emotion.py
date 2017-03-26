@@ -4,6 +4,11 @@ import getopt
 import string
 import json
 from senticnet.senticnet import Senticnet
+from nltk.stem import *
+from nltk.corpus import wordnet
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+
 
 
 def word_emotion(word,sn):
@@ -70,20 +75,28 @@ def word_parser(comment):
     print json_output
     return json_output
 
+def stemmer(comment):
+    sno = SnowballStemmer('english')
+    lemma = WordNetLemmatizer()
+    #words = comment.split(" ")
+    word_tokens = word_tokenize(comment)
+    stop_words = set(stopwords.words('english'))
+    filtered_sentence = []
+    #'running climbing grows leaves fairly labeled reliability'
+    for i in word_tokens:
+        if i not in stop_words:
+            filtered_sentence.append(i)
+            current_word = lemma.lemmatize(i)
+            print ("stemmer",str(sno.stem(current_word)))
 
-def fileOpen(filename):
-    fp = open(filename)
-    lines = fp.read().splitlines()
-    for line in lines:
-        print(line.translate(None,string.punctuation))
-        word_parser(line.translate(None,string.punctuation))
-
-
+    print(word_tokens)
+    print(filtered_sentence)
 
 def main(argv):
     input_comment = input("please enter comment:")
     input_comment.translate(None,string.punctuation)
-    word_parser(input_comment.translate(None,string.punctuation))
+    #word_parser(input_comment.translate(None,string.punctuation))
+    stemmer(input_comment.translate(None,string.punctuation))
 
 
 if __name__ == "__main__":
