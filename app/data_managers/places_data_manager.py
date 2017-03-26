@@ -20,7 +20,7 @@ class PlacesDataManager:
     @staticmethod
     def convert_to_place_id(_id: ObjectId) -> str:
         b64_obj_id = base64.urlsafe_b64encode(_id.binary).decode("utf-8")
-        place_id = 'fe-' + b64_obj_id
+        place_id = 'pl-' + b64_obj_id
         return place_id
 
 
