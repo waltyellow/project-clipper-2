@@ -99,7 +99,7 @@ def stem_and_lemmatize(sentence):
                         word_emotion(en.verb.present(i),sn)
                     except KeyError:
                         print 'cry again'
-    
+
 
 
 def sentence_filter_and_tokenizer(comment):
