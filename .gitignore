@@ -67,6 +67,8 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 
+static/node_modules/
+
 
 **/*.pyc
 **/.sass-cache
