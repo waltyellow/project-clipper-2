@@ -75,10 +75,16 @@ def word_parser(comment):
     print json_output
     return json_output
 
-def stemmer(comment):
+
+def stem_and_lemmatize(sentence):
     sno = SnowballStemmer('english')
     lemma = WordNetLemmatizer()
-    #words = comment.split(" ")
+    for i in sentence:
+        current_word = lemma.lemmatize(i)
+        print ("stemmer",str(sno.stem(current_word)))
+
+
+def sentence_filter_and_tokenizer(comment):
     word_tokens = word_tokenize(comment)
     stop_words = set(stopwords.words('english'))
     filtered_sentence = []
@@ -86,17 +92,15 @@ def stemmer(comment):
     for i in word_tokens:
         if i not in stop_words:
             filtered_sentence.append(i)
-            current_word = lemma.lemmatize(i)
-            print ("stemmer",str(sno.stem(current_word)))
-
     print(word_tokens)
     print(filtered_sentence)
+    return filtered_sentence
 
 def main(argv):
     input_comment = input("please enter comment:")
     input_comment.translate(None,string.punctuation)
     #word_parser(input_comment.translate(None,string.punctuation))
-    stemmer(input_comment.translate(None,string.punctuation))
+    sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
 
 
 if __name__ == "__main__":
