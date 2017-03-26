@@ -8,6 +8,7 @@ from nltk.stem import *
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+import en
 
 
 
@@ -79,9 +80,26 @@ def word_parser(comment):
 def stem_and_lemmatize(sentence):
     sno = SnowballStemmer('english')
     lemma = WordNetLemmatizer()
+    sn = Senticnet()
     for i in sentence:
-        current_word = lemma.lemmatize(i)
-        print ("stemmer",str(sno.stem(current_word)))
+        try:
+            word_emotion(i,sn)
+        except KeyError:
+            print "This word does not exist"
+            try:
+                current_word = lemma.lemmatize(i)
+                word_emotion(current_word,sn)
+            except KeyError:
+                print("This didnt work again")
+                try:
+                    word_emotion(sno.stem(current_word),sn)
+                except KeyError:
+                    print("cry")
+                    try:
+                        word_emotion(en.verb.present(i),sn)
+                    except KeyError:
+                        print 'cry again'
+    
 
 
 def sentence_filter_and_tokenizer(comment):
@@ -100,7 +118,8 @@ def main(argv):
     input_comment = input("please enter comment:")
     input_comment.translate(None,string.punctuation)
     #word_parser(input_comment.translate(None,string.punctuation))
-    sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
+    current_sentence = sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
+    stem_and_lemmatize(current_sentence)
 
 
 if __name__ == "__main__":
