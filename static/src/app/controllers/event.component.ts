@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
-import { EventService } from './services/event.service'
+import { EventService } from '../services/event.service'
 import {ActivatedRoute } from '@angular/router';
-import { Eventx }        from './models/eventx';
-import { Comment }         from './models/comment';
+import { Eventx }        from '../models/eventx';
+import { Comment }         from '../models/comment';
 
 @Component({
   selector: 'app-event',
-  templateUrl: './templates/event.component.html',
+  templateUrl: '../templates/event.component.html',
 })
 export class EventComponent implements OnInit {
   public event: Eventx;

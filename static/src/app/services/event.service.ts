@@ -1,8 +1,8 @@
 import { Injectable }      from '@angular/core';
 import { Http, Response, Headers, RequestOptions }  from '@angular/http';
 import {Observable}        from 'rxjs/Rx';
-import { Eventx }          from './eventx';
-import { Comment }         from './comment';
+import { Eventx }          from '../models/eventx';
+import { Comment }         from '../models/comment';
 
 @Injectable()
 export class EventService {
