@@ -5830,31 +5830,31 @@ hr {
 
 .btn-default {
   color: #333333;
-  background-color: #DAE8DD;
-  border-color: #bbd4c0; }
+  background-color: #E8E8E8;
+  border-color: #cfcfcf; }
   .btn-default:focus, .btn-default.focus {
     color: #333333;
-    background-color: #bbd4c0;
-    border-color: #6ca478; }
+    background-color: #cfcfcf;
+    border-color: #8f8f8f; }
   .btn-default:hover {
     color: #333333;
-    background-color: #bbd4c0;
-    border-color: #95bd9d; }
+    background-color: #cfcfcf;
+    border-color: #b0b0b0; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     color: #333333;
-    background-color: #bbd4c0;
-    border-color: #95bd9d; }
+    background-color: #cfcfcf;
+    border-color: #b0b0b0; }
     .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
       color: #333333;
-      background-color: #a5c7ac;
-      border-color: #6ca478; }
+      background-color: #bdbdbd;
+      border-color: #8f8f8f; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-image: none; }
   .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled.focus, .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default.focus {
-    background-color: #DAE8DD;
-    border-color: #bbd4c0; }
+    background-color: #E8E8E8;
+    border-color: #cfcfcf; }
   .btn-default .badge {
-    color: #DAE8DD;
+    color: #E8E8E8;
     background-color: #333333; }
 
 .list-container {
@@ -5901,7 +5901,7 @@ h4 {
   display: flex; }
 
 .comments-container {
-  border-bottom: 1px solid #bbd4c0; }
+  border-bottom: 1px solid #cfcfcf; }
 
 .comments-header {
   padding-left: 5px; }
@@ -5909,7 +5909,7 @@ h4 {
 .single-comment {
   width: 100%;
   padding: 5px;
-  border-top: 1px solid #bbd4c0; }
+  border-top: 1px solid #cfcfcf; }
   .single-comment:nth-child(odd) {
     background: #EECC99; }
 
