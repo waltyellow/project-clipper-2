@@ -74,3 +74,5 @@ static/node_modules/
 **/.sass-cache
 app/static/project-cli/node_modules/*
 **/__pycache__
+
+**/*.log
