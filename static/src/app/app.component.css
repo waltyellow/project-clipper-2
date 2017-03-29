@@ -5807,18 +5807,11 @@ button.close {
   .hidden-print {
     display: none !important; } }
 html, body {
-  height: 100%;
-  background: #CCCCCC;
   margin: 0px;
   padding: 0px; }
 
 body {
   font-size: 16px; }
-
-h1 {
-  font-size: 250%;
-  text-align: center;
-  color: #333333; }
 
 hr {
   border-width: 0px;
@@ -5827,15 +5820,11 @@ hr {
   margin-bottom: 20px; }
 
 .container {
-  height: 100%;
-  background: #FFFFFF;
-  padding: 0px;
-  border-left: 1px solid #000000;
-  border-right: 1px solid #000000; }
+  padding: 0px; }
 
 @media (min-width: 768px) {
   .container {
-    max-width: 600px; } }
+    max-width: 650px; } }
 .sub-container {
   padding: 0px 15px; }
 
@@ -5884,12 +5873,20 @@ hr {
   width: 100%;
   z-index: 10; }
 
-#title-bar {
-  height: 50px;
+.title-bar {
+  height: 75px;
   width: 100%;
+  background: #333333;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
   /*display: flex;*/ }
-  #title-bar h1 {
-    line-height: 45px; }
+  .title-bar a {
+    line-height: 75px;
+    margin: 0px;
+    font-size: 250%;
+    font-family: "Times New Roman", Times, serif;
+    color: #FFFFFF; }
 
 h2, h3 {
   margin: 5px 0px; }

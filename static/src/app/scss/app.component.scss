@@ -1,50 +1,8 @@
+@import 'lib/bootstrap';
 @import 'base';
 @import 'list';
 @import 'sortable';
 @import 'titled';
 @import 'event';
 @import 'events';
-
-hr {
-    text-align: center;
-
-    &:after {
-        display: inline-block;
-        position: relative;
-        top: -13px;
-        font-size: 120%;
-        background: #FFFFFF;
-        color: $primary1;
-        padding: 0px 10px;
-    }
-
-    &.explore:after {
-        content: 'Explore';
-    }
-
-    &.questions:after {
-        content: 'Ask a question';
-    }
-}
-
-.homepage-button {
-    padding: 30px 10px;
-
-    @media (min-width: 768px) {
-        font-size: 120%;
-    }
-}
-
-.question-form {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-
-.question-entry {
-    flex: 1 1 100%;
-}
-
-.question-search {
-    flex: 0 1 auto;
-}
+@import 'home';

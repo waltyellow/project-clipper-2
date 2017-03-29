@@ -1,11 +1,22 @@
-$title-height: 50px;
+$title-height: 75px;
 
-#title-bar {
+.title-bar {
     height: $title-height;
     width: 100%;
+    background: $primary1;
+
+    padding: 0px;
+    margin: 0px;
+
+    text-align: center;
     /*display: flex;*/
 
-    h1 {
-        line-height: $title-height - 5;
+    a {
+        line-height: $title-height;
+        margin: 0px;
+
+        font-size: 250%;
+        font-family: "Times New Roman", Times, serif;
+        color: $secondary1;
     }
 }
