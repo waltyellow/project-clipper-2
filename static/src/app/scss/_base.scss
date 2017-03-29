@@ -5,7 +5,7 @@
 $primary1: #333333;   // dark background, borders, dark text
 $secondary1: #FFFFFF; // light color
 $border1: #000000;
-$primary2: #2F637C;   // button background
+$primary2: #DAE8DD;   // button background
 $secondary2: #F7F7F2;
 $border2: darken($primary2, 10%);
 
@@ -31,7 +31,7 @@ hr {
 
 @media (min-width: 768px) {
     .container {
-        max-width: 650px;
+        max-width: 700px;
     }
 }
 
@@ -40,5 +40,5 @@ hr {
 }
 
 .btn-default {
-    @include button-variant($secondary2, $primary2, $border2);
+    @include button-variant($primary1, $primary2, $border2);
 }
