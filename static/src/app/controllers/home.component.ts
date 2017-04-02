@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
+import {TitleService} from '../services/title.service';
 
 
 @Component({
@@ -7,10 +8,9 @@ import {ViewEncapsulation} from '@angular/core';
   templateUrl: '../templates/home.component.html',
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  constructor(private titleService: TitleService) { }
 
   ngOnInit() {
+    this.titleService.useDefaultTitle();
   }
-
 }
