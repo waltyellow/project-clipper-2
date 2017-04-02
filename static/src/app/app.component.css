@@ -5815,9 +5815,20 @@ body {
 
 hr {
   border-width: 0px;
-  border-top: 1px solid #000000;
+  border-top: 1px solid #BBBBBB;
   height: 0px;
-  margin-bottom: 20px; }
+  width: 250px;
+  margin: 5px auto 15px auto;
+  text-align: center; }
+  hr:after {
+    display: inline-block;
+    position: relative;
+    top: -12px;
+    padding: 0px 10px;
+    font-size: 110%;
+    font-family: "Times New Roman", Times, serif;
+    color: #333333;
+    background: #FFFFFF; }
 
 .container {
   padding: 0px; }
@@ -5826,35 +5837,35 @@ hr {
   .container {
     max-width: 700px; } }
 .sub-container {
-  padding: 0px 15px; }
+  padding: 15px; }
 
 .btn-default {
   color: #333333;
-  background-color: #E8E8E8;
-  border-color: #cfcfcf; }
+  background-color: #FFF4AF;
+  border-color: #CCCCCC; }
   .btn-default:focus, .btn-default.focus {
     color: #333333;
-    background-color: #cfcfcf;
-    border-color: #8f8f8f; }
+    background-color: #ffed7c;
+    border-color: #8c8c8c; }
   .btn-default:hover {
     color: #333333;
-    background-color: #cfcfcf;
-    border-color: #b0b0b0; }
+    background-color: #ffed7c;
+    border-color: #adadad; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     color: #333333;
-    background-color: #cfcfcf;
-    border-color: #b0b0b0; }
+    background-color: #ffed7c;
+    border-color: #adadad; }
     .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
       color: #333333;
-      background-color: #bdbdbd;
-      border-color: #8f8f8f; }
+      background-color: #ffe858;
+      border-color: #8c8c8c; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-image: none; }
   .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled.focus, .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default.focus {
-    background-color: #E8E8E8;
-    border-color: #cfcfcf; }
+    background-color: #FFF4AF;
+    border-color: #CCCCCC; }
   .btn-default .badge {
-    color: #E8E8E8;
+    color: #FFF4AF;
     background-color: #333333; }
 
 .list-container {
@@ -5874,7 +5885,7 @@ hr {
   z-index: 10; }
 
 .title-bar {
-  height: 75px;
+  height: 50px;
   width: 100%;
   background: #333333;
   padding: 0px;
@@ -5882,9 +5893,9 @@ hr {
   text-align: center;
   /*display: flex;*/ }
   .title-bar a {
-    line-height: 75px;
+    line-height: 55px;
     margin: 0px;
-    font-size: 250%;
+    font-size: 200%;
     font-family: "Times New Roman", Times, serif;
     text-decoration: none;
     color: #FFFFFF; }
@@ -5901,7 +5912,7 @@ h4 {
   display: flex; }
 
 .comments-container {
-  border-bottom: 1px solid #cfcfcf; }
+  border-bottom: 1px solid #e6e6e6; }
 
 .comments-header {
   padding-left: 5px; }
@@ -5909,7 +5920,7 @@ h4 {
 .single-comment {
   width: 100%;
   padding: 5px;
-  border-top: 1px solid #cfcfcf; }
+  border-top: 1px solid #e6e6e6; }
   .single-comment:nth-child(odd) {
     background: #EECC99; }
 
@@ -5980,26 +5991,16 @@ h4 {
   .event-datetime p {
     margin: 0px; }
 
-hr {
-  text-align: center; }
-  hr:after {
-    display: inline-block;
-    position: relative;
-    top: -13px;
-    font-size: 120%;
-    background: #FFFFFF;
-    color: #333333;
-    padding: 0px 10px; }
-  hr.explore:after {
-    content: 'Explore'; }
-  hr.questions:after {
-    content: 'Ask a question'; }
+hr.explore:after {
+  content: 'Explore'; }
+hr.questions:after {
+  content: 'Ask a question'; }
 
 .homepage-button {
-  padding: 30px 10px; }
-  @media (min-width: 768px) {
-    .homepage-button {
-      font-size: 120%; } }
+  padding: 10px;
+  margin-bottom: 10px; }
+  .homepage-button:last-child {
+    margin-bottom: 0px; }
 
 .question-form {
   width: 100%;
@@ -6011,5 +6012,8 @@ hr {
 
 .question-search {
   flex: 0 1 auto; }
+
+.previous-button {
+  margin-top: 10px; }
 
 /*# sourceMappingURL=app.component.css.map */

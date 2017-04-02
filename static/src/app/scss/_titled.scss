@@ -1,4 +1,4 @@
-$title-height: 75px;
+$title-height: 50px;
 
 .title-bar {
     height: $title-height;
@@ -12,10 +12,10 @@ $title-height: 75px;
     /*display: flex;*/
 
     a {
-        line-height: $title-height;
+        line-height: $title-height + 5;
         margin: 0px;
 
-        font-size: 250%;
+        font-size: 200%;
         font-family: "Times New Roman", Times, serif;
         text-decoration: none;
         color: $secondary1;
