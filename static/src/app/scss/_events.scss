@@ -1,38 +1,35 @@
-.event-list-item {
-	display: flex;
-	flex-flow: column;
-}
-
 .top-row {
 	width: 100%;
-	flex: 1 1 auto;
+	height: 50%;
+	display: inline-table;
 }
 
 .bottom-row {
-	width: 100%;
-	flex: 0 1 auto;
+    width: 100%;
+    height: 50%;
+    display: inline-table;
+    position: relative;
 }
 
 @mixin left-half {
-	width: 50%;
-	float: left;
-	margin: 0px;
-	padding: 5px 0px 5px 5px;
+    width: 100%;
+    display: table-cell;
+    white-space: nowrap;
+	border: 1px solid #FF0000;
 }
 
 @mixin right-half {
-	margin: 0px 0px 0px 50%;
-	padding: 5px 5px 5px 0px;
-	text-align: right;
+    display: table-cell;
+    white-space: nowrap;
+	border: 1px solid #0000FF;
 }
 
 .event-name {
 	@include left-half;
 	
-	h3 {
+	p {
 		margin: 0px;
 		padding: 0px;
-		font-size: 120%;
 	}
 }
 
@@ -54,6 +51,7 @@
 
 .event-datetime {
 	@include right-half;
+	position: absolute;
 
 	p {
 		margin: 0px;

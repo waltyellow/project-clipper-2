@@ -73,7 +73,7 @@ class EventDataManager:
     '''re-inserts an event and replaces it'''
 
     def replace_one_event(self, event: Event):
-        print('replacing event' + event.event_id)
+        print('replacing event' + str(event.event_id))
         event_dict = event.__dict__
         event_dict['deleted'] = False
         self.event_collection.replace_one({'_id': EventDataManager.convert_to_object_id(event.event_id)}, event_dict)

@@ -5841,31 +5841,31 @@ hr {
 
 .btn-default {
   color: #333333;
-  background-color: #FFF4AF;
+  background-color: #CBE0BE;
   border-color: #CCCCCC; }
   .btn-default:focus, .btn-default.focus {
     color: #333333;
-    background-color: #ffed7c;
+    background-color: #afd09b;
     border-color: #8c8c8c; }
   .btn-default:hover {
     color: #333333;
-    background-color: #ffed7c;
+    background-color: #afd09b;
     border-color: #adadad; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     color: #333333;
-    background-color: #ffed7c;
+    background-color: #afd09b;
     border-color: #adadad; }
     .btn-default:active:hover, .btn-default:active:focus, .btn-default:active.focus, .btn-default.active:hover, .btn-default.active:focus, .btn-default.active.focus, .open > .btn-default.dropdown-toggle:hover, .open > .btn-default.dropdown-toggle:focus, .open > .btn-default.dropdown-toggle.focus {
       color: #333333;
-      background-color: #ffe858;
+      background-color: #9cc483;
       border-color: #8c8c8c; }
   .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {
     background-image: none; }
   .btn-default.disabled:hover, .btn-default.disabled:focus, .btn-default.disabled.focus, .btn-default[disabled]:hover, .btn-default[disabled]:focus, .btn-default[disabled].focus, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn-default.focus {
-    background-color: #FFF4AF;
+    background-color: #CBE0BE;
     border-color: #CCCCCC; }
   .btn-default .badge {
-    color: #FFF4AF;
+    color: #CBE0BE;
     background-color: #333333; }
 
 .list-container {
@@ -5875,6 +5875,7 @@ hr {
 
 .list-item {
   height: 75px;
+  width: 100%;
   padding: 5px;
   border-bottom: 1px solid #000000; }
   .list-item:nth-child(odd) {
@@ -5883,6 +5884,36 @@ hr {
 .sort-options {
   width: 100%;
   z-index: 10; }
+
+.btn-modal {
+  color: #333333;
+  background-color: #DDDDDD;
+  border-color: #CCCCCC;
+  border-radius: 0px; }
+  .btn-modal:focus, .btn-modal.focus {
+    color: #333333;
+    background-color: #c4c4c4;
+    border-color: #8c8c8c; }
+  .btn-modal:hover {
+    color: #333333;
+    background-color: #c4c4c4;
+    border-color: #adadad; }
+  .btn-modal:active, .btn-modal.active, .open > .btn-modal.dropdown-toggle {
+    color: #333333;
+    background-color: #c4c4c4;
+    border-color: #adadad; }
+    .btn-modal:active:hover, .btn-modal:active:focus, .btn-modal:active.focus, .btn-modal.active:hover, .btn-modal.active:focus, .btn-modal.active.focus, .open > .btn-modal.dropdown-toggle:hover, .open > .btn-modal.dropdown-toggle:focus, .open > .btn-modal.dropdown-toggle.focus {
+      color: #333333;
+      background-color: #b2b2b2;
+      border-color: #8c8c8c; }
+  .btn-modal:active, .btn-modal.active, .open > .btn-modal.dropdown-toggle {
+    background-image: none; }
+  .btn-modal.disabled:hover, .btn-modal.disabled:focus, .btn-modal.disabled.focus, .btn-modal[disabled]:hover, .btn-modal[disabled]:focus, .btn-modal[disabled].focus, fieldset[disabled] .btn-modal:hover, fieldset[disabled] .btn-modal:focus, fieldset[disabled] .btn-modal.focus {
+    background-color: #DDDDDD;
+    border-color: #CCCCCC; }
+  .btn-modal .badge {
+    color: #DDDDDD;
+    background-color: #333333; }
 
 .title-bar {
   height: 50px;
@@ -5947,47 +5978,46 @@ h4 {
   border-bottom-left-radius: 3px;
   background: #CCCCCC; }
 
-.event-list-item {
-  display: flex;
-  flex-flow: column; }
-
 .top-row {
   width: 100%;
-  flex: 1 1 auto; }
+  height: 50%;
+  display: inline-table; }
 
 .bottom-row {
   width: 100%;
-  flex: 0 1 auto; }
+  height: 50%;
+  display: inline-table;
+  position: relative; }
 
 .event-name {
-  width: 50%;
-  float: left;
-  margin: 0px;
-  padding: 5px 0px 5px 5px; }
-  .event-name h3 {
+  width: 100%;
+  display: table-cell;
+  white-space: nowrap;
+  border: 1px solid #FF0000; }
+  .event-name p {
     margin: 0px;
-    padding: 0px;
-    font-size: 120%; }
+    padding: 0px; }
 
 .event-location {
-  width: 50%;
-  float: left;
-  margin: 0px;
-  padding: 5px 0px 5px 5px; }
+  width: 100%;
+  display: table-cell;
+  white-space: nowrap;
+  border: 1px solid #FF0000; }
   .event-location p {
     margin: 0px; }
 
 .event-expand {
-  margin: 0px 0px 0px 50%;
-  padding: 5px 5px 5px 0px;
-  text-align: right; }
+  display: table-cell;
+  white-space: nowrap;
+  border: 1px solid #0000FF; }
   .event-expand a {
     padding: 2px; }
 
 .event-datetime {
-  margin: 0px 0px 0px 50%;
-  padding: 5px 5px 5px 0px;
-  text-align: right; }
+  display: table-cell;
+  white-space: nowrap;
+  border: 1px solid #0000FF;
+  position: absolute; }
   .event-datetime p {
     margin: 0px; }
 
