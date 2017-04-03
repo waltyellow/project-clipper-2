@@ -6044,7 +6044,8 @@ hr.questions:after {
   justify-content: space-between; }
 
 .question-entry {
-  flex: 1 1 100%; }
+  flex: 1 1 100%;
+  margin-right: 5px; }
 
 .question-search {
   flex: 0 1 auto; }
