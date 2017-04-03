@@ -9,7 +9,7 @@ $list-item-height: 75px;
 .list-item {
     height: $list-item-height;
     width: 100%;
-    padding: 5px;
+    position: relative;
     border-bottom: 1px solid $border1;
 
     &:nth-child(odd) {

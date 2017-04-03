@@ -1,59 +1,38 @@
-.top-row {
-	width: 100%;
-	height: 50%;
-	display: inline-table;
-}
+$padding: 5px;
 
-.bottom-row {
-    width: 100%;
-    height: 50%;
-    display: inline-table;
-    position: relative;
-}
+@mixin event-detail {
+    position: absolute;
 
-@mixin left-half {
-    width: 100%;
-    display: table-cell;
-    white-space: nowrap;
-	border: 1px solid #FF0000;
-}
-
-@mixin right-half {
-    display: table-cell;
-    white-space: nowrap;
-	border: 1px solid #0000FF;
+    a, p {
+        margin: 0px;
+        padding: 0px;
+    }
 }
 
 .event-name {
-	@include left-half;
-	
-	p {
-		margin: 0px;
-		padding: 0px;
-	}
+	@include event-detail;
+	left: $padding;
+	top: $padding;
 }
 
 .event-location {
-	@include left-half;
-	
-	p {
-		margin: 0px;
-	}
+	@include event-detail;
+	left: $padding;
+	bottom: $padding;
 }
 
 .event-expand {
-	@include right-half;
+	@include event-detail;
+	right: $padding;
+	top: $padding;
 
 	a {
-		padding: 2px;
+	    padding: 4px;
 	}
 }
 
 .event-datetime {
-	@include right-half;
-	position: absolute;
-
-	p {
-		margin: 0px;
-	}
+	@include event-detail;
+	right: $padding;
+	bottom: $padding;
 }

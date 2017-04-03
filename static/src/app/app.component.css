@@ -5876,7 +5876,7 @@ hr {
 .list-item {
   height: 75px;
   width: 100%;
-  padding: 5px;
+  position: relative;
   border-bottom: 1px solid #000000; }
   .list-item:nth-child(odd) {
     background: #CCCCCC; }
@@ -5978,48 +5978,39 @@ h4 {
   border-bottom-left-radius: 3px;
   background: #CCCCCC; }
 
-.top-row {
-  width: 100%;
-  height: 50%;
-  display: inline-table; }
-
-.bottom-row {
-  width: 100%;
-  height: 50%;
-  display: inline-table;
-  position: relative; }
-
 .event-name {
-  width: 100%;
-  display: table-cell;
-  white-space: nowrap;
-  border: 1px solid #FF0000; }
-  .event-name p {
+  position: absolute;
+  left: 5px;
+  top: 5px; }
+  .event-name a, .event-name p {
     margin: 0px;
     padding: 0px; }
 
 .event-location {
-  width: 100%;
-  display: table-cell;
-  white-space: nowrap;
-  border: 1px solid #FF0000; }
-  .event-location p {
-    margin: 0px; }
+  position: absolute;
+  left: 5px;
+  bottom: 5px; }
+  .event-location a, .event-location p {
+    margin: 0px;
+    padding: 0px; }
 
 .event-expand {
-  display: table-cell;
-  white-space: nowrap;
-  border: 1px solid #0000FF; }
+  position: absolute;
+  right: 5px;
+  top: 5px; }
+  .event-expand a, .event-expand p {
+    margin: 0px;
+    padding: 0px; }
   .event-expand a {
-    padding: 2px; }
+    padding: 4px; }
 
 .event-datetime {
-  display: table-cell;
-  white-space: nowrap;
-  border: 1px solid #0000FF;
-  position: absolute; }
-  .event-datetime p {
-    margin: 0px; }
+  position: absolute;
+  right: 5px;
+  bottom: 5px; }
+  .event-datetime a, .event-datetime p {
+    margin: 0px;
+    padding: 0px; }
 
 hr.explore:after {
   content: 'Explore'; }
