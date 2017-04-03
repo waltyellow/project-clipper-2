@@ -5878,8 +5878,10 @@ hr {
   width: 100%;
   position: relative;
   border-bottom: 1px solid #000000; }
+  .list-item:first-child {
+    border-top: 1px solid #000000; }
   .list-item:nth-child(odd) {
-    background: #CCCCCC; }
+    background: #CBE0BE; }
 
 .sort-options {
   width: 100%;
@@ -6002,7 +6004,34 @@ h4 {
     margin: 0px;
     padding: 0px; }
   .event-expand a {
-    padding: 4px; }
+    color: #FFFFFF;
+    background-color: #009900;
+    border-color: #003300;
+    padding: 2px 5px; }
+    .event-expand a:focus, .event-expand a.focus {
+      color: #FFFFFF;
+      background-color: #006600;
+      border-color: black; }
+    .event-expand a:hover {
+      color: #FFFFFF;
+      background-color: #006600;
+      border-color: black; }
+    .event-expand a:active, .event-expand a.active, .open > .event-expand a.dropdown-toggle {
+      color: #FFFFFF;
+      background-color: #006600;
+      border-color: black; }
+      .event-expand a:active:hover, .event-expand a:active:focus, .event-expand a:active.focus, .event-expand a.active:hover, .event-expand a.active:focus, .event-expand a.active.focus, .open > .event-expand a.dropdown-toggle:hover, .open > .event-expand a.dropdown-toggle:focus, .open > .event-expand a.dropdown-toggle.focus {
+        color: #FFFFFF;
+        background-color: #004200;
+        border-color: black; }
+    .event-expand a:active, .event-expand a.active, .open > .event-expand a.dropdown-toggle {
+      background-image: none; }
+    .event-expand a.disabled:hover, .event-expand a.disabled:focus, .event-expand a.disabled.focus, .event-expand a[disabled]:hover, .event-expand a[disabled]:focus, .event-expand a[disabled].focus, fieldset[disabled] .event-expand a:hover, fieldset[disabled] .event-expand a:focus, fieldset[disabled] .event-expand a.focus {
+      background-color: #009900;
+      border-color: #003300; }
+    .event-expand a .badge {
+      color: #009900;
+      background-color: #FFFFFF; }
 
 .event-datetime {
   position: absolute;

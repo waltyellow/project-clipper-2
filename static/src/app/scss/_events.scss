@@ -27,7 +27,8 @@ $padding: 5px;
 	top: $padding;
 
 	a {
-	    padding: 4px;
+	    @include button-variant(#FFFFFF, #009900, #003300);
+	    padding: 2px 5px;
 	}
 }
 
