@@ -5936,6 +5936,9 @@ hr {
 h2, h3, h4 {
   margin: 0px; }
 
+.event-title {
+  margin-bottom: 5px; }
+
 .comments-container {
   border-bottom: 1px solid #e6e6e6; }
 
@@ -5959,36 +5962,32 @@ h2, h3, h4 {
 .details-panel {
   padding: 5px; }
 
+.time-location {
+  font-size: 80%;
+  margin: 0px;
+  padding: 0px; }
+
 .divider {
   width: 100%;
-  height: 10px;
+  height: 8px;
   background: #CCCCCC;
   border-top: 1px solid #999999;
   border-bottom: 1px solid #999999; }
 
 .event-name {
   position: absolute;
-  left: 5px;
-  top: 5px; }
-  .event-name a, .event-name p {
-    margin: 0px;
-    padding: 0px; }
+  top: 5px;
+  left: 5px; }
 
 .event-location {
   position: absolute;
   left: 5px;
   bottom: 5px; }
-  .event-location a, .event-location p {
-    margin: 0px;
-    padding: 0px; }
 
 .event-expand {
   position: absolute;
-  right: 5px;
-  top: 5px; }
-  .event-expand a, .event-expand p {
-    margin: 0px;
-    padding: 0px; }
+  top: 5px;
+  right: 5px; }
   .event-expand a {
     color: #FFFFFF;
     background-color: #009900;
@@ -6021,11 +6020,12 @@ h2, h3, h4 {
 
 .event-datetime {
   position: absolute;
-  right: 5px;
-  bottom: 5px; }
-  .event-datetime a, .event-datetime p {
-    margin: 0px;
-    padding: 0px; }
+  bottom: 5px;
+  right: 5px; }
+
+.sort-options {
+  width: 100%;
+  padding: 5px; }
 
 hr.explore:after {
   content: 'Explore'; }

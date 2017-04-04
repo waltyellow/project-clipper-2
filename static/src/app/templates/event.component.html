@@ -1,8 +1,10 @@
 <a class="btn btn-default btn-block back-button" href="events" role="button">Back to event list</a>
 <div class="details-panel">
-    <h3>{{event? event.name : ''}}</h3>
-    <span>Location: {{event? event.location : ''}}</span><br />
-    <span>Time: {{event? event.start_time : ''}}</span>
+    <h3 class="event-title">{{event? event.name : ''}}</h3>
+    <div class="time-location">
+        Location: {{event? event.location : ''}}<br />
+        Time: {{event? event.start_time : ''}}
+    </div>
 </div>
 <div class="divider"></div>
 <div class="details-panel">
