@@ -5830,6 +5830,22 @@ hr {
     color: #333333;
     background: #FFFFFF; }
 
+.title-bar {
+  height: 50px;
+  width: 100%;
+  background: #333333;
+  padding: 0px;
+  margin: 0px;
+  text-align: center;
+  /*display: flex;*/ }
+  .title-bar h3 {
+    line-height: 55px;
+    margin: 0px;
+    font-size: 200%;
+    font-family: "Times New Roman", Times, serif;
+    text-decoration: none;
+    color: #FFFFFF; }
+
 .container {
   padding: 0px; }
 
@@ -5882,56 +5898,6 @@ hr {
     border-top: 1px solid #000000; }
   .list-item:nth-child(odd) {
     background: #CBE0BE; }
-
-.sort-options {
-  width: 100%;
-  z-index: 10; }
-
-.btn-modal {
-  color: #333333;
-  background-color: #DDDDDD;
-  border-color: #CCCCCC;
-  border-radius: 0px; }
-  .btn-modal:focus, .btn-modal.focus {
-    color: #333333;
-    background-color: #c4c4c4;
-    border-color: #8c8c8c; }
-  .btn-modal:hover {
-    color: #333333;
-    background-color: #c4c4c4;
-    border-color: #adadad; }
-  .btn-modal:active, .btn-modal.active, .open > .btn-modal.dropdown-toggle {
-    color: #333333;
-    background-color: #c4c4c4;
-    border-color: #adadad; }
-    .btn-modal:active:hover, .btn-modal:active:focus, .btn-modal:active.focus, .btn-modal.active:hover, .btn-modal.active:focus, .btn-modal.active.focus, .open > .btn-modal.dropdown-toggle:hover, .open > .btn-modal.dropdown-toggle:focus, .open > .btn-modal.dropdown-toggle.focus {
-      color: #333333;
-      background-color: #b2b2b2;
-      border-color: #8c8c8c; }
-  .btn-modal:active, .btn-modal.active, .open > .btn-modal.dropdown-toggle {
-    background-image: none; }
-  .btn-modal.disabled:hover, .btn-modal.disabled:focus, .btn-modal.disabled.focus, .btn-modal[disabled]:hover, .btn-modal[disabled]:focus, .btn-modal[disabled].focus, fieldset[disabled] .btn-modal:hover, fieldset[disabled] .btn-modal:focus, fieldset[disabled] .btn-modal.focus {
-    background-color: #DDDDDD;
-    border-color: #CCCCCC; }
-  .btn-modal .badge {
-    color: #DDDDDD;
-    background-color: #333333; }
-
-.title-bar {
-  height: 50px;
-  width: 100%;
-  background: #333333;
-  padding: 0px;
-  margin: 0px;
-  text-align: center;
-  /*display: flex;*/ }
-  .title-bar h3 {
-    line-height: 55px;
-    margin: 0px;
-    font-size: 200%;
-    font-family: "Times New Roman", Times, serif;
-    text-decoration: none;
-    color: #FFFFFF; }
 
 h2, h3, h4 {
   margin: 0px; }
@@ -6022,6 +5988,36 @@ h2, h3, h4 {
   position: absolute;
   bottom: 5px;
   right: 5px; }
+
+.btn-modal {
+  color: #333333;
+  background-color: #DDDDDD;
+  border-color: #CCCCCC;
+  border-radius: 0px; }
+  .btn-modal:focus, .btn-modal.focus {
+    color: #333333;
+    background-color: #c4c4c4;
+    border-color: #8c8c8c; }
+  .btn-modal:hover {
+    color: #333333;
+    background-color: #c4c4c4;
+    border-color: #adadad; }
+  .btn-modal:active, .btn-modal.active, .open > .btn-modal.dropdown-toggle {
+    color: #333333;
+    background-color: #c4c4c4;
+    border-color: #adadad; }
+    .btn-modal:active:hover, .btn-modal:active:focus, .btn-modal:active.focus, .btn-modal.active:hover, .btn-modal.active:focus, .btn-modal.active.focus, .open > .btn-modal.dropdown-toggle:hover, .open > .btn-modal.dropdown-toggle:focus, .open > .btn-modal.dropdown-toggle.focus {
+      color: #333333;
+      background-color: #b2b2b2;
+      border-color: #8c8c8c; }
+  .btn-modal:active, .btn-modal.active, .open > .btn-modal.dropdown-toggle {
+    background-image: none; }
+  .btn-modal.disabled:hover, .btn-modal.disabled:focus, .btn-modal.disabled.focus, .btn-modal[disabled]:hover, .btn-modal[disabled]:focus, .btn-modal[disabled].focus, fieldset[disabled] .btn-modal:hover, fieldset[disabled] .btn-modal:focus, fieldset[disabled] .btn-modal.focus {
+    background-color: #DDDDDD;
+    border-color: #CCCCCC; }
+  .btn-modal .badge {
+    color: #DDDDDD;
+    background-color: #333333; }
 
 .sort-options {
   width: 100%;

@@ -29,6 +29,11 @@ $padding: 5px;
 	@include event-detail($bottom: $padding, $right: $padding);
 }
 
+.btn-modal {
+    @include button-variant($primary1, #DDDDDD, #CCCCCC);
+    border-radius: 0px;
+}
+
 .sort-options {
 	width: 100%;
 	padding: 5px;

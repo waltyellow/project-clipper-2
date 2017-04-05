@@ -11,10 +11,10 @@ const MAINMENU_ROUTES: Routes = [
     //full : makes sure the path is absolute path
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'food-and-entertainments', component: EntertainmentsComponent },
+    { path: 'food-entertainment', component: EntertainmentsComponent },
     { path: 'events', component: EventsComponent },
     { path: 'events/:id/event', component: EventComponent },
-    { path: 'buildings', component: BuildingsComponent },
+    { path: 'campus-buildings', component: BuildingsComponent },
     { path: 'questions', component: QuestionsComponent },
     { path: 'study-locations', component: StudyLocationsComponent }
 ];
