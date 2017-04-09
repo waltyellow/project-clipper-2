@@ -5886,8 +5886,7 @@ hr {
 
 .list-container {
   width: 100%;
-  position: relative;
-  top: -3px; }
+  position: relative; }
 
 .list-item {
   height: 75px;

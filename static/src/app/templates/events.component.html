@@ -7,7 +7,11 @@
     </div>
 </div>
 <div class="sort-options">
-	sort icon<span style="float: right">filter icon</span>
+	 <form class="form-inline" method="post">
+		  <button type="button">Sort</button>
+		  <button type="button">Filter</button>
+        <input type="text" id="search_text" placeholder="Search events" name="search_text" />
+    </form>
 </div>
 <div class="list-container">
     <div class="list-item" *ngFor="let event of events"> 
