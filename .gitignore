@@ -76,3 +76,4 @@ app/static/project-cli/node_modules/*
 **/__pycache__
 
 **/*.log
+**/*~
