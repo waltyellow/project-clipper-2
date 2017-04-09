@@ -1,11 +1,12 @@
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
     <div class="btn-group" role="group">
-        <button type="button" class="btn btn-modal">Map</button>
+        <button type="button" class="btn btn-modal" (click)="setListView(true)">List</button>
     </div>
     <div class="btn-group" role="group">
-        <button type="button" class="btn btn-modal">List</button>
+        <button type="button" class="btn btn-modal" (click)="setListView(false)">Map</button>
     </div>
 </div>
+<div *ngIf="listView">
 <div class="sort-options">
 	 <form class="form-inline" method="post">
 		  <button type="button">Sort</button>
@@ -32,4 +33,8 @@
             </div>
         </div>
     </div>
+</div>
+</div>
+<div *ngIf="!listView">
+map view
 </div>
