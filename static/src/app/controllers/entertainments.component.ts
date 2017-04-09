@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { TitleService } from '../services/title.service';
 
 @Component({
   selector: 'app-entertainments',
   templateUrl: '../templates/entertainments.component.html',
-  styles: []
 })
 export class EntertainmentsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private titleService: TitleService) { }
 
   ngOnInit() {
+    this.titleService.setTitle('Food & Entertainment');
   }
 
 }

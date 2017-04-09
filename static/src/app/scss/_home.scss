@@ -1,0 +1,37 @@
+hr {
+    &.explore:after {
+        content: 'Explore';
+    }
+
+    &.questions:after {
+        content: 'Ask a question';
+    }
+}
+
+.homepage-button {
+    padding: 10px;
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0px;
+    }
+}
+
+.question-form {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.question-entry {
+    flex: 1 1 100%;
+    margin-right: 5px;
+}
+
+.question-search {
+    flex: 0 1 auto;
+}
+
+.previous-button {
+    margin-top: 10px;
+}

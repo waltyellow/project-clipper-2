@@ -1,20 +1,16 @@
-<div id="title-bar">
-    <h1>Events</h1>
-</div>
 <a class="btn btn-default btn-block back-button" href="events" role="button">Back to event list</a>
-<div class="event-container">
-    <div class="details-panel">
-        <h2>{{event? event.name : ''}}</h2>
-        <p>This is an event that is taking place for a reason and will be located at a place and things</p>
-    </div>
-    <div class="right-panel">
-        <h4><b>Location</b></h4>
-        <span>{{event? event.location : ''}}</span>
-        <br /><br />
-        <h4><b>Time</b></h4>
-        <span>{{event? event.start_time : ''}}</span>
+<div class="details-panel">
+    <h3 class="event-title">{{event? event.name : ''}}</h3>
+    <div class="time-location">
+        Location: {{event? event.location : ''}}<br />
+        Time: {{event? event.start_time : ''}}
     </div>
 </div>
+<div class="divider"></div>
+<div class="details-panel">
+    <span>This is an event that is taking place for a reason and will be located at a place and things</span>
+</div>
+<div class="divider"></div>
 <div class="comments-container">
     <h3 class="comments-header">Comments</h3>
     <div class="single-comment">

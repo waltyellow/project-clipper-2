@@ -13,7 +13,8 @@ import { EventsComponent } from './controllers/events.component';
 import { EntertainmentsComponent } from './controllers/entertainments.component';
 import { BuildingsComponent } from './controllers/buildings.component';
 import { StudyLocationsComponent } from './controllers/study-locations.component';
-import { QuestionsComponent } from './controllers/questions.component'; 
+import { QuestionsComponent } from './controllers/questions.component';
+import { TitleService } from './services/title.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { QuestionsComponent } from './controllers/questions.component';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [EventService],
+  providers: [EventService, TitleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
