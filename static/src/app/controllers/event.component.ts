@@ -4,6 +4,7 @@ import { EventService } from '../services/event.service'
 import {ActivatedRoute } from '@angular/router';
 import { Eventx }        from '../models/eventx';
 import { Comment }         from '../models/comment';
+import { TitleService } from '../services/title.service';
 
 @Component({
   selector: 'app-event',
@@ -15,7 +16,7 @@ export class EventComponent implements OnInit {
   public newComment : Comment
   private sub:any;
 
-  constructor(private eventService: EventService, private route: ActivatedRoute) { }
+  constructor(private titleService: TitleService, private eventService: EventService, private route: ActivatedRoute) { }
 
   public postComment() : void {
     this.eventService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
@@ -23,6 +24,7 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.titleService.setTitle('Events');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.eventService.getEvent(id).subscribe(event => this.event = event)

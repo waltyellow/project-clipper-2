@@ -1,61 +1,40 @@
-.event-list-item {
-	display: flex;
-	flex-flow: column;
-}
+$padding: 5px;
 
-.top-row {
-	width: 100%;
-	flex: 1 1 auto;
-}
-
-.bottom-row {
-	width: 100%;
-	flex: 0 1 auto;
-}
-
-@mixin left-half {
-	width: 50%;
-	float: left;
-	margin: 0px;
-	padding: 5px 0px 5px 5px;
-}
-
-@mixin right-half {
-	margin: 0px 0px 0px 50%;
-	padding: 5px 5px 5px 0px;
-	text-align: right;
+@mixin event-detail($top: null, $right: null, $bottom: null, $left: null) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    bottom: $bottom;
+    right: $right;
 }
 
 .event-name {
-	@include left-half;
-	
-	h3 {
-		margin: 0px;
-		padding: 0px;
-		font-size: 120%;
-	}
+	@include event-detail($top: $padding, $left: $padding);
 }
 
 .event-location {
-	@include left-half;
-	
-	p {
-		margin: 0px;
-	}
+	@include event-detail($bottom: $padding, $left: $padding);
 }
 
 .event-expand {
-	@include right-half;
+	@include event-detail($top: $padding, $right: $padding);
 
 	a {
-		padding: 2px;
+	    @include button-variant(#FFFFFF, #009900, #003300);
+	    padding: 2px 5px;
 	}
 }
 
 .event-datetime {
-	@include right-half;
+	@include event-detail($bottom: $padding, $right: $padding);
+}
 
-	p {
-		margin: 0px;
-	}
+.btn-modal {
+    @include button-variant($primary1, #DDDDDD, #CCCCCC);
+    border-radius: 0px;
+}
+
+.sort-options {
+	width: 100%;
+	padding: 5px;
 }

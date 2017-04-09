@@ -3,15 +3,19 @@ $list-item-height: 75px;
 .list-container {
     width: 100%;
     position: relative;
-    top: -3px;
 }
 
 .list-item {
     height: $list-item-height;
-    padding: 5px;
+    width: 100%;
+    position: relative;
     border-bottom: 1px solid $border1;
 
+    &:first-child {
+        border-top: 1px solid $border1;
+    }
+
     &:nth-child(odd) {
-        background: #CCCCCC;
+        background: #CBE0BE;
     }
 }
