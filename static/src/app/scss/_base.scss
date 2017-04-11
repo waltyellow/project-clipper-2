@@ -80,3 +80,9 @@ $title-height: 50px;
 .btn-default {
     @include button-variant($primary1, #CBE0BE, #CCCCCC);
 }
+
+.btn-square {
+    @extend .btn-default;
+    border-radius: 0px;
+    padding: 3px 5px;
+}

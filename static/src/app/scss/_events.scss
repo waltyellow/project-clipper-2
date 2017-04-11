@@ -30,16 +30,23 @@ $padding: 5px;
 }
 
 .btn-modal {
-    @include button-variant($primary1, #DDDDDD, #CCCCCC);
+    @include button-variant($primary1, #DDDDDD, #999999);
     border-radius: 0px;
 }
 
 .selected {
-    @include button-variant($primary1, #BBBBBB, #AAAAAA);
-    border-width: 1px;
+    &, &:active, &:focus {
+        @include button-variant($primary1, #AAAAAA, #999999);
+    }
 }
 
 .sort-options {
 	width: 100%;
 	padding: 5px;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+    border: 1px solid #000000;
 }

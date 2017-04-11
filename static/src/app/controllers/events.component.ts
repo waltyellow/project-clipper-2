@@ -11,7 +11,7 @@ import { Eventx }        from '../models/eventx';
   templateUrl: '../templates/events.component.html',
 })
 export class EventsComponent implements OnInit {
-  public listView: boolean = true;
+  public listView: boolean = false;
   public events: Eventx[];
   
   constructor(private titleService: TitleService, private eventService: EventService) {
@@ -19,7 +19,7 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Events');
-    this.eventService.getEvents().subscribe(events => this.events = events['events'])
+    this.eventService.getEvents().subscribe(events => this.events = events['events']);
   }
   
   setListView(listView: boolean) {
