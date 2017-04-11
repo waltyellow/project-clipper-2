@@ -6057,8 +6057,7 @@ h2, h3, h4 {
 
 #map {
   width: 100%;
-  height: 500px;
-  border: 1px solid #000000; }
+  height: 500px; }
 
 hr.explore:after {
   content: 'Explore'; }
