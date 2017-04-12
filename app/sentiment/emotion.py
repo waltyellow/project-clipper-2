@@ -94,7 +94,7 @@ def stem_and_lemmatize(sentence):
             sentics_values(i,sn,comment_sentics)
             add_mood_tags(comment_mood_tags,sn,i)
         except KeyError:
-            print "This word does not exist"
+            #print "This word does not exist"
             try:
                 current_word = lemma.lemmatize(i)
                 #word_emotion(current_word,sn)
@@ -102,7 +102,8 @@ def stem_and_lemmatize(sentence):
                 sentics_values(current_word,sn,comment_sentics)
                 add_mood_tags(comment_mood_tags,sn,current_word)
             except KeyError:
-                print("This didnt work again")
+
+                #print("This didnt work again")
                 try:
                    # word_emotion(sno.stem(current_word),sn)
                     current_word = sno.stem(current_word)
@@ -110,7 +111,7 @@ def stem_and_lemmatize(sentence):
                     sentics_values(current_word,sn,comment_sentics)
                     add_mood_tags(comment_mood_tags,sn,current_word)
                 except KeyError:
-                    print("cry")
+                    #print("cry")
                     try:
                         #word_emotion(en.verb.present(i),sn)
                         current_word = en.verb.present(i)
@@ -118,8 +119,8 @@ def stem_and_lemmatize(sentence):
                         sentics_values(current_word,sn,comment_sentics)
                         add_mood_tags(comment_mood_tags,sn,current_word)
                     except KeyError:
-                        print 'cry again'
-                        print i
+                        #print 'cry again'
+                        #print i
                         if(total_word_count>1):
                              total_word_count -= 1
                         pass
@@ -130,8 +131,15 @@ def stem_and_lemmatize(sentence):
         if output in comment_sentics:
             final_output['sentics'][output] = comment_sentics[output]
     json_output = json.dumps(final_output)
-    print json_output
-    return json_output
+    final_excitement = {'score':'0','mood tags':{}}
+    final_excitement_score = comment_sentics['attention'] +comment_sentics['pleasantness']
+    final_excitement['score'] = str(final_excitement_score)
+    final_excitement['mood tags'] = comment_mood_tags
+
+    #print json_output
+    #print final_excitement
+
+    return final_excitement
 
 
 
@@ -143,8 +151,8 @@ def sentence_filter_and_tokenizer(comment):
     for i in word_tokens:
         if i not in stop_words:
             filtered_sentence.append(i)
-    print(word_tokens)
-    print(filtered_sentence)
+    #print(word_tokens)
+    #print(filtered_sentence)
     return filtered_sentence
 
 def main(argv):
@@ -152,7 +160,8 @@ def main(argv):
     input_comment.translate(None,string.punctuation)
     #word_parser(input_comment.translate(None,string.punctuation))
     current_sentence = sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
-    stem_and_lemmatize(current_sentence)
+    excitement = stem_and_lemmatize(current_sentence)
+    print excitement
 
 
 if __name__ == "__main__":
