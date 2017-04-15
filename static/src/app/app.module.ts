@@ -11,6 +11,8 @@ import { EventComponent } from './controllers/event.component';
 import { EventService } from './services/event.service'
 import { EventsComponent } from './controllers/events.component';
 import { EntertainmentsComponent } from './controllers/entertainments.component';
+import { PlaceComponent } from './controllers/place.component';
+import { PlaceService } from './services/place.service';
 import { BuildingsComponent } from './controllers/buildings.component';
 import { StudyLocationsComponent } from './controllers/study-locations.component';
 import { QuestionsComponent } from './controllers/questions.component';

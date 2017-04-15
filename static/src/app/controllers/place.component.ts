@@ -19,7 +19,7 @@ export class PlaceComponent implements OnInit {
   constructor(private titleService: TitleService, private placeService: PlaceService, private route: ActivatedRoute) { }
 
   public postComment() : void {
-    this.eventService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
+    this.placeService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
     this.newComment = new Comment('', '', '', 'demoUser')
   }
 

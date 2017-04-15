@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from "./controllers/home.component";
 import { EntertainmentsComponent } from "./controllers/entertainments.component";
+import { PlaceComponent } from "./controllers/place.component";
 import { EventsComponent } from "./controllers/events.component";
 import { EventComponent } from "./controllers/event.component";
 import { BuildingsComponent } from "./controllers/buildings.component";
