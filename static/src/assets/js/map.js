@@ -6,7 +6,7 @@ function generateMap() {
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v9',
-        center: [-81.6944, 41.4933],
+        center: [-81.6944, 41.4933], // should have a props file or something...
         zoom: 10
     });
     
@@ -25,6 +25,6 @@ function generateMap() {
                 'circle-color': '#00FF00',
                 'circle-radius': 10
             }
-        }, 'waterway-label'); // before?
+        }, 'waterway-label');
     });
 }

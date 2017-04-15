@@ -23,6 +23,7 @@ import { TitleService } from './services/title.service';
     EventComponent,
     EventsComponent,
     EntertainmentsComponent,
+    PlaceComponent,
     BuildingsComponent,
     StudyLocationsComponent,
     QuestionsComponent
@@ -34,7 +35,7 @@ import { TitleService } from './services/title.service';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [EventService, TitleService],
+  providers: [EventService, TitleService, PlaceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

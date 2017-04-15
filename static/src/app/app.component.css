@@ -6061,8 +6061,8 @@ h2, h3, h4 {
 
 hr.explore:after {
   content: 'Explore'; }
-hr.questions:after {
-  content: 'Ask a question'; }
+hr.campus:after {
+  content: 'Stuff on Campus'; }
 
 .homepage-button {
   padding: 10px;
@@ -6084,5 +6084,8 @@ hr.questions:after {
 
 .previous-button {
   margin-top: 10px; }
+
+.place-title {
+  margin-bottom: 5px; }
 
 /*# sourceMappingURL=app.component.css.map */
