@@ -11,7 +11,7 @@ import { Eventx }        from '../models/eventx';
   templateUrl: '../templates/events.component.html',
 })
 export class EventsComponent implements OnInit {
-  public listView: boolean = false;
+  public listView: boolean = true;
   public events: Eventx[];
   
   constructor(private titleService: TitleService, private eventService: EventService) {

@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';   
+import {ViewEncapsulation} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { PlaceService } from '../services/place.service';
 import { TitleService } from '../services/title.service';
+import { Placex }        from '../models/placex';
 
 @Component({
-  selector: 'app-entertainments',
+  selector: 'app-events',
   templateUrl: '../templates/entertainments.component.html',
 })
 export class EntertainmentsComponent implements OnInit {
-
-  constructor(private titleService: TitleService) { }
-
-  ngOnInit() {
-    this.titleService.setTitle('Places');
+  public places: Placex[];
+  
+  constructor(private titleService: TitleService, private placeService: PlaceService) {
   }
 
+  ngOnInit() {
+    this.titleService.setTitle('Events');
+    this.placeService.getPlaces().subscribe(places => this.places = places['places']);
+  }
 }
