@@ -5,6 +5,7 @@ import {ActivatedRoute } from '@angular/router';
 import { Placex }        from '../models/placex';
 import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-place',
@@ -16,10 +17,10 @@ export class PlaceComponent implements OnInit {
   public newComment : Comment
   private sub:any;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private route: ActivatedRoute) { }
+  constructor(private titleService: TitleService, private placeService: PlaceService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   public postComment() : void {
-    this.placeService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
+    this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
     this.newComment = new Comment('', '', '', 'demoUser')
   }
 
@@ -28,7 +29,7 @@ export class PlaceComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.placeService.getPlace(id).subscribe(place => this.place = place)
-        this.placeService.getComments(id).subscribe(comments => this.comments = comments['messages'])
+        this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
     this.newComment = new Comment('', '', '', 'demoUser')
   }

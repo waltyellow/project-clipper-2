@@ -5,6 +5,7 @@ import {ActivatedRoute } from '@angular/router';
 import { Eventx }        from '../models/eventx';
 import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-event',
@@ -16,10 +17,10 @@ export class EventComponent implements OnInit {
   public newComment : Comment
   private sub:any;
 
-  constructor(private titleService: TitleService, private eventService: EventService, private route: ActivatedRoute) { }
+  constructor(private titleService: TitleService, private eventService: EventService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   public postComment() : void {
-    this.eventService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
+    this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
     this.newComment = new Comment('', '', '', 'demoUser')
   }
 
@@ -28,7 +29,7 @@ export class EventComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.eventService.getEvent(id).subscribe(event => this.event = event)
-        this.eventService.getComments(id).subscribe(comments => this.comments = comments['messages'])
+        this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
     this.newComment = new Comment('', '', '', 'demoUser')
   }
