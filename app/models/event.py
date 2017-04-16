@@ -17,6 +17,7 @@ class Event:
             host_user_id=map['host_user_id'],
             location=map['location'],
             location_id=map['location_id'],
+            coords=map['coords'],
             facebook_id=map['facebook_id'],
             attendees=map['attendees'],
             keywords=map['keywords']
@@ -33,6 +34,7 @@ class Event:
                  host_user_id='',
                  location='',
                  location_id='',
+                 coords=dict(),
                  facebook_id='',
                  attendees='',
                  keywords=''):
@@ -45,6 +47,7 @@ class Event:
         self.host_user_id = host_user_id
         self.location = location
         self.location_id = location_id
+        self.coords = coords
         self.facebook_id = facebook_id
         self.attendees = attendees
         self.keywords = keywords
