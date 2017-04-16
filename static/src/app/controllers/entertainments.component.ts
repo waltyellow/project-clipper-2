@@ -10,7 +10,7 @@ export class EntertainmentsComponent implements OnInit {
   constructor(private titleService: TitleService) { }
 
   ngOnInit() {
-    this.titleService.setTitle('Food & Entertainment');
+    this.titleService.setTitle('Places');
   }
 
 }

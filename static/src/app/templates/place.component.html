@@ -1,0 +1,28 @@
+<a class="btn btn-default btn-block back-button" href="events" role="button">Back to place list</a>
+<div class="details-panel">
+    <h3 class="place-title">{{place? place.name : ''}}</h3>
+    <div class="time-location">
+        Location: {{place? place.location : ''}}
+    </div>
+</div>
+<div class="divider"></div>
+<div class="details-panel">
+    <span>Placeeeeeeeeeee yep a place this is one of em woo</span>
+</div>
+<div class="divider"></div>
+<div class="comments-container">
+    <h3 class="comments-header">Comments</h3>
+    <div class="single-comment">
+        <form class="form-inline question-form" method="post">
+            <input type="text" class="form-control question-entry" id="message_body" placeholder="Enter a comment" [(ngModel)]="newComment.message_body" name="body">
+            <input type="hidden" id="message_username" value="temp_user" />
+            <input type="hidden" id="message_parent" value="place_id" />
+            <button type="submit" class="btn btn-default" (click)="postComment()">Post</button>
+        </form>
+    </div>
+    <div class="single-comment" *ngFor="let comment of comments">
+        <span><b>{{comment.message_username}}</b></span><span class="excitement-score">[excitement score: 5]</span>
+        <br />
+        <span>{{comment.message_body}}</span>
+    </div>
+</div>

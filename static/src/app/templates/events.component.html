@@ -1,35 +1,41 @@
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
     <div class="btn-group" role="group">
-        <button type="button" class="btn btn-modal">Map</button>
+        <button type="button" class="btn btn-modal" [class.selected]="listView" (click)="setListView(true)">List</button>
     </div>
     <div class="btn-group" role="group">
-        <button type="button" class="btn btn-modal">List</button>
+        <button type="button" class="btn btn-modal" [class.selected]="!listView" (click)="setListView(false)">Map</button>
     </div>
 </div>
-<div class="sort-options">
-	 <form class="form-inline" method="post">
-		  <button type="button">Sort</button>
-		  <button type="button">Filter</button>
-        <input type="text" id="search_text" placeholder="Search events" name="search_text" />
-    </form>
-</div>
-<div class="list-container">
-    <div class="list-item" *ngFor="let event of events"> 
-        <div class="top-row">
-            <div class="event-name">
-                <span>{{event.name}}</span>
+<div *ngIf="listView">
+    <div class="sort-options">
+    	<form class="form-inline" method="post">
+            <button type="button" class="btn btn-square">Sort</button>
+            <input type="text" id="search_text" placeholder="Search events" name="search_text" />
+            <input type="submit" class="btn btn-square" value="Search" />
+        </form>
+    </div>
+    <div class="list-container">
+        <div class="list-item" *ngFor="let event of events">
+            <div class="top-row">
+                <div class="event-name">
+                    <span>{{event.name}}</span>
+                </div>
+                <div class="event-expand">
+                    <a class="btn btn-default" [routerLink]="['/events', event.event_id, 'event']">Show Event</a>
+                </div>
             </div>
-            <div class="event-expand">
-                <a class="btn btn-default" [routerLink]="['/events', event.event_id, 'event']">Show Event</a>
-            </div>
-        </div>
-        <div class="bottom-row">
-            <div class="event-location">
-                <span>{{event.location}}</span>
-            </div>
-            <div class="event-datetime">
-                <span>{{event.start_time}}</span>
+            <div class="bottom-row">
+                <div class="event-location">
+                    <span>{{event.location}}</span>
+                </div>
+                <div class="event-datetime">
+                    <span>{{event.start_time}}</span>
+                </div>
             </div>
         </div>
     </div>
+</div>
+<div *ngIf="!listView">
+    <div id="map"></div>
+    <iframe style="display: none;" onload="generateMap()"></iframe>
 </div>

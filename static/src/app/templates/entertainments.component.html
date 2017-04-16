@@ -1,14 +1,18 @@
 <div class="sort-options">
-	sort icon<span style="float: right">filter icon</span>
+	<form class="form-inline" method="post">
+        <button type="button" class="btn btn-square">Sort</button>
+        <input type="text" id="search_text" placeholder="Search places" name="search_text" />
+        <input type="submit" class="btn btn-square" value="Search" />
+    </form>
 </div>
 <div class="list-container">
-    <div class="list-item" *ngFor="let venue of venues"> 
+    <div class="list-item" *ngFor="let place of places">
         <div class="top-row">
-            <div class="event-name">
-                <span>{{event.name}}</span>
+            <div class="place-name">
+                <span>{{place.name}}</span>
             </div>
-            <div class="event-expand">
-                <a class="btn btn-default" [routerLink]="['/events', event.event_id, 'event']">Show Event</a>
+            <div class="place-expand">
+                <a class="btn btn-default" [routerLink]="['/place', event.event_id, 'event']">Show Event</a>
             </div>
         </div>
         <div class="bottom-row">
