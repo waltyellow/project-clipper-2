@@ -30,6 +30,7 @@ def comment_sentics_average(word_count,comment_sentics):
     for key in comment_sentics:
         comment_sentics[key] = float(comment_sentics[key])/word_count
 
+
 def add_mood_tags(comment_mood_tags,sn,word):
     current_tags = sn.moodtags(word)
     #print word, current_tags
@@ -37,7 +38,9 @@ def add_mood_tags(comment_mood_tags,sn,word):
         if tag not in comment_mood_tags:
             comment_mood_tags.append(tag)
 
-def word_parser(comment):
+
+def emotion_data(comment):
+    comment = comment.translate({ord(c): '' for c in string.punctuation})
     sn = Senticnet()
     polarity_intense = 0
     comment_sentics = {'sensitivity': 0, 'attention': 0, 'pleasantness': 0, 'aptitude': 0}
@@ -155,6 +158,12 @@ def sentence_filter_and_tokenizer(comment):
     #print(filtered_sentence)
     return filtered_sentence
 
+
+
+
+
+
+
 def main(argv):
     input_comment = input("please enter comment:")
     input_comment.translate(None,string.punctuation)
@@ -162,7 +171,6 @@ def main(argv):
     current_sentence = sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
     excitement = stem_and_lemmatize(current_sentence)
     print excitement
-
 
 if __name__ == "__main__":
     main(sys.argv[1:])

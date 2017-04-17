@@ -1,0 +1,88 @@
+@function highlight($color) {
+    @return lighten($color, 5%);
+}
+
+$primary1: #333333;   // dark background, borders, dark text
+$secondary1: #FFFFFF; // light color
+$border1: #000000;
+$primary2: #FFFFFF;   // button background
+$secondary2: #F7F7F2;
+$border2: darken($primary2, 10%);
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    font-size: 16px;
+}
+
+hr {
+    border-width: 0px;
+    border-top: 1px solid #BBBBBB;
+    height: 0px;
+    width: 250px;
+    margin: 5px auto 15px auto;
+    text-align: center;
+
+    &:after {
+        display: inline-block;
+        position: relative;
+        top: -12px;
+        padding: 0px 10px;
+
+        font-size: 110%;
+        font-family: "Times New Roman", Times, serif;
+        color: $primary1;
+        background: #FFFFFF;
+    }
+}
+
+$title-height: 50px;
+
+.title-bar {
+    height: $title-height;
+    width: 100%;
+    background: $primary1;
+
+    padding: 0px;
+    margin: 0px;
+
+    text-align: center;
+    /*display: flex;*/
+
+    a {
+        line-height: $title-height + 5;
+        margin: 0px;
+
+        font-size: 200%;
+        font-family: "Times New Roman", Times, serif;
+        text-decoration: none;
+        color: $secondary1;
+    }
+}
+
+.container {
+    padding: 0px;
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 700px;
+    }
+}
+
+.sub-container {
+    padding: 15px;
+}
+
+.btn-default {
+    @include button-variant($primary1, #CBE0BE, #CCCCCC);
+}
+
+.btn-square {
+    @extend .btn-default;
+    border-radius: 0px;
+    padding: 3px 5px;
+}

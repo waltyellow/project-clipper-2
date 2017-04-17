@@ -1,0 +1,51 @@
+$padding: 5px;
+
+@mixin event-detail($top: null, $right: null, $bottom: null, $left: null) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    bottom: $bottom;
+    right: $right;
+}
+
+.event-name {
+	@include event-detail($top: $padding, $left: $padding);
+}
+
+.event-location {
+	@include event-detail($bottom: $padding, $left: $padding);
+}
+
+.event-expand {
+	@include event-detail($top: $padding, $right: $padding);
+
+	a {
+	    @include button-variant(#FFFFFF, #009900, #003300);
+	    padding: 2px 5px;
+	}
+}
+
+.event-datetime {
+	 @include event-detail($bottom: $padding, $right: $padding);
+}
+
+.btn-modal {
+    @include button-variant($primary1, #DDDDDD, #999999);
+    border-radius: 0px;
+}
+
+.selected {
+    &, &:active, &:focus {
+        @include button-variant($primary1, #AAAAAA, #999999);
+    }
+}
+
+.sort-options {
+	width: 100%;
+	padding: 5px;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
+}

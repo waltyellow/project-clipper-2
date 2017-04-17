@@ -1,9 +1,10 @@
 from flask import *
+from flask_cors import CORS, cross_origin
 from app import server
 from app.event import api
+from app.message import api
 import os
-
-
+CORS(server)
 
 @server.route('/')
 def hello_world2():
@@ -32,6 +33,7 @@ def create2(event_id):
     url = url_for('createevent', event_id=event_id)
     # this is one way to internally refer to endpoint/createevent from endpoint/createexample
     return redirect(url)
+
 
 
 @server.route(rule='/example/<string:event_id>/update')
