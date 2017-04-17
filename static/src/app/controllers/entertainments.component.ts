@@ -3,7 +3,7 @@ import {ViewEncapsulation} from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { PlaceService } from '../services/place.service';
 import { TitleService } from '../services/title.service';
-import { Placex }        from '../models/placex';
+import { Place }        from '../models/place';
 
 @Component({
   selector: 'app-events',

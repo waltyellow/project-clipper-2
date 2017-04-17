@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
 import { PlaceService } from '../services/place.service'
 import {ActivatedRoute } from '@angular/router';
-import { Placex }        from '../models/placex';
+import { Place }        from '../models/place';
 import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';

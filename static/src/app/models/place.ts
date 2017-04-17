@@ -1,4 +1,4 @@
-export class Placex {
+export class Place {
     constructor(
         public placeId: number,
         public name: string,
