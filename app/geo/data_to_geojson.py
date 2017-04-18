@@ -11,7 +11,12 @@ def create_feature_collection(events):
 def create_feature(event):
     coords = event.coords
     pt = Point((coords['long'], coords['lat']))
-    return Feature(geometry=pt, properties={'id': event.event_id})
+    return Feature(geometry=pt, properties={
+        'id': event.event_id,
+        'name': event.name,
+        'location': event.location,
+        'excitement': event.senti_score
+    })
 
 edm = EventDataManager()
 events = edm.find_all_events()
