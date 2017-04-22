@@ -18,6 +18,7 @@ import { StudyLocationsComponent } from './controllers/study-locations.component
 import { QuestionsComponent } from './controllers/questions.component';
 import { TitleService } from './services/title.service';
 import { CommentService } from './services/comment.service';
+import { SortService } from './services/sort.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { CommentService } from './services/comment.service';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [EventService, TitleService, PlaceService, CommentService],
+  providers: [EventService, TitleService, PlaceService, CommentService, SortService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
