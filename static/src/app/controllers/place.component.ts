@@ -12,7 +12,7 @@ import { CommentService } from '../services/comment.service';
   templateUrl: '../templates/place.component.html',
 })
 export class PlaceComponent implements OnInit {
-  public place: Placex;
+  public place: Place;
   public comments: Comment[]
   public newComment : Comment
   private sub:any;

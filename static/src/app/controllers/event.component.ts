@@ -5,7 +5,7 @@ import {ActivatedRoute } from '@angular/router';
 import { Eventx }        from '../models/eventx';
 import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
-import { CommentService } from '../services/comment.service';
+import { CommentService } from '../services/comment.service'; 
 
 @Component({
   selector: 'app-event',

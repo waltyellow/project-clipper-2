@@ -10,7 +10,7 @@ import { Place }        from '../models/place';
   templateUrl: '../templates/entertainments.component.html',
 })
 export class EntertainmentsComponent implements OnInit {
-  public places: Placex[];
+  public places: Place[];
   
   constructor(private titleService: TitleService, private placeService: PlaceService) {
   }
