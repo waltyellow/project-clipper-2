@@ -24,7 +24,7 @@ export class EventsComponent implements OnInit {
   }
 
   public sortEvents () {
-    this.propertySort.alphabeticSort<Eventx>(this.events, 'name');
+    this.sortService.propertySort<Eventx>(this.events, 'name');
   }
   
   setListView(listView: boolean) {
