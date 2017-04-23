@@ -18,6 +18,10 @@ export class BuildingComponent implements OnInit {
   constructor(private titleService: TitleService, private buildingService: BuildingService, private commentSvc: CommentService, private route: ActivatedRoute) {
     super(commentSvc)  
   }
+  
+  public postComment() : void {
+    super.postComment(this.building.buildingId)
+  }
 
   ngOnInit() {
     this.titleService.setTitle('Buildings');
