@@ -14,6 +14,7 @@ import { CommentService } from '../services/comment.service';
 export class EventComponent implements OnInit {
   public event: Eventx;
   public comments: Comment[]
+  public questions: Comment[]
   public newComment : Comment
   public commentView: boolean = true;
   private sub:any;
@@ -23,6 +24,7 @@ export class EventComponent implements OnInit {
   public postComment() : void {
     this.newComment.message_timestamp = new Date().getTime()
     this.newComment.message_parent = this.event.eventId
+    this.newComment.message_type = this.commentView? 'comment' : 'question'
     this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
     this.newComment = this.emptyComment()
   }
@@ -32,13 +34,17 @@ export class EventComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.eventService.getEvent(id).subscribe(event => this.event = event)
-        this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
+        this.commentService.getComments(id).subscribe(comments => {
+            let messages = comments['messages']
+            this.comments = messages.filter(msg => msg.message_type == 'comment')
+            this.questions = messages.filter(msg => msg.message_type == 'question')
+        })
     });
     this.newComment = this.emptyComment()
   }
   
   private emptyComment() : Comment {
-    return new Comment('', '', 0, 'demoUser', '')
+    return new Comment('', '', 0, 'demoUser', '', '')
   }
   
     setCommentView(commentView: boolean) {

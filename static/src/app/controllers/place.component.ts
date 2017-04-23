@@ -37,7 +37,7 @@ export class PlaceComponent implements OnInit {
   }
   
   private emptyComment() : Comment {
-    return new Comment('', '', 0, 'demoUser', '')
+    return new Comment('', '', 0, 'demoUser', '', '')
   }
 
   ngOnDestroy() {
