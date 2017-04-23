@@ -3,7 +3,6 @@ import {ViewEncapsulation} from '@angular/core';
 import { BuildingService } from '../services/building.service'
 import {ActivatedRoute } from '@angular/router';
 import { Building }        from '../models/building';
-import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
 
@@ -14,17 +13,10 @@ import { CommentService } from '../services/comment.service';
 
 export class BuildingComponent implements OnInit {
   public building: Building;
-  public comments: Comment[]
-  public newComment : Comment
   private sub:any;
 
-  constructor(private titleService: TitleService, private buildingService: BuildingService, private commentService: CommentService, private route: ActivatedRoute) { }
-
-  public postComment() : void {
-    this.newComment.message_timestamp = new Date().getTime()
-    this.newComment.message_parent = this.building.buildingId
-    this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
-    this.newComment = this.emptyComment()
+  constructor(private titleService: TitleService, private buildingService: BuildingService, private commentSvc: CommentService, private route: ActivatedRoute) {
+    super(commentSvc)  
   }
 
   ngOnInit() {
@@ -32,13 +24,9 @@ export class BuildingComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.buildingService.getBuilding(id).subscribe(building => this.building = building)
-        this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
+        this.subscribeToComments(id)
     });
-    this.newComment = this.emptyComment()
-  }
-  
-  private emptyComment() : Comment {
-    return new Comment('', '', 0, 'demoUser', '', '')
+    super.ngOnInit()
   }
 
   ngOnDestroy() {
