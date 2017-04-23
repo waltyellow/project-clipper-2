@@ -5,6 +5,23 @@ from bson.objectid import ObjectId
 import base64
 from typing import Any
 
+min_message_dict = {
+    'message_id': '',
+    'parent': '',
+    'type': '',
+    'ancestors': [],
+    'deleted': False
+}
+
+message_dict_with_optionals = {
+    'message_id': '',
+    'parent': '',
+    'type': '',
+    'ancestors': [],
+    'deleted': False,
+    'senti_vector': {},
+}
+
 
 class MessageDataManager:
     '''establish the database and import the collection
@@ -20,7 +37,11 @@ class MessageDataManager:
         #                                       ("type", pymongo.ASCENDING)])
         # self.message_collection.create_index([("thread_id", pymongo.ASCENDING))
 
-    def validate_message(message):
+    def validate_message(message_dict: dict):
+        for key in min_message_dict:
+            if key not in message_dict:
+                error_message = 'missing required key ' + key + ' in this message'
+                raise ValueError(error_message)
         return True
 
     @staticmethod
@@ -34,16 +55,8 @@ class MessageDataManager:
         return ObjectId(base64.urlsafe_b64decode(message_id[3:]))
 
     def create_empty_message_without_id(self) -> dict:
-        message_dict = {
-            'message_id': '',
-            'message_body': '',
-            'message_timestamp': '',
-            'message_username': '',
-            'message_parent': '',
-            'message_senti_vector': {},
-            'deleted': False
-        }
-        return message_dict
+
+        return min_message_dict
 
     '''inserts an message, updates the message's _id and message_id and returns the object'''
 
@@ -69,16 +82,19 @@ class MessageDataManager:
         message_dict['_id'] = str(message_dict['_id'])
         return message_dict
 
-    def find_all_messages(self) -> [dict]:
-        message_dicts_cursor = self.message_collection.find({})
+    def find_messages_by_filter(self, filter) -> [dict]:
+        message_dicts_cursor = self.message_collection.find(filter)
         message_dicts = []
         for message_dict in message_dicts_cursor:
             message_dict['_id'] = str(message_dict['_id'])
             message_dicts.append(message_dict)
         return message_dicts
 
+    def find_all_messages(self) -> [dict]:
+        return self.find_messages_by_filter({})
+
     def find_all_messages_for_parent(self, parent_id) -> [dict]:
-        message_dicts_cursor = self.message_collection.find({'message_parent': parent_id})
+        message_dicts_cursor = self.message_collection.find({'parent': parent_id})
         message_dicts = []
         for message_dict in message_dicts_cursor:
             message_dict['_id'] = str(message_dict['_id'])
@@ -116,7 +132,7 @@ def test():
     messageDataManager.insert_message_one(newMessage)
     founded_message = messageDataManager.find_message_by_id(str(newMessage['message_id']))
     print(founded_message)
-    founded_message['message_parent'] = 'ms-WL9vBU9tc-5k93Yt'  # update name
+    founded_message['parent'] = 'ms-WL9vBU9tc-5k93Yt'  # update name
     messageDataManager.replace_one_message(founded_message)
     print(founded_message)
     messageDataManager.update_one_message_by_diff(founded_message['message_id'], 'name', 'pl4')
