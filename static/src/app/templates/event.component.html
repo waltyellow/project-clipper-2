@@ -26,9 +26,9 @@
             <button class="btn btn-default" (click)="postComment()">Post</button>
         </div>
     </div>
-    <div class="single-comment" *ngFor="let comment of comments">
-        <span><b>{{comment.message_username}}</b></span><span class="excitement-score">[excitement score: 5]</span>
+    <div class="single-comment" *ngFor="let msg of (commentView? comments : questions)">
+        <span><b>{{msg.message_username}}</b></span><span class="excitement-score">[excitement score: 5]</span>
         <br />
-        <span>{{comment.message_body}}</span>
+        <span>{{msg.message_body}}</span>
     </div>
 </div>

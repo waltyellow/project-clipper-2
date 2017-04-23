@@ -5,5 +5,6 @@ export class Comment {
         public message_timestamp: number,
         public message_username: string,
         public message_parent: string,
+        public message_type: string,
         ){}
 }
