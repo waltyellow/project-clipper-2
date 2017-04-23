@@ -22,9 +22,38 @@ function generateMap() {
             'type': 'circle',
             'paint': {
                 'circle-opacity': 0.45,
-                'circle-color': '#00FF00',
-                'circle-radius': 10
+                'circle-color': '#00FF00'
             }
         }, 'waterway-label');
+        
+        map.setPaintProperty('events', 'circle-radius', {
+            property: 'excitement',
+            stops: [
+                [-1, 1],
+                [1, 25]
+            ]
+        });
+        
+        var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+        map.on('mousemove', function(e) {
+            var features = map.queryRenderedFeatures(e.point, {
+                layers: ['events']
+            });
+    
+            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+    
+            if (!features.length) {
+            	return popup.remove();
+            }
+    
+            var feature = features[0];
+            popup.setLngLat(feature.geometry.coordinates)
+        	    .setHTML('<a href="events/' + feature.properties.id + '/event">' + feature.properties.name + '</a><br />' +
+                      feature.properties.location + '<br />' + 'Excitement: ' + feature.properties.excitement)
+        	    .addTo(map);
+        });
     });
 }

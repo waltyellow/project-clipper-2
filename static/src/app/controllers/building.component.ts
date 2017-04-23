@@ -1,43 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
-import { PlaceService } from '../services/place.service'
+import { BuildingService } from '../services/building.service'
 import {ActivatedRoute } from '@angular/router';
-import { Place }        from '../models/place';
+import { Building }        from '../models/building';
 import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
 
 @Component({
-  selector: 'app-place',
-  templateUrl: '../templates/place.component.html',
+  selector: 'app-building',
+  templateUrl: '../templates/building.component.html',
 })
-export class PlaceComponent implements OnInit {
-  public place: Place;
+
+export class BuildingComponent implements OnInit {
+  public building: Building;
   public comments: Comment[]
   public newComment : Comment
   private sub:any;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private commentService: CommentService, private route: ActivatedRoute) { }
+  constructor(private titleService: TitleService, private buildingService: BuildingService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   public postComment() : void {
-    this.newComment.message_timestamp = new Date().getTime()
-    this.newComment.message_parent = this.place.placeId
     this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
-    this.newComment = this.emptyComment()
+    this.newComment = new Comment('', '', '', 'demoUser')
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Places');
+    this.titleService.setTitle('Buildings');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        this.placeService.getPlace(id).subscribe(place => this.place = place)
+        this.buildingService.getBuilding(id).subscribe(building => this.building = building)
         this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
-    this.newComment = this.emptyComment()
-  }
-  
-  private emptyComment() : Comment {
-    return new Comment('', '', 0, 'demoUser', '')
+    this.newComment = new Comment('', '', '', 'demoUser')
   }
 
   ngOnDestroy() {
