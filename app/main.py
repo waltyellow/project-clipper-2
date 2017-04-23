@@ -3,8 +3,11 @@ from flask_cors import CORS, cross_origin
 from app import server
 from app.event import api
 from app.message import api
+from app.places import api
 import os
+
 CORS(server)
+
 
 @server.route('/')
 def hello_world2():
@@ -26,7 +29,6 @@ def dated_url_for(endpoint, **values):
     return url_for(endpoint, **values)
 
 
-
 @server.route(rule='/example/<string:event_id>/create', endpoint='optional')
 def create2(event_id):
     ret = str(event_id) + '-> example create'
@@ -35,11 +37,11 @@ def create2(event_id):
     return redirect(url)
 
 
-
 @server.route(rule='/example/<string:event_id>/update')
 def update2(event_id):
     ret = str(event_id) + ' -> example update'
     return ret
+
 
 if __name__ == '__main__':
     server.run(debug=True)
