@@ -15,6 +15,7 @@ export class EventComponent implements OnInit {
   public event: Eventx;
   public comments: Comment[]
   public newComment : Comment
+  public commentView: boolean = true;
   private sub:any;
 
   constructor(private titleService: TitleService, private eventService: EventService, private commentService: CommentService, private route: ActivatedRoute) { }
@@ -32,6 +33,10 @@ export class EventComponent implements OnInit {
         this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
     this.newComment = new Comment('', '', '', 'demoUser')
+  }
+  
+    setCommentView(commentView: boolean) {
+  	 this.commentView = commentView;
   }
 
   ngOnDestroy() {
