@@ -14,6 +14,7 @@ import { EntertainmentsComponent } from './controllers/entertainments.component'
 import { PlaceComponent } from './controllers/place.component';
 import { PlaceService } from './services/place.service';
 import { BuildingsComponent } from './controllers/buildings.component';
+import { BuildingComponent } from './controllers/building.component';
 import { StudyLocationsComponent } from './controllers/study-locations.component';
 import { QuestionsComponent } from './controllers/questions.component';
 import { TitleService } from './services/title.service';
@@ -29,6 +30,7 @@ import { SortService } from './services/sort.service';
     EntertainmentsComponent,
     PlaceComponent,
     BuildingsComponent,
+    BuildingComponent,
     StudyLocationsComponent,
     QuestionsComponent
   ],

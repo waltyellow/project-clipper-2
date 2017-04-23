@@ -29,7 +29,7 @@ export class BuildingComponent implements OnInit {
     this.titleService.setTitle('Buildings');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        this.buildingService.getEvent(id).subscribe(building => this.building = building)
+        this.buildingService.getBuilding(id).subscribe(building => this.building = building)
         this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
     this.newComment = new Comment('', '', '', 'demoUser')
