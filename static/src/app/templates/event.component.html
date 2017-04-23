@@ -12,7 +12,14 @@
 </div>
 <div class="divider"></div>
 <div class="comments-container">
-    <h3 class="comments-header">Comments</h3>
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-modal" [class.selected]="listView" (click)="setListView(true)">Comments</button>
+        </div>
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-modal" [class.selected]="!listView" (click)="setListView(false)">Questions</button>
+        </div>
+    </div>
     <div class="single-comment">
         <form class="form-inline question-form" method="post">
             <input type="text" class="form-control question-entry" id="message_body" placeholder="Enter a comment" [(ngModel)]="newComment.message_body" name="body">
