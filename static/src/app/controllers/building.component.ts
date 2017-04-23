@@ -5,13 +5,14 @@ import {ActivatedRoute } from '@angular/router';
 import { Building }        from '../models/building';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
+import { MessageComponent } from './messages.component';
 
 @Component({
   selector: 'app-building',
   templateUrl: '../templates/building.component.html',
 })
 
-export class BuildingComponent implements OnInit {
+export class BuildingComponent extends MessageComponent implements OnInit {
   public building: Building;
   private sub:any;
 
