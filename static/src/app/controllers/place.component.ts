@@ -3,27 +3,24 @@ import {ViewEncapsulation} from '@angular/core';
 import { PlaceService } from '../services/place.service'
 import {ActivatedRoute } from '@angular/router';
 import { Place }        from '../models/place';
-import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
+import { MessageComponent } from './messages.component';
 
 @Component({
   selector: 'app-place',
   templateUrl: '../templates/place.component.html',
 })
-export class PlaceComponent implements OnInit {
+export class PlaceComponent extends MessageComponent implements OnInit {
   public place: Place;
-  public comments: Comment[]
-  public newComment : Comment
   private sub:any;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private commentService: CommentService, private route: ActivatedRoute) { }
+  constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService, private route: ActivatedRoute) {
+    super(commentSvc)  
+  }
 
   public postComment() : void {
-    this.newComment.message_timestamp = new Date().getTime()
-    this.newComment.message_parent = this.place.placeId
-    this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
-    this.newComment = this.emptyComment()
+    super.postComment(this.place.placeId)
   }
 
   ngOnInit() {
@@ -31,13 +28,9 @@ export class PlaceComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.placeService.getPlace(id).subscribe(place => this.place = place)
-        this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
+        this.subscribeToComments(id)
     });
-    this.newComment = this.emptyComment()
-  }
-  
-  private emptyComment() : Comment {
-    return new Comment('', '', 0, 'demoUser', '', '')
+    super.ngOnInit()
   }
 
   ngOnDestroy() {
