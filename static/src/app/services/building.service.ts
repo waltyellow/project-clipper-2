@@ -4,7 +4,7 @@ import {Observable}        from 'rxjs/Rx';
 import { Building }          from '../models/building';
 
 @Injectable()
-export class BuildingsService {
+export class BuildingService {
   constructor(private http: Http) { }
 
   private baseURL = 'http://localhost:5000/buildings/';

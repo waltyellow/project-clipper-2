@@ -1,0 +1,29 @@
+<a class="btn btn-default btn-block back-button" href="buildings" role="button">Back to building list</a>
+<div class="details-panel">
+    <h3 class="building-title">{{building? building.name : ''}}</h3>
+    <div class="time-location">
+        Location: {{building? building.location : ''}}<br />
+        Time: {{building? building.start_time : ''}}
+    </div>
+</div>
+<div class="divider"></div>
+<div class="details-panel">
+    <span>This is an building that is taking place for a reason and will be located at a place and things</span>
+</div>
+<div class="divider"></div>
+<div class="comments-container">
+    <h3 class="comments-header">Comments</h3>
+    <div class="single-comment">
+        <form class="form-inline question-form" method="post">
+            <input type="text" class="form-control question-entry" id="message_body" placeholder="Enter a comment" [(ngModel)]="newComment.message_body" name="body">
+            <input type="hidden" id="message_username" value="temp_user" />
+            <input type="hidden" id="message_parent" value="building_id" />
+            <button type="submit" class="btn btn-default" (click)="postComment()">Post</button>
+        </form>
+    </div>
+    <div class="single-comment" *ngFor="let comment of comments">
+        <span><b>{{comment.message_username}}</b></span><span class="excitement-score">[excitement score: 5]</span>
+        <br />
+        <span>{{comment.message_body}}</span>
+    </div>
+</div>
