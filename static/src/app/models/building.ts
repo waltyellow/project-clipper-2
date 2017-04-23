@@ -1,7 +1,7 @@
 
 export class Building{
   constructor(
-    public buildingId: number,
+    public buildingId: string,
     public name: string,
     public location: string
   ){}
