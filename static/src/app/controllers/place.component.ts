@@ -20,8 +20,10 @@ export class PlaceComponent implements OnInit {
   constructor(private titleService: TitleService, private placeService: PlaceService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   public postComment() : void {
+    this.newComment.message_timestamp = new Date().getTime()
+    this.newComment.message_parent = this.place.placeId
     this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
-    this.newComment = new Comment('', '', '', 'demoUser')
+    this.newComment = this.emptyComment()
   }
 
   ngOnInit() {
@@ -31,7 +33,11 @@ export class PlaceComponent implements OnInit {
         this.placeService.getPlace(id).subscribe(place => this.place = place)
         this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
-    this.newComment = new Comment('', '', '', 'demoUser')
+    this.newComment = this.emptyComment()
+  }
+  
+  private emptyComment() : Comment {
+    return new Comment('', '', 0, 'demoUser', '')
   }
 
   ngOnDestroy() {

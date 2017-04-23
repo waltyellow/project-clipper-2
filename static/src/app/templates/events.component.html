@@ -29,7 +29,7 @@
                     <span>{{event.location}}</span>
                 </div>
                 <div class="event-datetime">
-                    <span>{{event.start_time}}</span>
+                    <span>{{event? (event.start_time | date:'MMM d h:ma') : ''}}</span>
                 </div>
             </div>
         </div>

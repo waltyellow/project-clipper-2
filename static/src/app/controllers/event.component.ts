@@ -21,8 +21,10 @@ export class EventComponent implements OnInit {
   constructor(private titleService: TitleService, private eventService: EventService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   public postComment() : void {
+    this.newComment.message_timestamp = new Date().getTime()
+    this.newComment.message_parent = this.event.eventId
     this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
-    this.newComment = new Comment('', '', '', 'demoUser')
+    this.newComment = this.emptyComment()
   }
 
   ngOnInit() {
@@ -32,7 +34,11 @@ export class EventComponent implements OnInit {
         this.eventService.getEvent(id).subscribe(event => this.event = event)
         this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
     });
-    this.newComment = new Comment('', '', '', 'demoUser')
+    this.newComment = this.emptyComment()
+  }
+  
+  private emptyComment() : Comment {
+    return new Comment('', '', 0, 'demoUser', '')
   }
   
     setCommentView(commentView: boolean) {

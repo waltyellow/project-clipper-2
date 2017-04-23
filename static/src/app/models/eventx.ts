@@ -1,6 +1,6 @@
 export class Eventx {
     constructor(
-        public eventId: number,
+        public eventId: string,
         public name: string,
         public start_time: string,
         public duration: number,
