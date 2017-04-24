@@ -14,10 +14,12 @@ import { EntertainmentsComponent } from './controllers/entertainments.component'
 import { PlaceComponent } from './controllers/place.component';
 import { PlaceService } from './services/place.service';
 import { BuildingsComponent } from './controllers/buildings.component';
+import { BuildingComponent } from './controllers/building.component';
 import { StudyLocationsComponent } from './controllers/study-locations.component';
 import { QuestionsComponent } from './controllers/questions.component';
 import { TitleService } from './services/title.service';
 import { CommentService } from './services/comment.service';
+import { SortService } from './services/sort.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { CommentService } from './services/comment.service';
     EntertainmentsComponent,
     PlaceComponent,
     BuildingsComponent,
+    BuildingComponent,
     StudyLocationsComponent,
     QuestionsComponent
   ],
@@ -38,7 +41,7 @@ import { CommentService } from './services/comment.service';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [EventService, TitleService, PlaceService, CommentService],
+  providers: [EventService, TitleService, PlaceService, CommentService, SortService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,25 +3,24 @@ import {ViewEncapsulation} from '@angular/core';
 import { EventService } from '../services/event.service'
 import {ActivatedRoute } from '@angular/router';
 import { Eventx }        from '../models/eventx';
-import { Comment }         from '../models/comment';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
+import { MessageComponent } from './messages.component'; 
 
 @Component({
   selector: 'app-event',
   templateUrl: '../templates/event.component.html',
 })
-export class EventComponent implements OnInit {
+export class EventComponent extends MessageComponent implements OnInit {
   public event: Eventx;
-  public comments: Comment[]
-  public newComment : Comment
   private sub:any;
 
-  constructor(private titleService: TitleService, private eventService: EventService, private commentService: CommentService, private route: ActivatedRoute) { }
-
-  public postComment() : void {
-    this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
-    this.newComment = new Comment('', '', '', 'demoUser')
+  constructor(private titleService: TitleService, private eventService: EventService, private commentSvc: CommentService, private route: ActivatedRoute) {
+    super(commentSvc)
+  }
+  
+  public postComment() {
+    super.postComment(this.event.eventId)  
   }
 
   ngOnInit() {
@@ -29,9 +28,9 @@ export class EventComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.eventService.getEvent(id).subscribe(event => this.event = event)
-        this.commentService.getComments(id).subscribe(comments => this.comments = comments['messages'])
+        this.subscribeToComments(id)
     });
-    this.newComment = new Comment('', '', '', 'demoUser')
+    super.ngOnInit()
   }
 
   ngOnDestroy() {

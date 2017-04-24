@@ -1,33 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
-import { PlaceService } from '../services/place.service'
+import { BuildingService } from '../services/building.service'
 import {ActivatedRoute } from '@angular/router';
-import { Place }        from '../models/place';
+import { Building }        from '../models/building';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
 import { MessageComponent } from './messages.component';
 
 @Component({
-  selector: 'app-place',
-  templateUrl: '../templates/place.component.html',
+  selector: 'app-building',
+  templateUrl: '../templates/building.component.html',
 })
-export class PlaceComponent extends MessageComponent implements OnInit {
-  public place: Place;
+
+export class BuildingComponent extends MessageComponent implements OnInit {
+  public building: Building;
   private sub:any;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService, private route: ActivatedRoute) {
+  constructor(private titleService: TitleService, private buildingService: BuildingService, private commentSvc: CommentService, private route: ActivatedRoute) {
     super(commentSvc)  
   }
-
+  
   public postComment() : void {
-    super.postComment(this.place.placeId)
+    super.postComment(this.building.buildingId)
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Places');
+    this.titleService.setTitle('Buildings');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        this.placeService.getPlace(id).subscribe(place => this.place = place)
+        this.buildingService.getBuilding(id).subscribe(building => this.building = building)
         this.subscribeToComments(id)
     });
     super.ngOnInit()
