@@ -9,7 +9,7 @@ from app.data_managers.message_data_manager import MessageDataManager
 
 
 @server.route(rule='/messages/template', endpoint='message_create_get', methods=['GET'])
-def fetch_event_template():
+def fetch_message_template():
     return json.dumps(mdm.min_message_dict)
 
 

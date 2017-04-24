@@ -3,6 +3,7 @@ from typing import Any
 
 from bson.objectid import ObjectId
 from pymongo import MongoClient
+from geojson import Point, Polygon
 
 min_event_dict = {
     'event_id': '',
@@ -20,7 +21,10 @@ event_dict_with_optionals = {
     'description': '',
     'deleted': False,
     'user_id': '',
-    'place_id': ''
+    'place_id': '',
+    'center': Point((108.22, 22.35)),
+    'radius': 1, # in kilometers
+    'area': Polygon([[(2.38, 57.322), (23.194, -20.28), (-120.43, 19.15), (2.38, 57.322)]])
 }
 
 

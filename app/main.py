@@ -4,6 +4,7 @@ from app import server
 from app.event import api
 from app.message import api
 from app.places import api
+from app.utility import webhook_endpoint
 import os
 
 CORS(server)
