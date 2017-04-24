@@ -2,12 +2,18 @@ from app import server
 from flask import request, make_response
 import json
 
+import logging
+logging.basicConfig(filename='webhook.log',level=logging.DEBUG)
+logging.debug('This message should go to the log file')
+logging.info('So should this')
+logging.warning('And this, too')
+
 @server.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
-    print("Request:")
-    print(json.dumps(req, indent=4))
+    logging.info("Request:")
+    logging.info(json.dumps(req, indent=4))
 
     res = {
         "speech": "hello",
