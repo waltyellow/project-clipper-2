@@ -1,10 +1,8 @@
-import pymongo
-from pymongo import MongoClient
-from pymongo.collection import ReturnDocument
-from bson.objectid import ObjectId
-from app.models.event import Event
 import base64
 from typing import Any
+
+from bson.objectid import ObjectId
+from pymongo import MongoClient
 
 min_event_dict = {
     'event_id': '',
@@ -117,21 +115,21 @@ class EventDataManager:
 '''TESTING SECTION'''
 
 
-def test():
-    eventDataManager = EventDataManager()
-    newEvent = Event()
-    print(newEvent)
-    newEvent.name = 'placeholder'
-    print(newEvent)
-    eventDataManager.insert_event_one(newEvent.__dict__)
-    founded_event = eventDataManager.find_event_by_id(str(newEvent.event_id))
-    print(founded_event)
-    founded_event['name'] = 'plc'  # update name
-    eventDataManager.replace_one_event(founded_event)
-    print(founded_event)
-    eventDataManager.update_one_event_by_diff(founded_event['event_id'], 'name', 'pl5')
-    # eventDataManager.delete_event_by_id(str(newEvent.event_id))
-    eventDataManager.find_event_by_id(str(newEvent.event_id))
+# def test():
+#     eventDataManager = EventDataManager()
+#     newEvent = Event()
+#     print(newEvent)
+#     newEvent.name = 'placeholder'
+#     print(newEvent)
+#     eventDataManager.insert_event_one(newEvent.__dict__)
+#     founded_event = eventDataManager.find_event_by_id(str(newEvent.event_id))
+#     print(founded_event)
+#     founded_event['name'] = 'plc'  # update name
+#     eventDataManager.replace_one_event(founded_event)
+#     print(founded_event)
+#     eventDataManager.update_one_event_by_diff(founded_event['event_id'], 'name', 'pl5')
+#     # eventDataManager.delete_event_by_id(str(newEvent.event_id))
+#     eventDataManager.find_event_by_id(str(newEvent.event_id))
 
 
 def test2():
@@ -147,4 +145,5 @@ def test2():
 
 
 if __name__ == '__main__':
-    test()
+    # test()
+    pass

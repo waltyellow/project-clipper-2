@@ -1,15 +1,12 @@
-from app import server, constants
-from flask import make_response, request, current_app, redirect, url_for
-from flask_cors import CORS, cross_origin
-import time
-import math
 import json
-from app.models.event import Event
-from app.data_managers.event_data_manager import EventDataManager
+import time
+
+from flask import request
+
 import app.data_managers.event_data_manager as edm
-from app.data_managers.message_data_manager import MessageDataManager
-from app.sentiment.emotion import emotion_data
+from app import server
 from app.data_managers.common import search_parameter_to_db_filter
+from app.data_managers.event_data_manager import EventDataManager
 
 
 @server.route(rule='/events/template', endpoint='event_create_get', methods=['GET'])
@@ -106,21 +103,6 @@ def search_event():
     event_dicts = dm.find_events_by_filter(filter)
     return json.dumps({'events': event_dicts})
 
-
-def add_score(score, added_score):
-    # grab last_updated_time
-    last_updated_time = score['last_updated_time']
-    current_time = time.time()
-    old_score = score['value']
-    new_score = calculate_new_score(last_updated_time, current_time, old_score, added_score)
-    score = {'last_updated_time': current_time, 'value': new_score}
-
-
-def calculate_new_score(last_updated_time, current_time, old_score, added_score):
-    time_delta = current_time - last_updated_time
-    factor_decay = math.exp(0 - constants.get_timescale() * time_delta)
-    score = old_score * factor_decay + added_score
-    return added_score
 
 
 if __name__ == '__main__':
