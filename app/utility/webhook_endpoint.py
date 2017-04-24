@@ -28,3 +28,8 @@ def webhook():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
+
+@server.route('/webhook', methods=['GET'])
+def webhook_get():
+    return "you have reached the webhook"
+
