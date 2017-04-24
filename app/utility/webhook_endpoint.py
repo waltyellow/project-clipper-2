@@ -9,7 +9,13 @@ def webhook():
     print("Request:")
     print(json.dumps(req, indent=4))
 
-    res = {'a': '123'}
+    res = {
+        "speech": "hello",
+        "displayText": "back",
+        # "data": data,
+        # "contextOut": [],
+        "source": "evention"
+    }
 
     res = json.dumps(res, indent=4)
     # print(res)
