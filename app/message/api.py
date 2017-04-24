@@ -1,10 +1,10 @@
-from app import server
-from flask import make_response, request, current_app
-from app.sentiment.emotion import emotion_data
-from app.data_managers import common
-from flask_cors import CORS, cross_origin
 import json
+
+from flask import request
+
 import app.data_managers.message_data_manager as mdm
+from app import server
+from app.data_managers import common
 from app.data_managers.message_data_manager import MessageDataManager
 
 
