@@ -3,20 +3,22 @@ from flask import request, make_response
 import json
 
 import logging
-logging.basicConfig(filename='webhook.log',level=logging.DEBUG)
 
-@server.route('/webhook', methods=['POST'])
+logging.basicConfig(filename='webhook.log', level=logging.DEBUG)
+
+
+@server.route('/wh', methods=['POST'])
 def webhook():
-    req = request.get_json(silent=True, force=True)
+    data = json.loads(request.data)
 
-    logging.info("Request:")
-    logging.info(json.dumps(req, indent=4))
+    location = data['parameters']['location']
+
+    reply =  "Here is the rating and excitement level for" + location + \
+    "The rating is 4.25 which is excellent. " \
+    "The excitement level is high right now."
 
     res = {
-        "speech": "hello",
-        "displayText": "back",
-        # "data": data,
-        # "contextOut": [],
+        "speech": reply,
         "source": "evention"
     }
 
@@ -25,8 +27,3 @@ def webhook():
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
-
-@server.route('/webhook', methods=['GET'])
-def webhook_get():
-    return "you have reached the webhook"
-
