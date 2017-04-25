@@ -12,7 +12,7 @@ def webhook():
     decoded_json = request.get_data().decode("utf-8")
     data_object = json.loads(decoded_json)
 
-    location = data_object['parameters']['location']
+    location = data_object['result']['parameters']['location']
 
     reply =  "Here is the rating and excitement level for" + location + \
     "The rating is 4.25 which is excellent. " \
