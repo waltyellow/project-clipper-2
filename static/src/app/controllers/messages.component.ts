@@ -1,5 +1,6 @@
 import { Comment } from '../models/comment';
 import { CommentService } from '../services/comment.service';
+import { SortService } from '../services/sort.service';
 
 export class MessageComponent {
   public comments: Comment[]
@@ -7,7 +8,7 @@ export class MessageComponent {
   public newComment : Comment
   public commentView: boolean = true;
 
-  constructor(public commentService: CommentService) { }
+  constructor(public commentService: CommentService, public sortService: SortService) { }
 
   public postComment(parentId: string) : void {
     this.newComment.posted = new Date().getTime()
@@ -28,8 +29,12 @@ export class MessageComponent {
   subscribeToComments(id) {
     this.commentService.getComments(id).subscribe(comments => {
         let messages = comments['messages']
+        
         this.comments = messages.filter(msg => msg.type == 'comment')
+        this.sortService.propertySort(this.comments, 'posted', true)
+        
         this.questions = messages.filter(msg => msg.type == 'question')
+        this.sortService.propertySort(this.questions, 'posted', true)
     })
   }
   
