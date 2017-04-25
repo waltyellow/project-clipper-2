@@ -24,7 +24,7 @@ class UserDataManager:
             print('inserted user ' + user.fb_id)
             return user
 
-        def find_user(self,, fb_id: str):
+        def find_user(self, fb_id: str):
             print('finding user' + fb_id)
             user_dict = self.user_collection.find_one({'fb_id':fb_id})
             if user_dict is None:
