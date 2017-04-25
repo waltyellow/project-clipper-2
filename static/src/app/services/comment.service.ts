@@ -7,7 +7,7 @@ import { Comment }         from '../models/comment';
 export class CommentService {
     constructor(private http: Http) { }
     
-    private messageURL = 'http://localhost:5000/messages/parent/';
+    private messageURL = 'http://localhost:5000/messages?parent=';
     private createMessageURL = 'http://localhost:5000/messages/create';
 
     public getComments(id) : Observable<Comment[]> {
@@ -21,8 +21,11 @@ export class CommentService {
     public postComment(comment) : Observable<Comment> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        let emptyComment = this.getEmptyComment()
-        return this.http.post(this.createMessageURL, emptyComment, options)
-        .map((res:Response) => res.json())
+        
+        let emptyComment = this.getEmptyComment().first()
+        emptyComment.do(empty => comment.message_id = empty.message_id)
+        
+        return this.http.post(this.createMessageURL, comment, options)
+            .map((res:Response) => res.json())
     }
 }
