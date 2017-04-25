@@ -24,6 +24,8 @@ def webhook():
         # places = PlaceDataManager().find_places_by_filter({'name':common.generate_search_query(location)})
         places = [{'name': "Tomlinson Food Court", 'rating_average': 3.3}]
         if not places:
+            reply = "Sorry, we cannot find" + location + ", try a different name?"
+        else:
             place = places[0]
             name = place['name']
             rating = place['rating_average']
@@ -33,8 +35,6 @@ def webhook():
             reply = "Here is the rating and excitement level for " + name + \
                     ". The rating is " + rating + " which is " + adjative + \
                     ". The excitement level is " + excitement_level + " right now."
-        else:
-            reply = "Sorry, we cannot find" + location + ", try a different name?"
 
     elif action == 'find_event':
         location = data_object['result']['parameters']['location']
