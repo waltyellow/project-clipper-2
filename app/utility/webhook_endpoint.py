@@ -21,7 +21,8 @@ def webhook():
     if action == 'get_place':
         location = data_object['result']['parameters']['location']
         location = sanitize_location(location)
-        places = PlaceDataManager().find_places_by_filter({'name':common.generate_search_query(location)})
+        # places = PlaceDataManager().find_places_by_filter({'name':common.generate_search_query(location)})
+        places = [{'name': "Tomlinson Food Court", 'rating_average': 3.3}]
         if places.count() > 0:
             place = places[0]
             name = place['name']
