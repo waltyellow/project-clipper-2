@@ -10,7 +10,9 @@ min_event_dict = {
     'keywords': '',
     'name': '',
     'description': '',
-    'deleted': False
+    'deleted': False,
+    'location': '',
+    'place_id': ''
 }
 
 event_dict_with_optionals = {
@@ -23,8 +25,7 @@ event_dict_with_optionals = {
     'user_id': '',
     'place_id': '',
     'center': Point((108.22, 22.35)),
-    'radius': 1, # in kilometers
-    'area': Polygon([[(2.38, 57.322), (23.194, -20.28), (-120.43, 19.15), (2.38, 57.322)]])
+    'radius': 1  # in kilometers
 }
 
 
