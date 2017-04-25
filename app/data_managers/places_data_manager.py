@@ -94,6 +94,11 @@ class PlaceDataManager:
             place_dict['_id'] = str(place_dict['_id'])
             return place_dict
 
+    def find_one_by_filter(self, filter: dict):
+        place_dict = self.place_collection.find_one(filter=filter)
+        place_dict['_id'] = str(place_dict['_id'])
+        return place_dict
+
     def find_places_by_filter(self, filter: dict):
         place_dicts = self.place_collection.find(filter)
         places = []
