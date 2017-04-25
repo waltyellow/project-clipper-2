@@ -22,7 +22,7 @@ def webhook():
         location = data_object['result']['parameters']['location']
         location = sanitize_location(location)
         # places = PlaceDataManager().find_places_by_filter({'name':common.generate_search_query(location)})
-        places = [{'name': "Tomlinson Food Court", 'rating_average': 3.3}]
+        places = [{'name': "Tomlinson Food Court", 'rating_average': 3.3, 'senti_score': 16}]
         if not places:
             reply = "Sorry, we cannot find" + location + ", try a different name?"
         else:
