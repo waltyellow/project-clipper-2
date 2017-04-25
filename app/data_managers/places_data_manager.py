@@ -8,7 +8,6 @@ from typing import Any
 
 min_place_dict = {
     'place_id': '',
-    'type': 'place',
     'deleted': False
 }
 
@@ -93,10 +92,25 @@ class PlaceDataManager:
         place_dicts = self.place_collection.find(filter)
         places = []
         for place_dict in place_dicts:
-            place_dict['_id'] = str(place_dict['_id]'])
+            place_dict['_id'] = str(place_dict['_id'])
             places.append(place_dict)
         return places
 
     def find_all_places(self):
         filter = {'deleted': False}
         return self.find_places_by_filter(filter=filter)
+
+min_place_dict2 = {
+    'place_id': '',
+    'name':'p35',
+    'deleted': False
+}
+
+def testp():
+    pm = PlaceDataManager()
+    p1=pm.insert_one_place(min_place_dict2)
+    print(p1.__str__())
+    print(pm.find_all_places().__str__())
+
+if __name__ == '__main__':
+    testp()

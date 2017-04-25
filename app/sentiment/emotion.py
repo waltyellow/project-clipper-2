@@ -1,4 +1,5 @@
 __author__ = 'navyakandkuri'
+#nodebox
 import sys
 import getopt
 import string
@@ -8,7 +9,7 @@ from nltk.stem import *
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-import en
+#import en
 
 
 
@@ -76,7 +77,7 @@ def emotion_data(comment):
     #print final_output
    # print("final output",final_output)
     json_output = json.dumps(final_output)
-    print json_output
+    print (json_output)
     return json_output
 
 
@@ -117,7 +118,9 @@ def stem_and_lemmatize(sentence):
                     #print("cry")
                     try:
                         #word_emotion(en.verb.present(i),sn)
-                        current_word = en.verb.present(i)
+                        #current_word = en.verb.present(i) (This is the real one)
+                        #remove the next line for the actual project
+                        current_word = sno.stem(current_word)
                         polarity_intense += float(sn.polarity_intense(current_word))
                         sentics_values(current_word,sn,comment_sentics)
                         add_mood_tags(comment_mood_tags,sn,current_word)
@@ -170,7 +173,7 @@ def main(argv):
     #word_parser(input_comment.translate(None,string.punctuation))
     current_sentence = sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
     excitement = stem_and_lemmatize(current_sentence)
-    print excitement
+    print (excitement)
 
 if __name__ == "__main__":
     main(sys.argv[1:])
