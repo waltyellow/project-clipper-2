@@ -23,7 +23,7 @@ def webhook():
         location = sanitize_location(location)
         # places = PlaceDataManager().find_places_by_filter({'name':common.generate_search_query(location)})
         places = [{'name': "Tomlinson Food Court", 'rating_average': 3.3}]
-        if not places.count:
+        if not places:
             place = places[0]
             name = place['name']
             rating = place['rating_average']
