@@ -24,6 +24,8 @@ def webhook():
     if action == 'get_place':
         try:
             location, place = find_location_and_place(data_object)
+            if location == '':
+                return "Ask for location", 404
         except KeyError:
             return "No location", 404
 
@@ -54,7 +56,10 @@ def webhook():
                 location, place = find_location_and_place(data_object)
                 query_position = place['geo_coordinate']
             except KeyError:
-                return "No coordinate", 404
+                if location == '':
+                    return "No coordinate", 404
+                else:
+                    reply = reply_no_location(location, reply)
         reply = reply_for_events(query_position, location_name='you')
 
         # find nearby events
