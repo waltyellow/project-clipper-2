@@ -9,7 +9,7 @@ logging.basicConfig(filename='webhook.log', level=logging.DEBUG)
 
 @server.route('/wh', methods=['POST'])
 def webhook():
-    data = json.loads(request.data)
+    data = request.data
 
     location = data['parameters']['location']
 
