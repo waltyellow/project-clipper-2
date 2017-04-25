@@ -69,7 +69,7 @@ def get_one_message(message_id: str):
 '''search for messages based on a certain criteria'''
 '''
 Search for messages whose parent is ev-1234 AND other criterias
--  /messages/search?parent=ev-1234&criteria=something
+-  /messages?parent=ev-1234&criteria=something
 
 '''
 '''search for messages based on a certain criteria'''

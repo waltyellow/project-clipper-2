@@ -10,10 +10,10 @@ export class MessageComponent {
   constructor(public commentService: CommentService) { }
 
   public postComment(parentId: string) : void {
-    this.newComment.message_timestamp = new Date().getTime()
-    this.newComment.message_parent = parentId
-    this.newComment.message_type = this.commentView? 'comment' : 'question'
-    this.commentService.postComment(this.newComment).subscribe(comment => this.comments.push(comment))
+    this.newComment.posted = new Date().getTime()
+    this.newComment.parent = parentId
+    this.newComment.type = this.commentView? 'comment' : 'question'
+    this.commentService.postComment(this.newComment).subscribe(comment => (this.commentView? this.comments : this.questions).unshift(comment))
     this.newComment = this.emptyComment()
   }
 
@@ -28,8 +28,8 @@ export class MessageComponent {
   subscribeToComments(id) {
     this.commentService.getComments(id).subscribe(comments => {
         let messages = comments['messages']
-        this.comments = messages.filter(msg => msg.message_type == 'comment')
-        this.questions = messages.filter(msg => msg.message_type == 'question')
+        this.comments = messages.filter(msg => msg.type == 'comment')
+        this.questions = messages.filter(msg => msg.type == 'question')
     })
   }
   

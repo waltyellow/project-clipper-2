@@ -20,7 +20,7 @@ export class EventComponent extends MessageComponent implements OnInit {
   }
   
   public postComment() {
-    super.postComment(this.event.eventId)  
+    super.postComment(this.event.event_id)
   }
 
   ngOnInit() {
