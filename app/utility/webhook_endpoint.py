@@ -14,6 +14,9 @@ def webhook():
 
     location = data_object['result']['parameters']['location']
 
+    if location == '':
+        return "Nope", 404
+
     reply =  "Here is the rating and excitement level for" + location + \
     "The rating is 4.25 which is excellent. " \
     "The excitement level is high right now."
