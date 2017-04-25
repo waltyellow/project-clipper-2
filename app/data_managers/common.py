@@ -8,7 +8,7 @@ def search_parameter_to_db_filter(arguments: dict):
 
         if key[-7:] == '_search':
             key = key[:-7]
-            value = {'$regex': value, '$options': 'i'}
+            value = generate_search_query(value)
 
         else:
             try:
@@ -19,3 +19,7 @@ def search_parameter_to_db_filter(arguments: dict):
         filter[key] = value
 
     return filter
+
+
+def generate_search_query(value):
+    return {'$regex': value, '$options': 'i'}

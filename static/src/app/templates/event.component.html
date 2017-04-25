@@ -22,7 +22,7 @@
     </div>
     <div class="single-comment">
         <div class="question-form">
-            <input type="text" class="question-entry" placeholder="Enter a comment" [(ngModel)]="newComment.message_body">
+            <input type="text" class="question-entry" placeholder="{{commentView? 'Enter a comment' : 'Ask a question'}}" [(ngModel)]="newComment.message_body">
             <button class="btn btn-default" (click)="postComment()">Post</button>
         </div>
     </div>
