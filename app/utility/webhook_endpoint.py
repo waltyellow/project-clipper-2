@@ -25,23 +25,24 @@ def webhook():
         try:
             location, place = find_location_and_place(data_object)
             if location == '':
-                return "Ask for location", 404
+                return "No location", 404
         except KeyError:
             return "No location", 404
 
         if not place:
-            reply = reply_no_location(location, reply)
+            # we cannot find a place
+            reply = reply_no_location(location)
         else:
-            reply = reply_for_place_metadata(place)
+            reply = reply_for_place(place)
 
     elif action == 'find_events':
         try:
             location, place = find_location_and_place(data_object)
             if not place:
-                reply = reply_no_location(location, reply)
+                reply = reply_for_events_vague_location(location, location)
             else:
                 query_position = place['geo_coordinate']
-                reply = reply_for_events(query_position, location_name=place['name'])
+                reply = reply_for_events_exact_coordinate(query_position, location_name=place['name'])
         except KeyError:
             return "No location", 404
 
@@ -52,18 +53,19 @@ def webhook():
             coordinates = data_object['originalRequest']['data']['device']
             query_position = geojson.Point((coordinates['longitude'], coordinates['latitude']))
         except KeyError:
-            try:
-                location, place = find_location_and_place(data_object)
-                query_position = place['geo_coordinate']
-            except KeyError:
-                if location == '':
-                    return "No coordinate", 404
-                else:
-                    reply = reply_no_location(location, reply)
-        reply = reply_for_events(query_position, location_name='you')
-
+            return 'permission_failed'
+        reply = reply_for_events_exact_coordinate(query_position, location_name='you')
         # find nearby events
 
+    elif action == 'create_event_yes':
+        try:
+            location, place = find_location_and_place(data_object)
+            google_user = data_object['originalRequest']['user']
+            google_id = google_user['user_id']
+            # google_id -> user_id
+            #
+        except KeyError:
+            reply = "Event Creation failed due to unknown reasons"
     res = {
         "speech": reply,
         "source": "evention"
@@ -76,12 +78,12 @@ def webhook():
     return r
 
 
-def reply_no_location(location, reply):
+def reply_no_location(location: str):
     reply = "Sorry, we cannot find" + location + ", try a different name?"
     return reply
 
 
-def reply_for_place_metadata(place):
+def reply_for_place(place: dict):
     name = place['name']
     rating = place['rating_average']
     adjective = rating_to_quality(rating)
@@ -93,18 +95,58 @@ def reply_for_place_metadata(place):
     return reply
 
 
-def reply_for_events(query_position, location_name='you asked for'):
-    query_position = geojson.Point((123, 45))
-    return "many events near " + location_name
+def reply_for_events_exact_coordinate(query_position: dict, location_name: str = 'where you are'):
+    query_position = json.loads(geojson.Point((123, 45)).__str__)
+    events = []
+    return reply_for_events(events, location_name)
+
+
+def reply_for_events_vague_location(location: str, location_name: str = 'the location you asked for'):
+    events = EventDataManager().find_events_by_filter({'location': common.generate_search_query(location)})
+    return reply_for_events(events, location_name)
+
+
+def reply_for_events(events: [dict], location_name: str):
+    if len(events) == 0:
+        reply = "sorry, we cannot find any events near {0}.".format(location_name)
+    else:
+        reply = "Here are the events. There are {0} events. The first event is ".format(len(events))
+    first = False
+    for event in events:
+        if not first:
+            reply += serialize_event(event, 'first')
+            first = True
+        else:
+            reply += serialize_event(event, 'next')
+    return reply
+
+
+def serialize_event(event: dict, seq: str = 'next'):
+    name = event['name']
+    excitement_level = score_to_quality(event['senti_score'])
+    location = event['location']
+    description = event['description']
+
+    reply = "The {0} event is {1} at  {2} The excitement level is {3} at this moment.".format(seq, name, location,
+                                                                                              excitement_level)
+    if description != '':
+        reply += "It is about {0}".format(description)
+    else:
+        pass
+    return reply
 
 
 def find_location_and_place(data_object):
     location = data_object['result']['parameters']['location']
     location = sanitize_location(location)
     place = PlaceDataManager().find_one_by_filter({'name': common.generate_search_query(location)})
-    place = {'name': "Tomlinson Food Court", 'rating_average': 3.3, 'senti_score': 16}
+    place = {'name': "Tomlinson Food Court",
+             'rating_average': 3.3,
+             'senti_score': 16,
+             'coordinate': {"type": "Point",
+                            "coordinates": [100.0, 0.0]}
+             }
     return location, place
-
 
 def sanitize_location(location):
     return location
