@@ -1,10 +1,9 @@
-import pymongo
-from pymongo import MongoClient
-from pymongo.collection import ReturnDocument
-from bson.objectid import ObjectId
-from app.models.event import Event
 import base64
 from typing import Any
+
+from bson.objectid import ObjectId
+from pymongo import MongoClient
+from geojson import Point, Polygon
 
 min_event_dict = {
     'event_id': '',
@@ -22,7 +21,10 @@ event_dict_with_optionals = {
     'description': '',
     'deleted': False,
     'user_id': '',
-    'place_id': ''
+    'place_id': '',
+    'center': Point((108.22, 22.35)),
+    'radius': 1, # in kilometers
+    'area': Polygon([[(2.38, 57.322), (23.194, -20.28), (-120.43, 19.15), (2.38, 57.322)]])
 }
 
 
@@ -117,21 +119,21 @@ class EventDataManager:
 '''TESTING SECTION'''
 
 
-def test():
-    eventDataManager = EventDataManager()
-    newEvent = Event()
-    print(newEvent)
-    newEvent.name = 'placeholder'
-    print(newEvent)
-    eventDataManager.insert_event_one(newEvent.__dict__)
-    founded_event = eventDataManager.find_event_by_id(str(newEvent.event_id))
-    print(founded_event)
-    founded_event['name'] = 'plc'  # update name
-    eventDataManager.replace_one_event(founded_event)
-    print(founded_event)
-    eventDataManager.update_one_event_by_diff(founded_event['event_id'], 'name', 'pl5')
-    # eventDataManager.delete_event_by_id(str(newEvent.event_id))
-    eventDataManager.find_event_by_id(str(newEvent.event_id))
+# def test():
+#     eventDataManager = EventDataManager()
+#     newEvent = Event()
+#     print(newEvent)
+#     newEvent.name = 'placeholder'
+#     print(newEvent)
+#     eventDataManager.insert_event_one(newEvent.__dict__)
+#     founded_event = eventDataManager.find_event_by_id(str(newEvent.event_id))
+#     print(founded_event)
+#     founded_event['name'] = 'plc'  # update name
+#     eventDataManager.replace_one_event(founded_event)
+#     print(founded_event)
+#     eventDataManager.update_one_event_by_diff(founded_event['event_id'], 'name', 'pl5')
+#     # eventDataManager.delete_event_by_id(str(newEvent.event_id))
+#     eventDataManager.find_event_by_id(str(newEvent.event_id))
 
 
 def test2():
@@ -147,4 +149,5 @@ def test2():
 
 
 if __name__ == '__main__':
-    test()
+    # test()
+    pass

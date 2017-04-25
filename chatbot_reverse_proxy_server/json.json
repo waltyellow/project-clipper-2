@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "project-clipper",
+  "private_key_id": "7740f8c17da03f77b980bbd75022695e50e0a487",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC62B3WHHL+qt8F\no6Ihb6AuUyfnH9JrvcFb5y1r6VoQYelEWrmVtbAZPb5mYlPygW0P5ONgHkcc8gZ+\n20Zg0ppL/UA3oNndyo2pOkWpbeCM7DSSiCIO51T2qMtPN06O/yvE/5by4eZmPFPp\nYTYWcPvwNZVIPuHclD4CWMvpKW0PdI0xxYmnUfUkH6BTyUAYB6V4RAb6TJLiRKN1\nNR4w+N7LOBqZHodPYUGqIRYgXx1mIw/AH0r3M34ixTfZYYVvRHtjWuuM51//FsIa\nYtm0UKHRqFV26s3sFrkvhWHEdPs4EME45K76r5MSic0kHGgZuIQWLKIiLYGKwHh6\nUOqpGQrDAgMBAAECggEAHRx9EZYfKKSw2O0U3sbIm08jgXRI0bagANS1FAIooTLQ\nKHFGRxgm1tfy6Xraf4dA2eAcuSYeiFkBQBSkE4PcvIg50DEEoPTlO3+zyOEwwmQv\nEMGbJN1QNJo6Cx6f49HIHQqBl1gxEK7HmC4oQjjaWCPRHY+Gm1qRisYRB0QIFQcc\nqKcHr6DR//bGkFenCTGPRJFac+7CfM22BtzmlL+FYPslgG/nw6/i0cb5T5F5gTCU\ndpAxtzMpVH7I1QD0rO9pHMT4MCE2ieMy0VPgsCAfs5aJ0uJcQf6Qukvjt46cLqJL\nQSnsjSrjFjuyRVvi4/+z5ulSGjStLnEB7PlFJbBlaQKBgQDgEifah+e8b6n4enZS\nSZ05I47nomuZnKXNGH3ufelD+ujbsgAVhI6Agn1hz6BOVxZuk8OhkLDnKL2Npj6x\nL+vtAWxymoZ34X4uG3fnUi0YJd9l1CFdjvebtcbqpZZl/0wq/HQz7yypnAK3BAhI\nZvBiJREWZZRCjNEvQ+X+r8wUtQKBgQDVd/lVzaVMUNuucIv7Jd+eWCbYDyrlxxUG\nvBzQIznfC10ZDlhHO2AxQXfAr9hUS2SjM0+yI+yzt3aryNcfab0jzRumxisWa1Kc\nwecPdzQDhfjJSq7I7kMS7JQrkgmWEWtpf3mJ1aXaxLRaHdF6lWijvnvRcisZdSrr\nsr1m/44ElwKBgAai4wVI4yckk38leV2kioCHuhLIL7Gj/xEc+ZXXqtH1m3HuSqxY\nebP6qWX9NT08vRBXVgLx+xtNjJemZdLvnWguk5ytUPA6AHezHpD+URGXBY/JgZd4\nxYKaFqMadmLc9c+MHJDxM3xuf3IWL3ydd98gQ+pK5eI2s3dX5nbtk/jFAoGAbaGy\nIgj9jdYxHMOcgJ2Q3Qe0213e0CeQeub9fT+6Jvz1ETs2x06NNn7C++jTl2cpBlAB\n7CFbHWlpvwvkv7NUeiCKxPodguQXh35mJqE3y19wyCBc58DGHd/2sPHNjo7ftUzM\npKdfCJ3hai7KOMSm+wGHIagaznZIVshzUYSJ8X0CgYEAr8y8MAiSDYoxDDTHSW+S\nHtfRUwpYmn9hSA9F/68Z22zz+u/Ghrebxsv4bk0nxfzjV0YoyHLDzQmvcpMrlsAr\nGAeYjQNgS3u37IUdY2lm6WDccIH9Rt604RDE092Td4bAPURhJI6+bTDDCpoJN+7J\nkALygcoj5LqZCNl3dpDR+H4=\n-----END PRIVATE KEY-----\n",
+  "client_email": "project-clipper@appspot.gserviceaccount.com",
+  "client_id": "107789898610108641197",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/project-clipper%40appspot.gserviceaccount.com"
+}

@@ -1,13 +1,17 @@
-import pymongo
-from pymongo import MongoClient
-from pymongo.collection import ReturnDocument
-
-from bson.objectid import ObjectId
 import base64
 from typing import Any
 
+from bson.objectid import ObjectId
+from pymongo import MongoClient
+
 min_place_dict = {
     'place_id': '',
+    'type': 'place',
+    'rating_count': 0,
+    'rating_average': 0,
+    'senti_score': 0,
+    'senti_score_updated_time': 0,
+    'mood_tag_counter': {},
     'deleted': False
 }
 
@@ -17,6 +21,8 @@ place_dict_with_optionals = {
     'senti_score': '',
     'place_type': '',
     'keywords': '',
+    'rating_count':'',
+    'rating_average':'',
     'deleted': False
 }
 

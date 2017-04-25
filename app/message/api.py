@@ -1,15 +1,15 @@
-from app import server
-from flask import make_response, request, current_app
-from app.sentiment.emotion import emotion_data
-from app.data_managers import common
-from flask_cors import CORS, cross_origin
 import json
+
+from flask import request
+
 import app.data_managers.message_data_manager as mdm
+from app import server
+from app.data_managers import common
 from app.data_managers.message_data_manager import MessageDataManager
 
 
 @server.route(rule='/messages/template', endpoint='message_create_get', methods=['GET'])
-def fetch_event_template():
+def fetch_message_template():
     return json.dumps(mdm.min_message_dict)
 
 

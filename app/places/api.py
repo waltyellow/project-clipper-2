@@ -1,13 +1,12 @@
-from app import server, constants
-from flask import make_response, request, current_app, redirect, url_for
-from flask_cors import CORS, cross_origin
-import time
-import math
 import json
-from app.data_managers.places_data_manager import PlaceDataManager
+import time
+
+from flask import request
+
 import app.data_managers.places_data_manager as pdm
-from app.sentiment.emotion import emotion_data
+from app import server
 from app.data_managers.common import search_parameter_to_db_filter
+from app.data_managers.places_data_manager import PlaceDataManager
 
 
 @server.route(rule='/places/template', endpoint='get_place_template', methods=['GET'])
