@@ -159,4 +159,6 @@ def main(argv):
 if __name__ == "__main__":
     main(sys.argv[1:])
 
-
+#Sample input and output:
+#please enter comment:'I love football'
+#{'score': '0.8645', 'mood tags': ['#joy', '#admiration', '#interest']}
