@@ -1,5 +1,5 @@
 __author__ = 'navyakandkuri'
-#nodebox
+
 import sys
 import getopt
 import string
@@ -9,7 +9,7 @@ from nltk.stem import *
 from nltk.corpus import wordnet
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-#import en
+
 
 
 
@@ -69,13 +69,7 @@ def emotion_data(comment):
     for output in final_output['sentics']:
         if output in comment_sentics:
             final_output['sentics'][output] = comment_sentics[output]
-        #print output, final_output['sentics'][output]
 
-    #print("comment sentics", comment_sentics)
-    #print("polarity intense: ",polarity_intense/total_word_count)
-    #print("mood tags:", comment_mood_tags)
-    #print final_output
-   # print("final output",final_output)
     json_output = json.dumps(final_output)
     print (json_output)
     return json_output
@@ -115,21 +109,9 @@ def stem_and_lemmatize(sentence):
                     sentics_values(current_word,sn,comment_sentics)
                     add_mood_tags(comment_mood_tags,sn,current_word)
                 except KeyError:
-                    #print("cry")
-                    try:
-                        #word_emotion(en.verb.present(i),sn)
-                        #current_word = en.verb.present(i) (This is the real one)
-                        #remove the next line for the actual project
-                        current_word = sno.stem(current_word)
-                        polarity_intense += float(sn.polarity_intense(current_word))
-                        sentics_values(current_word,sn,comment_sentics)
-                        add_mood_tags(comment_mood_tags,sn,current_word)
-                    except KeyError:
-                        #print 'cry again'
-                        #print i
-                        if(total_word_count>1):
-                             total_word_count -= 1
-                        pass
+                    if(total_word_count>1):
+                        total_word_count -= 1
+                    pass
     comment_sentics_average(total_word_count,comment_sentics)
     final_output['sentics']['polarity'] = polarity_intense/total_word_count
     final_output['mood tags'] = comment_mood_tags
@@ -153,7 +135,6 @@ def sentence_filter_and_tokenizer(comment):
     word_tokens = word_tokenize(comment)
     stop_words = set(stopwords.words('english'))
     filtered_sentence = []
-    #'running climbing grows leaves fairly labeled reliability'
     for i in word_tokens:
         if i not in stop_words:
             filtered_sentence.append(i)
