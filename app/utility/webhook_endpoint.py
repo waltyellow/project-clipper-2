@@ -9,9 +9,10 @@ logging.basicConfig(filename='webhook.log', level=logging.DEBUG)
 
 @server.route('/wh', methods=['POST'])
 def webhook():
-    data = request.data
+    decoded_json = request.get_data().decode("utf-8")
+    data_object = json.loads(decoded_json)
 
-    location = data['parameters']['location']
+    location = data_object['parameters']['location']
 
     reply =  "Here is the rating and excitement level for" + location + \
     "The rating is 4.25 which is excellent. " \
