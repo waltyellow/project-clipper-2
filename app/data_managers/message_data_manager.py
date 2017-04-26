@@ -13,6 +13,8 @@ min_message_dict = {
     'type': '',
     'username': '',
     'ancestors': [],
+    'moodtags': [],
+    'senti_score': 0,
     'deleted': False
 }
 

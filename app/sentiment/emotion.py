@@ -143,7 +143,7 @@ def sentence_filter_and_tokenizer(comment):
     return filtered_sentence
 
 
-def start_calculation(sentence):
+def comment_to_score(sentence):
     table = str.maketrans({key: None for key in string.punctuation})
     sentence = sentence.translate(table)
     current_sentence = sentence_filter_and_tokenizer(sentence.translate(str.maketrans('','',string.punctuation)))
@@ -161,8 +161,18 @@ def main(argv):
     #excitement = score_calculation(current_sentence)
     #print (excitement)
 
+def get_senti_score_and_mood_tag(entity: dict, message: dict) -> (float, [str]):
+    raw = message
+    return float(raw['score']), raw['mood tags']
+
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    r, s = get_senti_score_and_mood_tag(None, comment_to_score("I love dancing"))
+    print(r)
+    print(s)
+    pass
+
+
+
 
 #Sample input and output:
 #please enter comment:'I love football'
