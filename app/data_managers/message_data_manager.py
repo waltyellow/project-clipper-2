@@ -7,16 +7,24 @@ from typing import Any
 
 min_message_dict = {
     'message_id': '',
+    'body': '',
+    'posted': '',
     'parent': '',
     'type': '',
+    'username': '',
     'ancestors': [],
+    'moodtags': [],
+    'senti_score': 0,
     'deleted': False
 }
 
 message_dict_with_optionals = {
     'message_id': '',
+    'body': '',
+    'posted': '',
     'parent': '',
     'type': '',
+    'username': '',
     'ancestors': [],
     'deleted': False,
     'senti_vector': {},
