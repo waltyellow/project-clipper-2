@@ -21,7 +21,7 @@ def create_message():
     decoded_json = request.get_data().decode("utf-8")
     posted_dict = json.loads(decoded_json)
     message = action_handler.process_message(posted_dict)
-    message['timestamp'] = time.time()
+    message['timestamp'] = time.gmtime(time.time())
 
     parent_id = message['parent']
 
