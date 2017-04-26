@@ -1,6 +1,7 @@
 import time, math
 from app.data_managers.places_data_manager import PlaceDataManager
 from app.data_managers.event_data_manager import EventDataManager
+from app.sentiment import emotion
 
 '''this file handles the bottom layer that adds comment-senti-score to raw scores for entities'''
 
@@ -13,7 +14,9 @@ seconds_per_day = 86400
 '''when a qualified message is received for place/ratings or comments on places and events'''
 
 
-def on_message_received_for_event(event: dict, message: dict):
+def on_message_received_for_event(event_id: str, message: dict):
+    dm = EventDataManager()
+    event = dm.find_event_by_id(event_id)
     precondition_check_for_required_keys(entity=event,
                                          required_keys=['senti_score', 'senti_score_updated_time', 'mood_tag_counter'])
 
@@ -22,11 +25,12 @@ def on_message_received_for_event(event: dict, message: dict):
         on_rating_received(event, message)
     if message['type'] != 'rating':
         on_message_received(event, message)
-    dm = EventDataManager()
     dm.replace_one_event(event)
 
 
-def on_message_received_for_place(place: dict, message: dict):
+def on_message_received_for_place(place_id: str, message: dict):
+    dm = PlaceDataManager()
+    place = dm.find_one_place_by_id(place_id)
     precondition_check_for_required_keys(entity=place,
                                          required_keys=['senti_score', 'senti_score_updated_time', 'mood_tag_counter'])
 
@@ -35,7 +39,6 @@ def on_message_received_for_place(place: dict, message: dict):
         on_rating_received(place, message)
     if message['type'] != 'rating':
         on_message_received(place, message)
-    dm = PlaceDataManager()
     dm.replace_one_place(place)
 
 
@@ -92,7 +95,9 @@ def on_message_received(entity: dict, message: dict) -> dict:
 
     # initialize the values
     senti_score = entity['senti_score']
-    message_score = get_senti_score(entity, message)
+    message = process_message(message)
+    mood_tags = message['moodtags']
+    message_score = message['senti_score']
 
     # add this comment
     current_time = time.time()
@@ -100,7 +105,6 @@ def on_message_received(entity: dict, message: dict) -> dict:
     entity['senti_score'] = senti_score + message_score
 
     # collect mood tags
-    mood_tags = []
     aggregate_mood_tags(tag_counter=entity['mood_tag_counter'], mood_tags=mood_tags)
     return entity
 
@@ -113,8 +117,11 @@ def aggregate_mood_tags(tag_counter, mood_tags):
         tag_counter[tag] += 1
 
 
-def get_senti_score(place: dict, message: dict) -> float:
-    return 1
+def process_message(message: dict) -> dict:
+    raw = emotion.score_calculation(message['body'])
+    message['moodtags'] = raw['mood tags']
+    message['senti_score'] = float(raw['score'])
+    return message
 
 
 '''decay current score for e^-(delta_t/lifetime)'''

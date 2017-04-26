@@ -6,6 +6,7 @@ import app.data_managers.message_data_manager as mdm
 from app import server
 from app.data_managers import common
 from app.data_managers.message_data_manager import MessageDataManager
+from app.utility import action_handler
 
 
 @server.route(rule='/messages/template', endpoint='message_create_get', methods=['GET'])
@@ -19,6 +20,20 @@ def create_message():
     # request should be {'name': 'm1', 'senti_socre': '5.2' .....}
     decoded_json = request.get_data().decode("utf-8")
     posted_dict = json.loads(decoded_json)
+    message = action_handler.process_message(posted_dict)
+
+    parent_id = message['parent']
+    if 'ms-' in parent_id:
+        parent_message = dm.find_all_messages_for_parent(parent_id)
+        ancestors = [parent_id]
+        for ancestor in parent_message['ancestor']:
+            ancestors.append(ancestor)
+    elif 'ev-' in parent_id:
+        action_handler.on_message_received_for_event(event_id=parent_id, message=message)
+    elif 'pl-' in parent_id:
+        action_handler.on_message_received_for_place(place_id=parent_id, message=message)
+    else:
+        pass
     dm.insert_message_one(posted_dict)
     return json.dumps(posted_dict)
 

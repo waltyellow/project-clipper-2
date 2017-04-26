@@ -9,7 +9,10 @@ min_message_dict = {
     'message_id': '',
     'parent': '',
     'type': '',
+    'body': '',
     'ancestors': [],
+    'moodtags': [],
+    'senti_score': 0,
     'deleted': False
 }
 
