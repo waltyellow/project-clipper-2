@@ -42,7 +42,7 @@ def webhook():
                 reply = reply_for_events_vague_location(location, location)
             else:
                 query_position = place['geo_coordinate']
-                reply = reply_for_events_exact_coordinate(query_position, location_name=place['name'])
+                reply = reply_for_events_exact_coordinates(query_position, location_name=place['name'])
         except KeyError:
             return "No location", 404
 
@@ -51,12 +51,12 @@ def webhook():
     elif action == 'events_near_me':
         try:
             coordinates = data_object['originalRequest']['data']['device']
-            query_position = geojson.Point((coordinates['longitude'], coordinates['latitude']))
+            long = float(coordinates['longitude'])
+            lat = float(coordinates['latitude'])
         except KeyError:
             return 'permission_failed'
-        reply = reply_for_events_exact_coordinate(query_position, location_name='you')
+        reply = reply_for_events_exact_coordinates(long=long, lat=lat, location_name='you')
         # find nearby events
-
     elif action == 'create_event_yes':
         try:
             location, place = find_location_and_place(data_object)
@@ -87,17 +87,21 @@ def reply_for_place(place: dict):
     name = place['name']
     rating = place['rating_average']
     adjective = rating_to_quality(rating)
-    # place = action_handler.refresh_score_for_entity(place, action_handler.place_senti_lifetime_in_days)
+
+    print(place)
+    action_handler.refresh_score_for_entity(place, action_handler.place_senti_lifetime_in_days)
+    print(place)
+
     excitement_level = score_to_quality(place['senti_score'])
     reply = "Here is the rating and excitement level for " + name + \
             ". The rating is " + str(rating) + " which is " + adjective + \
             ". The excitement level is " + excitement_level + " right now."
+    print(place)
     return reply
 
 
-def reply_for_events_exact_coordinate(query_position: dict, location_name: str = 'where you are'):
-    query_position = json.loads(geojson.Point((123, 45)).__str__)
-    events = []
+def reply_for_events_exact_coordinates(long:float, lat:float, location_name: str = 'where you are'):
+    events = EventDataManager().find_events_near(long=long, lat=lat)
     return reply_for_events(events, location_name)
 
 
@@ -122,6 +126,7 @@ def reply_for_events(events: [dict], location_name: str):
 
 
 def serialize_event(event: dict, seq: str = 'next'):
+    action_handler.refresh_score_for_entity(event)
     name = event['name']
     excitement_level = score_to_quality(event['senti_score'])
     location = event['location']
@@ -140,13 +145,14 @@ def find_location_and_place(data_object):
     location = data_object['result']['parameters']['location']
     location = sanitize_location(location)
     place = PlaceDataManager().find_one_by_filter({'name': common.generate_search_query(location)})
-    place = {'name': "Tomlinson Food Court",
-             'rating_average': 3.3,
-             'senti_score': 16,
-             'coordinate': {"type": "Point",
-                            "coordinates": [100.0, 0.0]}
-             }
+    # place = {'name': "Tomlinson Food Court",
+    #          'rating_average': 3.3,
+    #          'senti_score': 16,
+    #          'coordinate': {"type": "Point",
+    #                         "coordinates": [100.0, 0.0]}
+    #          }
     return location, place
+
 
 def sanitize_location(location):
     return location
@@ -160,8 +166,10 @@ def rating_to_quality(rating):
         return "pretty good"
     elif rating > 2:
         return "ok"
-    else:
+    elif rating > 0:
         return "poorly rated"
+    else:
+        return "not yet rated"
 
 
 def score_to_quality(score):
@@ -174,3 +182,15 @@ def score_to_quality(score):
         return "a bit exciting"
     else:
         return "not really exciting"
+
+
+def test():
+    location = 'Tomlinson'
+    location = sanitize_location(location)
+    place = PlaceDataManager().find_one_by_filter({'name': common.generate_search_query(location)})
+    print(place)
+    print(reply_for_place(place))
+
+
+if __name__ == "__main__":
+    test()

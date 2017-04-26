@@ -21,10 +21,7 @@ def on_message_received_for_event(event_id: str, message: dict):
                                          required_keys=['senti_score', 'senti_score_updated_time', 'mood_tag_counter'])
 
     refresh_score_for_entity(entity=event, lifetime_in_days=event_senti_lifetime_in_days)
-    if message['type'] == 'rating' or message[type] == 'review':
-        on_rating_received(event, message)
-    if message['type'] != 'rating':
-        on_message_received(event, message)
+    on_message_received(event, message)
     dm.replace_one_event(event)
 
 
@@ -35,7 +32,7 @@ def on_message_received_for_place(place_id: str, message: dict):
                                          required_keys=['senti_score', 'senti_score_updated_time', 'mood_tag_counter'])
 
     refresh_score_for_entity(entity=place, lifetime_in_days=place_senti_lifetime_in_days)
-    if message['type'] == 'rating' or message[type] == 'review':
+    if message['type'] == 'rating' or message['type'] == 'review':
         on_rating_received(place, message)
     if message['type'] != 'rating':
         on_message_received(place, message)
@@ -118,7 +115,8 @@ def aggregate_mood_tags(tag_counter, mood_tags):
 
 
 def process_message(message: dict) -> dict:
-    raw = emotion.score_calculation(message['body'])
+    body = message['body']
+    raw = emotion.comment_to_score(body)
     message['moodtags'] = raw['mood tags']
     message['senti_score'] = float(raw['score'])
     return message
@@ -129,7 +127,7 @@ def process_message(message: dict) -> dict:
 
 def get_decay_factor(current_time, last_updated_time, lifetime_in_days):
     time_delta_in_days = (current_time - last_updated_time) / seconds_per_day
-    decay_factor = math.exp(time_delta_in_days / lifetime_in_days)
+    decay_factor = math.exp(0 - (time_delta_in_days / lifetime_in_days))
     return decay_factor
 
 

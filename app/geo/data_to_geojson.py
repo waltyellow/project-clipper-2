@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import geojson
-from geojson import FeatureCollection, Feature, Point
+from geojson import FeatureCollection, Feature
 from app.data_managers.event_data_manager import EventDataManager
 
 
@@ -9,13 +9,11 @@ def create_feature_collection(events):
     return FeatureCollection(list(map(create_feature, events)))
 
 def create_feature(event):
-    coords = event.coords
-    pt = Point((coords['long'], coords['lat']))
-    return Feature(geometry=pt, properties={
-        'id': event.event_id,
-        'name': event.name,
-        'location': event.location,
-        'excitement': event.senti_score
+    return Feature(geometry=event['geo_coordinates'], properties={
+        'id': event['event_id'],
+        'name': event['name'],
+        'location': event['location'],
+        'excitement': event['senti_score']
     })
 
 edm = EventDataManager()

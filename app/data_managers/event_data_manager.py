@@ -2,30 +2,23 @@ import base64
 from typing import Any
 
 from bson.objectid import ObjectId
-from pymongo import MongoClient
+from pymongo import MongoClient, IndexModel, GEOSPHERE
 from geojson import Point
+from app.utility import geo
+import time
 
 min_event_dict = {
     'event_id': '',
     'keywords': [],
+    'mood_tag_counter': {},
     'name': '',
     'description': '',
     'deleted': False,
     'location': '',
-    'place_id': ''
-}
-
-event_dict_with_optionals = {
-    'event_id': '',
-    'senti_score': '',
-    'keywords': '',
-    'name': '',
-    'description': '',
-    'deleted': False,
-    'user_id': '',
+    'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
     'place_id': '',
-    'center': Point((108.22, 22.35)),
-    'radius': 1  # in kilometers
+    'senti_score': 0,
+    'senti_score_updated_time': time.time()
 }
 
 
@@ -39,6 +32,7 @@ class EventDataManager:
         self.client = MongoClient('localhost', 27017)
         self.db = self.client.get_database('experimental_2')
         self.event_collection = self.db.get_collection('events')
+        self.event_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
 
     @staticmethod
     def validate_event(event_dict: dict) -> bool:
@@ -85,6 +79,11 @@ class EventDataManager:
         event_dict.pop('_id')
         return event_dict
 
+    def find_one_event_by_filter(self, filter: dict) -> [dict]:
+        event_dict = self.event_collection.find_one(filter)
+        event_dict.pop('_id')
+        return event_dict
+
     def find_events_by_filter(self, filter: dict) -> [dict]:
         event_dicts = self.event_collection.find(filter)
         event_dicts_output = []
@@ -92,6 +91,14 @@ class EventDataManager:
             event_dict.pop('_id')
             event_dicts_output.append(event_dict)
         return event_dicts_output
+
+    def find_one_event_near(self, long, lat, radius=500):
+        return self.find_one_event_by_filter(
+            filter=self.create_geo_filter(lat, long, radius))
+
+    def find_events_near(self, long, lat, radius=500):
+        return self.find_events_by_filter(
+            filter=self.create_geo_filter(lat, long, radius))
 
     def find_all_events(self) -> [dict]:
         return self.find_events_by_filter({})
@@ -116,25 +123,40 @@ class EventDataManager:
         self.event_collection.update_one({'_id': EventDataManager.convert_to_object_id(event_id)},
                                          {'$set': {'deleted': True}})
 
+    def create_geo_filter(self, lat, long, radius):
+        return {'geo_coordinates': geo.get_query_for_coordinates_in_circle(long=long, lat=lat, radius=radius)}
+
 
 '''TESTING SECTION'''
 
+'''insert 3 events'''
 
-# def test():
-#     eventDataManager = EventDataManager()
-#     newEvent = Event()
-#     print(newEvent)
-#     newEvent.name = 'placeholder'
-#     print(newEvent)
-#     eventDataManager.insert_event_one(newEvent.__dict__)
-#     founded_event = eventDataManager.find_event_by_id(str(newEvent.event_id))
-#     print(founded_event)
-#     founded_event['name'] = 'plc'  # update name
-#     eventDataManager.replace_one_event(founded_event)
-#     print(founded_event)
-#     eventDataManager.update_one_event_by_diff(founded_event['event_id'], 'name', 'pl5')
-#     # eventDataManager.delete_event_by_id(str(newEvent.event_id))
-#     eventDataManager.find_event_by_id(str(newEvent.event_id))
+
+def insert():
+    event1 = min_event_dict.copy()
+    event1['name'] = 'ev1'
+    event1['geo_coordinates'] = Point((125, 30))
+    event2 = min_event_dict.copy()
+    event2['name'] = 'ev2'
+    event2['geo_coordinates'] = Point((125, 30.00002))
+    event3 = min_event_dict.copy()
+    event3['name'] = 'ev3'
+    event3['geo_coordinates'] = Point((125, 35))
+    dm = EventDataManager()
+    dm.insert_event_one(event1)
+    dm.insert_event_one(event2)
+    dm.insert_event_one(event3)
+    print(event1)
+
+
+'''play with find'''
+
+
+def find():
+    eventDataManager = EventDataManager()
+    events = eventDataManager.find_events_near(125, 35.0000, radius=5)
+    events = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
+    print(events)
 
 
 def test2():
@@ -146,9 +168,8 @@ def test2():
     # print(bi)
     # print('ev-WL2wUk9tc7v2hxKG'[3:])
     eventDataManager = EventDataManager()
-    es = eventDataManager.find_all_events()
+    es = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
 
 
 if __name__ == '__main__':
-    # test()
-    pass
+    find()
