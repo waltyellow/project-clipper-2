@@ -37,7 +37,7 @@ class EventDataManager:
 
     def __init__(self):
         self.client = MongoClient('localhost', 27017)
-        self.db = self.client.get_database('experimental_2')
+        self.db = self.client.get_database('experimental1_2')
         self.event_collection = self.db.get_collection('events')
 
     @staticmethod

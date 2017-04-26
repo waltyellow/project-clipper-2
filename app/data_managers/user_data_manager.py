@@ -10,7 +10,7 @@ class UserDataManager:
 
     def __init__(self):
         self.client = MongoClient('localhost',27017)
-        self.db = self.client.get_database('experimental_2')
+        self.db = self.client.get_database('experimental1_2')
         self.user_collection = self.db.get_collection('users')
 
         def create_new_user(self, fb_id : str):
