@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 from pymongo import MongoClient, IndexModel, GEOSPHERE
 from geojson import Point
 from app.utility import geo
+import time
 
 min_event_dict = {
     'event_id': '',
@@ -14,7 +15,9 @@ min_event_dict = {
     'deleted': False,
     'location': '',
     'geo_coordinates': '',  # geojson.Point(0 ,0)
-    'place_id': ''
+    'place_id': '',
+    'senti_score': 0,
+    'senti_score_updated_time': time.time()
 }
 
 event_dict_with_optionals = {
@@ -142,13 +145,13 @@ class EventDataManager:
 def insert():
     event1 = min_event_dict.copy()
     event1['name'] = 'ev1'
-    event1['geo_coordinates'] = Point((110,30))
+    event1['geo_coordinates'] = Point((125,30))
     event2 = min_event_dict.copy()
     event2['name'] = 'ev2'
-    event2['geo_coordinates'] = Point((110, 30.00002))
+    event2['geo_coordinates'] = Point((125, 30.00002))
     event3 = min_event_dict.copy()
     event3['name'] = 'ev3'
-    event3['geo_coordinates'] = Point((110, 35))
+    event3['geo_coordinates'] = Point((125, 35))
     dm = EventDataManager()
     dm.insert_event_one(event1)
     dm.insert_event_one(event2)
@@ -158,7 +161,7 @@ def insert():
 '''play with find'''
 def find():
     eventDataManager = EventDataManager()
-    events = eventDataManager.find_events_near(110,35.0000, radius=5)
+    events = eventDataManager.find_events_near(125,35.0000, radius=5)
     print(events)
 
 
@@ -175,4 +178,4 @@ def test2():
 
 
 if __name__ == '__main__':
-    test2()
+    insert()

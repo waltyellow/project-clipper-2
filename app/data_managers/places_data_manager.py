@@ -14,7 +14,7 @@ min_place_dict = {
     'rating_count': 0,
     'rating_average': 0,
     'senti_score': 0,
-    'senti_score_updated_time': 0,
+    'senti_score_updated_time': time.time(),
     'mood_tag_counter': {},
     'geo_coordinates': '',  # in format of geojson.Point(x,y)
     'deleted': False
@@ -131,18 +131,12 @@ class PlaceDataManager:
 
 def insert():
     place1 = min_place_dict.copy()
-    place1['name'] = 'ev1'
-    place1['geo_coordinates'] = Point((110,30))
-    place2 = min_place_dict.copy()
-    place2['name'] = 'ev2'
-    place2['geo_coordinates'] = Point((110, 30.00002))
-    place3 = min_place_dict.copy()
-    place3['name'] = 'ev3'
-    place3['geo_coordinates'] = Point((110, 35))
+    place1['name'] = 'Tink Food Court'
+    place1['geo_coordinates'] = Point((123, 45))
+    place1['senti_score'] = 25
+    place1['rating_average'] = 4.5
     dm = PlaceDataManager()
     dm.insert_one_place(place1)
-    dm.insert_one_place(place2)
-    dm.insert_one_place(place3)
     print(place1)
 
 def find():
@@ -157,4 +151,4 @@ def find():
 
 
 if __name__ == '__main__':
-    find()
+    insert()
