@@ -15,10 +15,8 @@ export class BuildingsComponent implements OnInit {
   public listView: boolean = true;
   public buildings: Building[];
 
-  constructor(private titleService: TitleService, private buildingService: BuildingService, private sortService: SortService) {
-
+  constructor(private titleService: TitleService, private sortService: SortService, private buildingService: BuildingService) {
   }
-
   ngOnInit() {
     this.titleService.setTitle('Campus Buildings');
     this.buildingService.getBuildings().subscribe(buildings => this.buildings = buildings['buildings']);

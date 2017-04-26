@@ -7,19 +7,23 @@ import { AlertModule } from 'ng2-bootstrap';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './controllers/home.component';
 import { routing } from './app.routing';
+
 import { EventComponent } from './controllers/event.component';
-import { EventService } from './services/event.service'
 import { EventsComponent } from './controllers/events.component';
 import { EntertainmentsComponent } from './controllers/entertainments.component';
 import { PlaceComponent } from './controllers/place.component';
-import { PlaceService } from './services/place.service';
 import { BuildingsComponent } from './controllers/buildings.component';
 import { BuildingComponent } from './controllers/building.component';
 import { StudyLocationsComponent } from './controllers/study-locations.component';
 import { QuestionsComponent } from './controllers/questions.component';
+
+import { EventService } from './services/event.service'
+import { PlaceService } from './services/place.service';
+import { BuildingService } from './services/building.service';
 import { TitleService } from './services/title.service';
 import { CommentService } from './services/comment.service';
 import { SortService } from './services/sort.service';
+
 
 @NgModule({
   declarations: [
@@ -41,7 +45,7 @@ import { SortService } from './services/sort.service';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [EventService, TitleService, PlaceService, CommentService, SortService],
+  providers: [EventService, TitleService, PlaceService, CommentService, SortService, BuildingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
