@@ -23,18 +23,6 @@ min_message_dict = {
     'deleted': False
 }
 
-message_dict_with_optionals = {
-    'message_id': '',
-    'body': '',
-    'posted': '',
-    'parent': '',
-    'type': '',
-    'username': '',
-    'ancestors': [],
-    'deleted': False,
-    'senti_vector': {},
-}
-
 
 class MessageDataManager:
     '''establish the database and import the collection
@@ -171,7 +159,6 @@ def test2():
     MessageDataManager().insert_message_one(message)
     action_handler.on_message_received_for_place(place_id=parent, message=message)
     print(message)
-
 
 
 if __name__ == '__main__':
