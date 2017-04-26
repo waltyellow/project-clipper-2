@@ -7,6 +7,7 @@ import app.data_managers.event_data_manager as edm
 from app import server
 from app.data_managers.common import search_parameter_to_db_filter
 from app.data_managers.event_data_manager import EventDataManager
+from app.utility import action_handler
 
 
 @server.route(rule='/events/template', endpoint='event_create_get', methods=['GET'])
@@ -21,6 +22,7 @@ def create_event():
     decoded_json = request.get_data().decode("utf-8")
     posted_dict = json.loads(decoded_json)
     dm.insert_event_one(posted_dict)
+    action_handler.generate_dynamic_score_for_event(event=posted_dict)
     return posted_dict
 
 
@@ -36,6 +38,7 @@ def replace_one_event():
     event_id = posted_dict['event_id']
     if not event_id.__contains__('ev-'):
         raise Exception('invalid input')
+    action_handler.generate_dynamic_score_for_event(event=posted_dict)
     return dm.replace_one_event(posted_dict)
 
 
@@ -56,7 +59,10 @@ def update_event(event_id: str):
         key = update['key']
         new_value = update['new_value']
         dm.update_one_event_by_diff(event_id=event_id, key=key, new_value=new_value)
-    return dm.find_event_by_id(event_id)
+    event = dm.find_event_by_id(event_id)
+    action_handler.generate_dynamic_score_for_event(event=event)
+    return event
+
 
 
 '''listing endpoints'''
@@ -68,7 +74,9 @@ def update_event(event_id: str):
 
 @server.route(rule='/events/<string:event_id>', endpoint='get_one_event', methods=['GET'])
 def get_one_event(event_id: str):
-    return json.dumps(EventDataManager().find_event_by_id(event_id))
+    event = EventDataManager().find_event_by_id(event_id)
+    action_handler.generate_dynamic_score_for_event(event)
+    return json.dumps(event)
 
 
 '''
@@ -101,6 +109,8 @@ def search_event():
     dm = EventDataManager()
     print('filtering by' + filter.__str__())
     event_dicts = dm.find_events_by_filter(filter)
+    for e in event_dicts:
+        action_handler.generate_dynamic_score_for_event(event=e)
     return json.dumps({'events': event_dicts})
 
 
