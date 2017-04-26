@@ -16,6 +16,7 @@ seconds_per_day = 86400
 
 
 def generate_dynamic_score_for_event(event: dict):
+    event['dynamic_senti_score'] = event['senti_score']
     if 'place_id' in event and event['place_id'] != '':
         place_score = get_raw_score_for_place(event['place_id'])
     else:
@@ -30,11 +31,13 @@ def generate_dynamic_score_for_event(event: dict):
 
     event_score = event['senti_score']
     dynamic_score = event_score + place_score + 0.2 * geo_score
-    event['dynamic_score'] = dynamic_score
+    event['dynamic_senti_score'] = dynamic_score
     return dynamic_score
 
 
 def generate_dynamic_score_for_place(place: dict):
+    place['dynamic_senti_score'] = place['senti_score']
+
     venue_events = EventDataManager().find_events_by_filter({'place_id': place['place_id']})
     event_score = aggregate_raw_score_from_entities(venue_events, event_senti_lifetime_in_days)
 
@@ -47,7 +50,7 @@ def generate_dynamic_score_for_place(place: dict):
 
     place_score = place['senti_score']
     dynamic_score = event_score + place_score + 0.2 * geo_score
-    place['dynamic_score'] = dynamic_score
+    place['dynamic_senti_score'] = dynamic_score
     return dynamic_score
 
 
