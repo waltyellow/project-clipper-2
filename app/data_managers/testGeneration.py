@@ -32,6 +32,16 @@ place_smith_dict = {
     'deleted': False
 }
 
+event_senior_proj_dict = {
+    'event_id': '',
+    'keywords': [],
+    'name': 'Senior Project Presentations',
+    'description': 'The Class of 2017 Computer Science majors are all presenting their senior research projects.',
+    'deleted': False,
+    'location': 'Nord',
+    'place_id': 'pl-WP_2MRutGg91w55q'
+}
+
 def generatePlaces():
     pm = PlaceDataManager()
     nord=pm.insert_one_place(place_nord_dict)
@@ -41,8 +51,10 @@ def generatePlaces():
 
 def generateEvents():
     em = EventDataManager()
+    senior_proj = em.insert_event_one(event_senior_proj_dict)
 
 
 
 if __name__ == '__main__':
-    generatePlaces()
+    #generatePlaces()
+    generateEvents()
