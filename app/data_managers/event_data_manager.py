@@ -10,6 +10,7 @@ import time
 min_event_dict = {
     'event_id': '',
     'keywords': [],
+    'mood_tag_counter': {},
     'name': '',
     'description': '',
     'deleted': False,
@@ -154,6 +155,7 @@ def insert():
 def find():
     eventDataManager = EventDataManager()
     events = eventDataManager.find_events_near(125, 35.0000, radius=5)
+    events = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
     print(events)
 
 
@@ -166,8 +168,8 @@ def test2():
     # print(bi)
     # print('ev-WL2wUk9tc7v2hxKG'[3:])
     eventDataManager = EventDataManager()
-    es = eventDataManager.find_all_events()
+    es = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
 
 
 if __name__ == '__main__':
-    insert()
+    find()

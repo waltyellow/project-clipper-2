@@ -21,10 +21,7 @@ def on_message_received_for_event(event_id: str, message: dict):
                                          required_keys=['senti_score', 'senti_score_updated_time', 'mood_tag_counter'])
 
     refresh_score_for_entity(entity=event, lifetime_in_days=event_senti_lifetime_in_days)
-    if message['type'] == 'rating' or message[type] == 'review':
-        on_rating_received(event, message)
-    if message['type'] != 'rating':
-        on_message_received(event, message)
+    on_message_received(event, message)
     dm.replace_one_event(event)
 
 

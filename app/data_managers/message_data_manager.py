@@ -150,14 +150,14 @@ def test():
 
 
 def test2():
-    parent = 'pl-WQBCDk9tc0gmMKDQ'
+    parent = 'ev-WQEHXE9tc1py6OPs'
     message = min_message_dict.copy()
     message['type'] = 'comment'
     message['body'] = 'I love football'
     message['parent'] = parent
     action_handler.process_message(message)
     MessageDataManager().insert_message_one(message)
-    action_handler.on_message_received_for_place(place_id=parent, message=message)
+    action_handler.on_message_received_for_event(event_id=parent, message=message)
     print(message)
 
 
