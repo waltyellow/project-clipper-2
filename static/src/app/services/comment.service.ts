@@ -14,16 +14,9 @@ export class CommentService {
         return this.http.get(this.messageURL + id).map((res:Response) => res.json())
     }
 
-    private getEmptyComment() : Observable<Comment> {
-        return this.http.get(this.createMessageURL).map((res:Response) => res.json())
-    }
-
     public postComment(comment) : Observable<Comment> {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        
-        let emptyComment = this.getEmptyComment().first()
-        emptyComment.do(empty => comment.message_id = empty.message_id)
         
         return this.http.post(this.createMessageURL, comment, options)
             .map((res:Response) => res.json())
