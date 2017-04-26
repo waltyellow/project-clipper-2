@@ -75,7 +75,7 @@ def emotion_data(comment):
     return json_output
 
 
-def stem_and_lemmatize(sentence):
+def score_calculation(sentence):
     sno = SnowballStemmer('english')
     lemma = WordNetLemmatizer()
     sn = Senticnet()
@@ -143,21 +143,36 @@ def sentence_filter_and_tokenizer(comment):
     return filtered_sentence
 
 
-
+def comment_to_score(sentence):
+    table = str.maketrans({key: None for key in string.punctuation})
+    sentence = sentence.translate(table)
+    current_sentence = sentence_filter_and_tokenizer(sentence.translate(str.maketrans('','',string.punctuation)))
+    excitement = score_calculation(current_sentence)
+    return excitement
 
 
 
 
 def main(argv):
     input_comment = input("please enter comment:")
-    input_comment.translate(None,string.punctuation)
+    #input_comment.translate(string.punctuation)
     #word_parser(input_comment.translate(None,string.punctuation))
-    current_sentence = sentence_filter_and_tokenizer(input_comment.translate(None,string.punctuation))
-    excitement = stem_and_lemmatize(current_sentence)
-    print (excitement)
+   # current_sentence = sentence_filter_and_tokenizer(input_comment.str.translate(string.punctuation))
+    #excitement = score_calculation(current_sentence)
+    #print (excitement)
+
+def get_senti_score_and_mood_tag(entity: dict, message: dict) -> (float, [str]):
+    raw = message
+    return float(raw['score']), raw['mood tags']
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    r, s = get_senti_score_and_mood_tag(None, comment_to_score("I love dancing"))
+    print(r)
+    print(s)
+    pass
+
+
+
 
 #Sample input and output:
 #please enter comment:'I love football'

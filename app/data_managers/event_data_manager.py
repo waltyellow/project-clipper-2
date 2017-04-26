@@ -3,11 +3,11 @@ from typing import Any
 
 from bson.objectid import ObjectId
 from pymongo import MongoClient
-from geojson import Point, Polygon
+from geojson import Point
 
 min_event_dict = {
     'event_id': '',
-    'keywords': '',
+    'keywords': [],
     'name': '',
     'description': '',
     'deleted': False,
