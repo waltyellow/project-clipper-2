@@ -18,7 +18,8 @@ min_event_dict = {
     'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
     'place_id': '',
     'senti_score': 0,
-    'senti_score_updated_time': time.time()
+    'senti_score_updated_time': time.time(),
+    'dynamic_senti_score': 0 # dynamic_senti_score is the senti_score given contexts like where it is happening
 }
 
 
