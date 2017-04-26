@@ -10,27 +10,15 @@ import time
 min_event_dict = {
     'event_id': '',
     'keywords': [],
+    'mood_tag_counter': {},
     'name': '',
     'description': '',
     'deleted': False,
     'location': '',
-    'geo_coordinates': '',  # geojson.Point(0 ,0)
+    'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
     'place_id': '',
     'senti_score': 0,
     'senti_score_updated_time': time.time()
-}
-
-event_dict_with_optionals = {
-    'event_id': '',
-    'senti_score': '',
-    'keywords': '',
-    'name': '',
-    'description': '',
-    'deleted': False,
-    'user_id': '',
-    'place_id': '',
-    'center': Point((108.22, 22.35)),
-    'radius': 1  # in kilometers
 }
 
 
@@ -142,10 +130,12 @@ class EventDataManager:
 '''TESTING SECTION'''
 
 '''insert 3 events'''
+
+
 def insert():
     event1 = min_event_dict.copy()
     event1['name'] = 'ev1'
-    event1['geo_coordinates'] = Point((125,30))
+    event1['geo_coordinates'] = Point((125, 30))
     event2 = min_event_dict.copy()
     event2['name'] = 'ev2'
     event2['geo_coordinates'] = Point((125, 30.00002))
@@ -158,10 +148,14 @@ def insert():
     dm.insert_event_one(event3)
     print(event1)
 
+
 '''play with find'''
+
+
 def find():
     eventDataManager = EventDataManager()
-    events = eventDataManager.find_events_near(125,35.0000, radius=5)
+    events = eventDataManager.find_events_near(125, 35.0000, radius=5)
+    events = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
     print(events)
 
 
@@ -174,8 +168,8 @@ def test2():
     # print(bi)
     # print('ev-WL2wUk9tc7v2hxKG'[3:])
     eventDataManager = EventDataManager()
-    es = eventDataManager.find_all_events()
+    es = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
 
 
 if __name__ == '__main__':
-    insert()
+    find()

@@ -16,18 +16,7 @@ min_place_dict = {
     'senti_score': 0,
     'senti_score_updated_time': time.time(),
     'mood_tag_counter': {},
-    'geo_coordinates': '',  # in format of geojson.Point(x,y)
-    'deleted': False
-}
-
-place_dict_with_optionals = {
-    'place_id': '',
-    'geo_coordinate': '',
-    'senti_score': '',
-    'place_type': '',
-    'keywords': '',
-    'rating_count': '',
-    'rating_average': '',
+    'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
     'deleted': False
 }
 
@@ -129,6 +118,7 @@ class PlaceDataManager:
     def create_geo_filter(self, lat, long, radius):
         return {'geo_coordinates': geo.get_query_for_coordinates_in_circle(long=long, lat=lat, radius=radius)}
 
+
 def insert():
     place1 = min_place_dict.copy()
     place1['name'] = 'Tink Food Court'
@@ -139,9 +129,10 @@ def insert():
     dm.insert_one_place(place1)
     print(place1)
 
+
 def find():
     dm = PlaceDataManager()
-    p = dm.find_one_place_near(110,30.0000, radius=5000)
+    p = dm.find_one_place_near(110, 30.0000, radius=5000)
 
     p['senti_score_updated_time'] = time.time() - 86400
     p['senti_score'] = 25

@@ -4,7 +4,8 @@ from pymongo.collection import ReturnDocument
 from bson.objectid import ObjectId
 import base64, time
 from typing import Any
-from app.utility import geo
+from app.utility import geo, action_handler
+from app.data_managers import places_data_manager
 import geojson
 
 min_message_dict = {
@@ -18,20 +19,8 @@ min_message_dict = {
     'moodtags': [],
     'timestamp': time.time(),
     'senti_score': 0,
-    'geo_coordinates': '',  # geojson.Point(0 ,0)
+    'geo_coordinates': geojson.Point((0, 0)),
     'deleted': False
-}
-
-message_dict_with_optionals = {
-    'message_id': '',
-    'body': '',
-    'posted': '',
-    'parent': '',
-    'type': '',
-    'username': '',
-    'ancestors': [],
-    'deleted': False,
-    'senti_vector': {},
 }
 
 
@@ -49,7 +38,6 @@ class MessageDataManager:
         #                                       ("type", pymongo.ASCENDING)])
         # self.message_collection.create_index([("thread_id", pymongo.ASCENDING))
         self.message_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
-
 
     def validate_message(message_dict: dict):
         for key in min_message_dict:
@@ -162,16 +150,16 @@ def test():
 
 
 def test2():
-    # _id = ObjectId('58bd00034f6d73ae4811b7f5')
-    # print(_id.binary)
-    # message_id = base64.urlsafe_b64encode(_id.binary).decode("utf-8")
-    # print(str(message_id))
-    # bi = base64.urlsafe_b64decode(message_id)
-    # print(bi)
-    # print('ev-WL2wUk9tc7v2hxKG'[3:])
-    messageDataManager = MessageDataManager()
-    es = messageDataManager.find_all_messages()
+    parent = 'ev-WQEHXE9tc1py6OPs'
+    message = min_message_dict.copy()
+    message['type'] = 'comment'
+    message['body'] = 'I love football'
+    message['parent'] = parent
+    action_handler.process_message(message)
+    MessageDataManager().insert_message_one(message)
+    action_handler.on_message_received_for_event(event_id=parent, message=message)
+    print(message)
 
 
 if __name__ == '__main__':
-    test()
+    test2()
