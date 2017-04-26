@@ -1,4 +1,5 @@
 import json
+import time
 
 from flask import request
 
@@ -23,6 +24,7 @@ def create_message():
     message = action_handler.process_message(posted_dict)
 
     parent_id = message['parent']
+    message['time'] = time.gmtime(time.time())
     if 'ms-' in parent_id:
         parent_message = dm.find_all_messages_for_parent(parent_id)
         ancestors = [parent_id]
