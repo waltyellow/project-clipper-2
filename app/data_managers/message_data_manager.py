@@ -1,9 +1,11 @@
 import pymongo
-from pymongo import MongoClient
+from pymongo import MongoClient, GEOSPHERE
 from pymongo.collection import ReturnDocument
 from bson.objectid import ObjectId
-import base64
+import base64, time
 from typing import Any
+from app.utility import geo
+import geojson
 
 min_message_dict = {
     'message_id': '',
@@ -14,7 +16,9 @@ min_message_dict = {
     'username': '',
     'ancestors': [],
     'moodtags': [],
+    'timestamp': time.time(),
     'senti_score': 0,
+    'geo_coordinates': '',  # geojson.Point(0 ,0)
     'deleted': False
 }
 
@@ -44,6 +48,8 @@ class MessageDataManager:
         # self.message_collection.create_index([("thread_id", pymongo.ASCENDING),
         #                                       ("type", pymongo.ASCENDING)])
         # self.message_collection.create_index([("thread_id", pymongo.ASCENDING))
+        self.message_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
+
 
     def validate_message(message_dict: dict):
         for key in min_message_dict:
@@ -100,6 +106,10 @@ class MessageDataManager:
 
     def find_all_messages(self) -> [dict]:
         return self.find_messages_by_filter({})
+
+    def find_messages_near(self, long, lat, radius=500):
+        return self.find_messages_by_filter(
+            filter={'geo_coordinates': geo.get_query_for_coordinates_in_circle(long=long, lat=lat, radius=radius)})
 
     def find_all_messages_for_parent(self, parent_id) -> [dict]:
         message_dicts_cursor = self.message_collection.find({'parent': parent_id})
