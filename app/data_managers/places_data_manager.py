@@ -2,7 +2,11 @@ import base64
 from typing import Any
 
 from bson.objectid import ObjectId
-from pymongo import MongoClient
+from pymongo import MongoClient, GEOSPHERE
+from app.utility import geo
+from geojson import Point
+from app.utility import action_handler
+import time
 
 min_place_dict = {
     'place_id': '',
@@ -12,6 +16,7 @@ min_place_dict = {
     'senti_score': 0,
     'senti_score_updated_time': 0,
     'mood_tag_counter': {},
+    'geo_coordinates': '',  # in format of geojson.Point(x,y)
     'deleted': False
 }
 
@@ -21,8 +26,8 @@ place_dict_with_optionals = {
     'senti_score': '',
     'place_type': '',
     'keywords': '',
-    'rating_count':'',
-    'rating_average':'',
+    'rating_count': '',
+    'rating_average': '',
     'deleted': False
 }
 
@@ -37,6 +42,7 @@ class PlaceDataManager:
                                   27017)  # localhost for now, may change to properties file if time permits
         self.db = self.client.get_database('experimental1_2')  # not sure what this is yet, using same as events
         self.place_collection = self.db.get_collection('locations')
+        self.place_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
 
     @staticmethod
     def convert_to_place_id(_id: ObjectId) -> str:
@@ -108,6 +114,47 @@ class PlaceDataManager:
             places.append(place_dict)
         return places
 
+    def find_one_place_near(self, long, lat, radius=500):
+        return self.find_one_by_filter(
+            filter=self.create_geo_filter(lat, long, radius))
+
+    def find_places_near(self, long, lat, radius=500):
+        return self.find_places_by_filter(
+            filter=self.create_geo_filter(lat, long, radius))
+
     def find_all_places(self):
         filter = {'deleted': False}
         return self.find_places_by_filter(filter=filter)
+
+    def create_geo_filter(self, lat, long, radius):
+        return {'geo_coordinates': geo.get_query_for_coordinates_in_circle(long=long, lat=lat, radius=radius)}
+
+def insert():
+    place1 = min_place_dict.copy()
+    place1['name'] = 'ev1'
+    place1['geo_coordinates'] = Point((110,30))
+    place2 = min_place_dict.copy()
+    place2['name'] = 'ev2'
+    place2['geo_coordinates'] = Point((110, 30.00002))
+    place3 = min_place_dict.copy()
+    place3['name'] = 'ev3'
+    place3['geo_coordinates'] = Point((110, 35))
+    dm = PlaceDataManager()
+    dm.insert_one_place(place1)
+    dm.insert_one_place(place2)
+    dm.insert_one_place(place3)
+    print(place1)
+
+def find():
+    dm = PlaceDataManager()
+    p = dm.find_one_place_near(110,30.0000, radius=5000)
+
+    p['senti_score_updated_time'] = time.time() - 86400
+    p['senti_score'] = 25
+    print(p)
+    action_handler.refresh_score_for_entity(p, lifetime_in_days=1)
+    print(p)
+
+
+if __name__ == '__main__':
+    find()

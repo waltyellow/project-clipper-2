@@ -129,7 +129,7 @@ def process_message(message: dict) -> dict:
 
 def get_decay_factor(current_time, last_updated_time, lifetime_in_days):
     time_delta_in_days = (current_time - last_updated_time) / seconds_per_day
-    decay_factor = math.exp(time_delta_in_days / lifetime_in_days)
+    decay_factor = math.exp(0 - (time_delta_in_days / lifetime_in_days))
     return decay_factor
 
 
