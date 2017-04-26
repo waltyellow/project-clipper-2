@@ -114,8 +114,23 @@ class PlaceDataManager:
 
 min_place_dict2 = {
     'place_id': '',
-    'name':'p35',
+    'name':'p50',
     'deleted': False
+}
+
+place_nord_dict = {
+    'place_id': '',
+    'name': 'Nord',
+    'type': 'place',
+    'deleted': False
+}
+
+place_olin_dict = {
+    'place_id': '',
+    'name': 'Olin',
+    'type': 'place',
+    'deleted': False
+
 }
 
 def testp():
@@ -123,6 +138,11 @@ def testp():
     p1=pm.insert_one_place(min_place_dict2)
     print(p1.__str__())
     print(pm.find_all_places().__str__())
+
+
+def testGen():
+    pm = PlaceDataManager()
+
 
 if __name__ == '__main__':
     testp()
