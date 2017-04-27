@@ -5,7 +5,7 @@
     <div class="list-item" *ngFor="let building of buildings">
         <div class="top-row">
             <div class="event-name">
-                <span>{{event.name}}</span>
+                <span>{{building.name}}</span>
             </div>
             <div class="event-expand">
                 <a class="btn btn-default" [routerLink]="['/building', building.building_id, 'building']">Show Building</a>
