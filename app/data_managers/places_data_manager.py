@@ -11,6 +11,7 @@ import time
 min_place_dict = {
     'place_id': '',
     'type': 'place',
+    'name': '',
     'rating_count': 0,
     'rating_average': 0,
     'senti_score': 0,
@@ -19,7 +20,6 @@ min_place_dict = {
     'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
     'deleted': False
 }
-
 
 class PlaceDataManager:
     ''' connect to mongo through init
