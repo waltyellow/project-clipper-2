@@ -10,7 +10,7 @@
     <div class="sort-options">
         <button type="button" class="btn btn-square" (click)="sortEvents()">Sort</button>
         <input type="text" id="search_text" placeholder="Search events" [(ngModel)]="searchText" />
-        <a class="btn btn-square" [routerLink]="['/events']" [queryParams]="{search: searchText}">Search</a>
+        <a class="btn btn-square" [routerLink]="['/events']" [queryParams]="{search: searchText? searchText : ''}">Search</a>
     </div>
     <div class="list-container">
         <div class="list-item" *ngFor="let event of events">

@@ -16,7 +16,7 @@ export class EventsComponent implements OnInit {
   public listView: boolean = true;
   public events: Eventx[];
   public sub: any;
-  public searchString: string
+  public searchString: string;
 
   constructor(private titleService: TitleService, private eventService: EventService, private sortService: SortService, private route: ActivatedRoute) {
   }
