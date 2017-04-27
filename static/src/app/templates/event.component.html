@@ -3,7 +3,7 @@
     <h3 class="event-title">{{event? event.name : ''}}</h3>
     <div class="time-location">
         Location: {{event? event.location : ''}}<br />
-        Time: {{event? (event.start_time | date:'EEEE, MMM d h:ma') : ''}}
+        Time: {{event? (event.start_time | date:'EEEE, MMM d, h:ma') : ''}}
     </div>
 </div>
 <div class="divider"></div>
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="single-comment" *ngFor="let msg of (commentView? comments : questions)">
-        <span style="color: #999999">{{msg.username}}</span><span class="excitement-score">{{msg.senti_score}}</span>
+        <span style="color: #999999">{{msg.username}}</span><span class="excitement-score">{{msg.senti_score | number: '1.2-2'}}</span>
         <br />
         <span>{{msg.body}}</span>
     </div>
