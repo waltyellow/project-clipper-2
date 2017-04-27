@@ -5,6 +5,7 @@ from app.event import api
 from app.message import api
 from app.places import api
 from app.utility import webhook_endpoint
+from app.geo import api
 import os
 
 CORS(server)
