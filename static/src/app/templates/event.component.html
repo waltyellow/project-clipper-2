@@ -29,6 +29,6 @@
     <div class="single-comment" *ngFor="let msg of (commentView? comments : questions)">
         <span style="color: #999999">{{msg.username}}</span><span class="excitement-score">{{msg.senti_score}}</span>
         <br />
-        <span>{{msg.message_body}}</span>
+        <span>{{msg.body}}</span>
     </div>
 </div>

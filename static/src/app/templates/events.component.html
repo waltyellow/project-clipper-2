@@ -21,6 +21,7 @@
                     <span>{{event.name}}</span>
                 </div>
                 <div class="event-expand">
+                    <span>{{event.dynamic_senti_score | number: '1.2-2'}}</span>
                     <a class="btn btn-default" [routerLink]="['/events', event.event_id, 'event']">Show Event</a>
                 </div>
             </div>

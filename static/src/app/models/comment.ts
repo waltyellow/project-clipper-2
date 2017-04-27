@@ -6,5 +6,6 @@ export class Comment {
         public username: string,
         public parent: string,
         public type: string,
+        public senti_score: number
         ){}
 }

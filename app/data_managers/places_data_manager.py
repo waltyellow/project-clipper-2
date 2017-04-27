@@ -18,7 +18,8 @@ min_place_dict = {
     'senti_score_updated_time': time.time(),
     'mood_tag_counter': {},
     'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
-    'deleted': False
+    'deleted': False,
+    'dynamic_senti_score': 0 # dynamic_senti_score is the senti_score given contexts like where it is happening
 }
 
 class PlaceDataManager:

@@ -3,11 +3,21 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiZXJpY3IyNDI3IiwiYSI6ImNqMWI2NWR5azBhaDAyeG82MHBjcXVsOWgifQ.FWM5lIs5O3GIWD-UBZYxoA';
 
 function generateMap() {
+    if (!!navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            createMap([position.coords.longitude, position.coords.latitude])
+        });
+    } else {
+        createMap([-81.6944, 41.4933]);
+    }
+}
+
+function createMap(position) {
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/light-v9',
-        center: [-81.6944, 41.4933], // should have a props file or something...
-        zoom: 10
+        center: position, // should have a props file or something...
+        zoom: 11
     });
     
     map.on('load', function() {
