@@ -3,7 +3,7 @@
     <h3 class="event-title">{{event? event.name : ''}}</h3>
     <div class="time-location">
         Location: {{event? event.location : ''}}<br />
-        Time: {{event? (event.start_time | date:'EEEE, MMM d h:ma') : ''}}
+        Time: {{event? (event.start_time | date:'EEEE, MMM d, h:ma') : ''}}
     </div>
 </div>
 <div class="divider"></div>

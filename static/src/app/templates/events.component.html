@@ -8,11 +8,9 @@
 </div>
 <div *ngIf="listView">
     <div class="sort-options">
-    	<form class="form-inline" method="post">
-            <button type="button" class="btn btn-square" (click)="sortEvents()">Sort</button>
-            <input type="text" id="search_text" placeholder="Search events" name="search_text" />
-            <input type="submit" class="btn btn-square" value="Search" />
-        </form>
+        <button type="button" class="btn btn-square" (click)="sortEvents()">Sort</button>
+        <input type="text" id="search_text" placeholder="Search events" [(ngModel)]="searchText" />
+        <a class="btn btn-square" [routerLink]="['/events']" [queryParams]="{search: searchText}">Search</a>
     </div>
     <div class="list-container">
         <div class="list-item" *ngFor="let event of events">
@@ -30,7 +28,7 @@
                     <span>{{event.location}}</span>
                 </div>
                 <div class="event-datetime">
-                    <span>{{event? (event.start_time | date:'MMM d h:ma') : ''}}</span>
+                    <span>{{event? (event.start_time | date:'MMM d, h:ma') : ''}}</span>
                 </div>
             </div>
         </div>
