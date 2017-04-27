@@ -16,7 +16,8 @@ export class EventsComponent implements OnInit {
   public listView: boolean = true;
   public events: Eventx[];
   public sub: any;
-  public searchString: string;
+  public searchText: string = "";
+  public sortOptionsVisible: boolean = false;
 
   constructor(private titleService: TitleService, private eventService: EventService, private sortService: SortService, private route: ActivatedRoute) {
   }
@@ -27,7 +28,10 @@ export class EventsComponent implements OnInit {
 
     this.sub = this.route.queryParams.subscribe(params => {
         let sanitizedSearch = params['search']
-        this.eventService.getEvents(sanitizedSearch).subscribe(events => this.events = events['events']);
+        this.eventService.getEvents(sanitizedSearch).subscribe(events => {
+            this.events = events['events']
+            this.sortEventsByDate()
+        });
     });
   }
 
@@ -42,8 +46,8 @@ export class EventsComponent implements OnInit {
 
   public sortEventsByProximity() {
       if (!!navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-              this.events.sort(function(a, b) {
+          navigator.geolocation.getCurrentPosition(position => {
+              this.events.sort((a, b) => {
                   let d_a = this.distance(a, position)
                   let d_b = this.distance(b, position)
                   if (d_a < d_b) {
@@ -72,5 +76,9 @@ export class EventsComponent implements OnInit {
 
   setListView(listView: boolean) {
   	 this.listView = listView;
+  }
+
+  public toggleDropdown() {
+      this.sortOptionsVisible = !this.sortOptionsVisible;
   }
 }

@@ -41,8 +41,27 @@ $padding: 5px;
 }
 
 .sort-options {
+    height: auto;
 	width: 100%;
 	padding: 5px;
+    position: relative;
+}
+
+.sort-dropdown {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border: 1px solid #333333;
+    background: #CCCCCC;
+    z-index: 10;
+
+    .radio {
+        margin: 0px 7px;
+    }
+}
+
+.sort-components {
+    width: 100%;
 }
 
 #map {
