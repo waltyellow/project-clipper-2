@@ -23,8 +23,8 @@
         </div>
         <div class="sort-components">
             <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
-            <input type="text" id="search_text" placeholder="Search events" [(ngModel)]="searchText" />
-            <a class="btn btn-square" [routerLink]="['/events']" [queryParams]="{search: searchText}">Search</a>
+            <input type="text" id="search-text" placeholder="Search events" [(ngModel)]="searchText" />
+            <button type="button" class="btn btn-square" [routerLink]="['/events']" [queryParams]="{search: searchText}">Search</button>
         </div>
     </div>
     <div class="list-container">
