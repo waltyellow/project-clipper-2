@@ -39,8 +39,10 @@ function createMap(position) {
         map.setPaintProperty('events', 'circle-radius', {
             property: 'excitement',
             stops: [
-                [-1, 1],
-                [1, 25]
+                [-50, 1],
+                [-10, 1],
+                [15, 30],
+                [50, 30]
             ]
         });
 
