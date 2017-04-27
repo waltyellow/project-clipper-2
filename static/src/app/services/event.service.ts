@@ -9,8 +9,13 @@ export class EventService {
 
     private baseURL = 'http://localhost:5000/events/';
 
-   public getEvents() : Observable<Eventx[]> {
-       return this.http.get(this.baseURL).map((res:Response) => res.json())
+    public getEvents(search: string = '') : Observable<Eventx[]> {
+        let url = this.baseURL
+        if (search) {
+            url += 'search?name_search=' + search
+        }
+        console.log(url)
+        return this.http.get(url).map((res:Response) => res.json())
     }
 
     public getEvent(id) : Observable<Eventx> {
