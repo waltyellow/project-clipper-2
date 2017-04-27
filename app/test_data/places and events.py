@@ -54,6 +54,7 @@ def create_event_1(place):
     event['name'] = 'Tomlinson food week'
     event['geo_coordinates'] = Point((123, 45))
     event['location'] = 'Tomlinson'
+    event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
     event['senti_score'] = 7
     return event
@@ -65,6 +66,7 @@ def create_event_2(place):
     event['name'] = 'Computer Science Senior Project Presentations'
     event['geo_coordinates'] = Point((123, 45))
     event['location'] = 'White'
+    event['description'] =  'The Class of 2017 Computer Science majors are all presenting their senior research projects.'
     event['place_id'] = place['place_id']
     event['senti_score'] = 500
     return event
@@ -74,6 +76,7 @@ def create_event_3(place):
     proto = places_data_manager.min_place_dict
     event = proto.copy()
     event['name'] = 'Senior Capstone Presentations of Operation Management'
+    event['description'] =  'The Class of 2017 Operation Management majors are all presenting their senior research projects.'
     event['geo_coordinates'] = Point((123, 45))
     event['location'] = 'Weatherhead'
     event['place_id'] = place['place_id']
