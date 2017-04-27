@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ViewEncapsulation} from '@angular/core';
 import { PlaceService } from '../services/place.service'
 import {ActivatedRoute } from '@angular/router';
-import { Building }        from '../models/building';
+import { Place }        from '../models/place';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
 import { MessageComponent } from './messages.component';
@@ -14,7 +14,7 @@ import { SortService } from '../services/sort.service';
 })
 
 export class BuildingComponent extends MessageComponent implements OnInit {
-  public building: Building;
+  public building: Place;
   private sub:any;
 
   constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService,
@@ -23,14 +23,14 @@ export class BuildingComponent extends MessageComponent implements OnInit {
   }
   
   public postComment() : void {
-    super.postComment(this.building.buildingId)
+    super.postComment(this.building.placeId)
   }
 
   ngOnInit() {
     this.titleService.setTitle('Buildings');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        this.placeService.getBuilding(id).subscribe(building => this.building = building)
+        this.placeService.getPlace(id).subscribe(building => this.building = building)
         this.subscribeToComments(id)
     });
     super.ngOnInit()
