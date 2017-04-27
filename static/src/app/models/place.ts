@@ -1,6 +1,6 @@
 export class Place {
     constructor(
-        public placeId: string,
+        public place_id: string,
         public name: string,
         public location: string
         ){}

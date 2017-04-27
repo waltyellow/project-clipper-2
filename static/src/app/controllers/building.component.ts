@@ -23,13 +23,16 @@ export class BuildingComponent extends MessageComponent implements OnInit {
   }
   
   public postComment() : void {
-    super.postComment(this.building.placeId)
+    console.log(this.building)
+    console.log(this.building.place_id)
+    super.postComment(this.building.place_id)
   }
 
   ngOnInit() {
     this.titleService.setTitle('Buildings');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
+        console.log(id)
         this.placeService.getPlace(id).subscribe(building => this.building = building)
         this.subscribeToComments(id)
     });

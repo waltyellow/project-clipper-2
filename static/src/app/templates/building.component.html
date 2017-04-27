@@ -21,13 +21,13 @@
     </div>
     <div class="single-comment">
         <div class="question-form">
-            <input type="text" class="question-entry" placeholder="{{commentView? 'Enter a comment' : 'Ask a question'}}" [(ngModel)]="newComment.message_body">
+            <input type="text" class="question-entry" placeholder="{{commentView? 'Enter a comment' : 'Ask a question'}}" [(ngModel)]="newComment.body">
             <button class="btn btn-default" (click)="postComment()">Post</button>
         </div>
     </div>
     <div class="single-comment" *ngFor="let msg of (commentView? comments : questions)">
         <span><b>{{msg.message_username}}</b></span><span class="excitement-score">[excitement score: 5]</span>
         <br />
-        <span>{{msg.message_body}}</span>
+        <span>{{msg.body}}</span>
     </div>
 </div>

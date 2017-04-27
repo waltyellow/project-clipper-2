@@ -22,7 +22,7 @@ export class PlaceComponent extends MessageComponent implements OnInit {
   }
 
   public postComment() : void {
-    super.postComment(this.place.placeId)
+    super.postComment(this.place.place_id)
   }
 
   ngOnInit() {
