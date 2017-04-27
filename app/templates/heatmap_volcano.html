@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<body style="background-color:#222a34">
+<h1 style="color:white; font-family:sans-serif">Evention Global Data Explorer</h1>
+<p style="color:white; font-family:sans-serif">Resolution is {{ w }} by {{ h }}. Resolution higher than 20x10 might
+    significantly affect performance</p>
+<p style="color:white; font-family:sans-serif">Use array keys to move, +/- or mouse wheels to zoom,
+    [] to expand or narrow color scales, ; and ' to shift color scales, <> to change impact radius of events and
+    places.</p>
+<h2 style="color:white; font-family:sans-serif">navigate
+    <button onclick="move_east()">move east</button>
+    <button onclick="move_west()">move west</button>
+    <button onclick="move_south()">move south</button>
+    <button onclick="move_north()">move north</button>
+    <button onclick="zoom_in()">zoom in</button>
+    <button onclick="zoom_out()">zoom out</button>
+    explore
+    <button onclick="higher_res()">res+</button>
+    <button onclick="lower_res()">res-</button>
+    <button onclick="reset()">reset radius, color scales and refresh</button>
+</h2>
+<br/>
+<svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
+</body>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-hsv.v0.1.min.js"></script>
+<script src="https://d3js.org/d3-contour.v1.min.js"></script>
+<script>
+    //referenced https://www.dashingd3js.com/svg-text-element
+    var svg = d3.select("svg"),
+        width = +svg.attr("width"),
+        height = +svg.attr("height"),
+        stdev ={{ stdev }},
+        mouse_position = [width / 2, height / 2]
+    min_value ={{ min_value }},
+        max_value ={{ max_value }},
+        long_left = {{ long_left }},
+        long_right = {{ long_right }},
+        lat_top = {{ lat_top }},
+        lat_bottom = {{ lat_bottom }},
+        radius = 0.45 * length,
+        sigma = 3,
+        steps = 200,
+        mean = {{ mean }};
+
+    var i0 = d3.interpolateHsvLong(d3.hsv(140, 0.2, 0.5), d3.hsv(60, 0.9, 0.9)),
+        i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0, 0.9))
+    var events =
+    {{ events|tojson|safe}}
+    var places =
+    {{ places|tojson|safe }}
+
+    var lowerbound = mean - sigma * stdev - 0.01,
+        upperbound = mean + sigma * stdev + 0.02;
+
+    function calculate_color_bounds() {
+        lowerbound = mean - sigma * stdev - 0.01,
+            upperbound = mean + sigma * stdev + 0.02;
+    }
+
+    interpolateTerrain = function (t) {
+        if (t > 1) {
+            t = 1
+        }
+        if (t < 0) {
+            t = 0
+        }
+        return t < 0.5 ? i0(t * 2) : i1((t - 0.5) * 2);
+    },
+        color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound]);
+
+    function draw(volcano) {
+        svg.selectAll("path")
+            .data(d3.contours()
+                .size([volcano.width, volcano.height])
+                .thresholds(d3.range(min_value - 0.01, max_value + 0.01, stdev / 100 + 0.0001))
+                (volcano.values))
+            .enter().append("path")
+            .attr("d", d3.geoPath(d3.geoIdentity().scale(width / volcano.width)))
+            .attr("fill", function (d) {
+                return color(d.value);
+            });
+    }
+
+    function draw_events(events) {
+        var circles = svg.selectAll("circle")
+            .data(events)
+            .enter()
+            .append("circle");
+
+
+        var circleAttributes = circles
+            .attr("cx", function (d) {
+                return width * d.x;
+            })
+            .attr("cy", function (d) {
+                return height * d.y;
+            })
+            .attr("r", function (d) {
+                return 1 + Math.abs(d.score / 5);
+            })
+            .style("fill", function (d) {
+                return d.score > 0 ? "white" : "black";
+            });
+
+        //Add the SVG Text Element to the svgContainer
+        var text = svg.selectAll("text")
+            .data(events)
+            .enter()
+            .append("text");
+
+        //Add SVG Text Element Attributes
+        var textLabels = text
+            .attr("x", function (d) {
+                return width * d.x + 5;
+            })
+            .attr("y", function (d) {
+                return height * d.y;
+            })
+            .text(function (d) {
+                return d.name;
+            })
+
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "10px")
+            .attr("fill", "black");
+    }
+
+    function draw_places(places) {
+        var circles = svg.selectAll("circle")
+            .data(places)
+            .enter()
+            .append("circle");
+
+
+        var circleAttributes = circles
+            .attr("cx", function (d) {
+                return width * d.x;
+            })
+            .attr("cy", function (d) {
+                return height * d.y;
+            })
+            .attr("r", function (d) {
+                return 2;
+            })
+            .style("fill", function (d) {
+                return d.score > 0 ? "blue" : "purple";
+            });
+
+        //Add the SVG Text Element to the svgContainer
+        var text = svg.selectAll("text")
+            .data(places)
+            .enter()
+            .append("text");
+
+        //Add SVG Text Element Attributes
+        var textLabels = text
+            .attr("x", function (d) {
+                return width * d.x + 5;
+            })
+            .attr("y", function (d) {
+                return height * d.y;
+            })
+            .text(function (d) {
+                return "<a href=\"#\">"+d.name+" <a/>" ;
+            })
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#eee");
+    }
+
+    function reset() {
+        radius = length * 0.45
+        window.location = get_url()
+    }
+
+    // referenced http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+
+    url = window.location
+    console.log(url)
+
+    var long = getParameterByName("long");
+    var lat = getParameterByName("lat");
+    var length = getParameterByName("length");
+    var h = getParameterByName("h");
+    radius = parseFloat(getParameterByName('radius'));
+    if ((radius == null) || (radius == '') || (isNaN(radius))) {
+        radius = 0.45 * length
+    }
+
+    function get_url() {
+        var params = {'long': long, 'lat': lat, 'length': length, 'h': h, 'radius': radius.toFixed(2)};
+        var new_url = window.location.href.split('?')[0] + "?" + jQuery.param(params);
+        return new_url
+    }
+
+    get_url();
+
+    function move_east() {
+        diff = (0.25 * parseFloat(length)) / 110574
+        long = (parseFloat(long) + diff).toFixed(7)
+        window.location = get_url();
+    }
+
+    function move_west() {
+        diff = (0.25 * parseFloat(length)) / 110574
+        long = (parseFloat(long) - diff).toFixed(7)
+        window.location = get_url();
+    }
+
+    function move_north() {
+        diff = 0.25 * parseFloat(length) / (111320 * Math.cos((0.0174533 * parseFloat(lat))))
+        lat = (parseFloat(lat) + diff).toFixed(7)
+        window.location = get_url();
+    }
+
+    function move_south() {
+        diff = 0.25 * parseFloat(length) / (111320 * Math.cos((0.0174533 * parseFloat(lat))))
+        lat = (parseFloat(lat) - diff).toFixed(7)
+        window.location = get_url();
+    }
+
+    function zoom_in() {
+        length = (parseFloat(length) / 1.4).toFixed(2)
+        if (parseFloat(length) < 80) {
+            length = 80
+        }
+        set_coordinate_to_mouse((1 / 1.4));
+
+        radius = length * 0.45
+        window.location = get_url();
+    }
+
+    function zoom_out() {
+        length = (parseFloat(length) * 1.4).toFixed(2)
+        set_coordinate_to_mouse(1.4);
+
+        radius = length * 0.45
+
+        window.location = get_url();
+    }
+
+    function higher_res() {
+        h = (parseInt(h) * 1.2).toFixed(0)
+        if (h > 20) {
+            h = 20
+        }
+        window.location = get_url();
+    }
+
+    function lower_res() {
+        h = (parseInt(h) / 1.2).toFixed(0)
+        window.location = get_url();
+    }
+
+    document.onkeydown = checkKey;
+
+    //http://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript
+    function checkKey(e) {
+
+        e = e || window.event;
+
+        if (e.keyCode == '38') {
+            // up arrow
+            move_north()
+        }
+        else if (e.keyCode == '40') {
+            // down arrow
+            move_south()
+        }
+        else if (e.keyCode == '37') {
+            // left arrow
+            move_west()
+        }
+        else if (e.keyCode == '39') {
+            // right arrow
+            move_east()
+        }
+        else if (e.keyCode == '187') {
+            // right arrow
+            zoom_in()
+        }
+        else if (e.keyCode == '189') {
+            // right arrow
+            zoom_out()
+        }
+        else if (e.keyCode == '219') {
+            upperbound = upperbound / 1.2
+            lowerbound = lowerbound / 1.2
+            color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
+            svg.selectAll("*").remove();
+            draw(v)
+            draw_events(events)
+
+        }
+        else if (e.keyCode == '221') {
+            upperbound = upperbound * 1.2
+            lowerbound = lowerbound * 1.2
+            color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
+            svg.selectAll("*").remove();
+            draw(v)
+            draw_events(events)
+        }
+        else if (e.keyCode == '186') {
+            upperbound = upperbound + 0.5 * stdev
+            lowerbound = lowerbound + 0.5 * stdev
+            color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
+            svg.selectAll("*").remove();
+            draw(v)
+            draw_events(events)
+        }
+        else if (e.keyCode == '222') {
+            upperbound = upperbound - 0.5 * stdev
+            lowerbound = lowerbound - 0.5 * stdev
+            color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
+            svg.selectAll("*").remove();
+            draw(v)
+            draw_events(events)
+        }
+        else if (e.keyCode == '188') {
+            radius = radius / 1.4
+
+            window.location = get_url();
+
+        }
+        else if (e.keyCode == '190') {
+            radius = radius * 1.4
+            window.location = get_url();
+
+        }
+
+    }
+
+    function draw_lines(coordinates) {
+        var x = coordinates[0]
+        var y = coordinates[1]
+
+        var data = [
+            [x, 0, x, height],
+            [0, y, width, y]
+        ]
+        //Selects all existing lines(Initially this will return empty array)
+        var lines = svg.selectAll("line");
+
+        //Binds the data array, create lines if does not exists 3(Data array length) lines (Creates the new lines only during the intial call to the function)
+        lines.data(data).enter().append("line");
+
+        //Updates the attributes using data bonded
+        lines.attr({
+            "x1": function (d) {
+                return d[0]
+            },
+            "y1": function (d) {
+                return d[1]
+            },
+            "x2": function (d) {
+                return d[2]
+            },
+            "y2": function (d) {
+                return d[3]
+            },
+        })
+
+        lines.attr({"stroke": "black"});
+        lines.attr({
+            "stroke-width": "10px"
+        })
+    }
+
+
+    //http://stackoverflow.com/questions/24217087/how-to-determine-scroll-direction-without-actually-scrolling
+    function set_coordinate_to_mouse(zoom) {
+        var mouse_x_percentage = (mouse_position[0] / width);
+        var mouse_y_percentage = (mouse_position[1] / height);
+        var m_long = (long_left + (mouse_x_percentage ) * (long_right - long_left));
+        var m_lat = lat_top - (mouse_y_percentage) * (lat_top - lat_bottom);
+        long = m_long + (0.5 - mouse_x_percentage) * zoom * (long_right - long_left);
+        lat = m_lat - (0.5 - mouse_y_percentage) * zoom * (lat_top - lat_bottom);
+    }
+    window.addEventListener('wheel', function (e) {
+        if (e.deltaY < 0) {
+            zoom_out()
+            window.scrollTo(0, 0)
+        }
+        if (e.deltaY > 0) {
+            zoom_in()
+            window.scrollTo(0, 0)
+        }
+    });
+
+
+    v = {{ data_points|tojson|safe }}
+        draw(v)
+    draw_events(events)
+    //draw_places(places)
+
+    var text = svg.append("text").attr("x", width / 2)
+        .attr("y", height / 2)
+        .text("+")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")
+        .attr("fill", "black");
+
+    var label_long_left = svg.append("text").attr("x", 0)
+        .attr("y", height / 2)
+        .text("Long:" + long_left.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+    var label_long_right = svg.append("text").attr("x", width - 100)
+        .attr("y", height / 2)
+        .text("Long:" + long_right.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+    var label_lat_top = svg.append("text").attr("x", width / 2)
+        .attr("y", 20)
+        .text("Lat:" + lat_top.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+    var label_lat_bottom = svg.append("text").attr("x", width / 2)
+        .attr("y", height - 6)
+        .text("Lat:" + lat_bottom.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+
+    var ruler = svg.append("line")
+        .attr("x1", width - 250)
+        .attr("y1", 50)
+        .attr("x2", width - 50)
+        .attr("y2", 50)
+        .attr('stroke', "gray")
+        .attr("stroke-width", 5);
+
+    var ruler_scale = svg.append("text").attr("x", width - 180)
+        .attr("y", 40)
+        .text((length / 8).toFixed(1) + "meters")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+    svg.on("mousemove", function () {
+        mouse_position = d3.mouse(this);
+        //console.log(mouse_position)
+    })
+    console.log("Hello")
+</script>

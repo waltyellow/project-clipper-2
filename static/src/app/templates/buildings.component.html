@@ -1,14 +1,19 @@
 <div class="sort-options">
 	sort icon<span style="float: right">filter icon</span>
 </div>
+<div class="sort-options">
+        <button type="button" class="btn btn-square">Sort</button>
+        <input type="text" id="search_text" placeholder="Search campus building" [(ngModel)]="searchText" />
+        <a class="btn btn-square">Search</a>
+    </div>
 <div class="list-container">
     <div class="list-item" *ngFor="let building of buildings">
         <div class="top-row">
             <div class="event-name">
-                <span>{{event.name}}</span>
+                <span>{{building.name}}</span>
             </div>
             <div class="event-expand">
-                <a class="btn btn-default" [routerLink]="['/building', building.building_id, 'building']">Show Building</a>
+                <a class="btn btn-default" [routerLink]="['/campus-buildings', building.place_id, 'campus-buildings']">Show Building</a>
             </div>
         </div>
         <div class="bottom-row">

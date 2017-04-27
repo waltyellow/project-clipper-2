@@ -1,4 +1,4 @@
-import base64
+import base64, random
 from typing import Any
 
 from bson.objectid import ObjectId
@@ -18,7 +18,8 @@ min_event_dict = {
     'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
     'place_id': '',
     'senti_score': 0,
-    'senti_score_updated_time': time.time()
+    'senti_score_updated_time': time.time(),
+    'dynamic_senti_score': 0  # dynamic_senti_score is the senti_score given contexts like where it is happening
 }
 
 
@@ -133,20 +134,13 @@ class EventDataManager:
 
 
 def insert():
-    event1 = min_event_dict.copy()
-    event1['name'] = 'ev1'
-    event1['geo_coordinates'] = Point((125, 30))
-    event2 = min_event_dict.copy()
-    event2['name'] = 'ev2'
-    event2['geo_coordinates'] = Point((125, 30.00002))
-    event3 = min_event_dict.copy()
-    event3['name'] = 'ev3'
-    event3['geo_coordinates'] = Point((125, 35))
-    dm = EventDataManager()
-    dm.insert_event_one(event1)
-    dm.insert_event_one(event2)
-    dm.insert_event_one(event3)
-    print(event1)
+    for i in range(0, 30):
+        event1 = min_event_dict.copy()
+        event1['name'] = 'evrs' + str(i)
+        event1['senti_score'] = random.random() * 50
+        event1['geo_coordinates'] = Point((55.5 + 0.4 * random.random(), 53.9 + 0.5 * random.random()))
+        EventDataManager().insert_event_one(event1)
+        print(event1)
 
 
 '''play with find'''
@@ -172,4 +166,4 @@ def test2():
 
 
 if __name__ == '__main__':
-    find()
+    insert()

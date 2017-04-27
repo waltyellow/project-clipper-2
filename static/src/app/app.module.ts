@@ -19,7 +19,6 @@ import { QuestionsComponent } from './controllers/questions.component';
 
 import { EventService } from './services/event.service'
 import { PlaceService } from './services/place.service';
-import { BuildingService } from './services/building.service';
 import { TitleService } from './services/title.service';
 import { CommentService } from './services/comment.service';
 import { SortService } from './services/sort.service';
@@ -45,7 +44,7 @@ import { SortService } from './services/sort.service';
     AlertModule.forRoot(),
     routing
   ],
-  providers: [EventService, TitleService, PlaceService, CommentService, SortService, BuildingService],
+  providers: [EventService, TitleService, PlaceService, CommentService, SortService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

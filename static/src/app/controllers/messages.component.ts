@@ -11,6 +11,7 @@ export class MessageComponent {
   constructor(public commentService: CommentService, public sortService: SortService) { }
 
   public postComment(parentId: string) : void {
+    console.log(parentId)
     this.newComment.posted = new Date().getTime()
     this.newComment.parent = parentId
     this.newComment.type = this.commentView? 'comment' : 'question'
@@ -23,10 +24,11 @@ export class MessageComponent {
   }
   
   private emptyComment() : Comment {
-    return new Comment('', '', 0, 'demoUser', '', '')
+    return new Comment('', '', 0, 'demoUser', '', '', 0)
   }
   
   subscribeToComments(id) {
+    console.log(id)
     this.commentService.getComments(id).subscribe(comments => {
         let messages = comments['messages']
         

@@ -7,6 +7,7 @@ import app.data_managers.places_data_manager as pdm
 from app import server
 from app.data_managers.common import search_parameter_to_db_filter
 from app.data_managers.places_data_manager import PlaceDataManager
+from app.utility import action_handler
 
 
 @server.route(rule='/places/template', endpoint='get_place_template', methods=['GET'])
@@ -21,6 +22,7 @@ def create_place():
     decoded_json = request.get_data().decode("utf-8")
     posted_dict = json.loads(decoded_json)
     dm.insert_one_place(posted_dict)
+    action_handler.generate_dynamic_score_for_place(posted_dict)
     return posted_dict
 
 
@@ -36,7 +38,9 @@ def replace_one_place():
     place_id = posted_dict['place_id']
     if not place_id.__contains__('pl-'):
         raise Exception('invalid input')
-    return dm.replace_one_place(posted_dict)
+    place = dm.replace_one_place(posted_dict)
+    action_handler.generate_dynamic_score_for_place(place)
+    return place
 
 
 '''update by a list of diffs '''
@@ -56,7 +60,9 @@ def update_place(place_id: str):
         key = update['key']
         new_value = update['new_value']
         dm.update_one_place(place_id=place_id, key=key, new_val=new_value)
-    return dm.find_one_place_by_id(place_id)
+    place = dm.find_one_place_by_id(place_id)
+    action_handler.generate_dynamic_score_for_place(place)
+    return place
 
 
 '''listing endpoints'''
@@ -68,7 +74,9 @@ def update_place(place_id: str):
 
 @server.route(rule='/places/<string:place_id>', endpoint='get_one_place', methods=['GET'])
 def get_one_place(place_id: str):
-    return json.dumps(PlaceDataManager().find_one_place_by_id(place_id))
+    place = PlaceDataManager().find_one_place_by_id(place_id)
+    action_handler.generate_dynamic_score_for_place(place)
+    return json.dumps(place)
 
 
 '''
@@ -101,6 +109,9 @@ def search_place():
     dm = PlaceDataManager()
     print('filtering by' + filter.__str__())
     place_dicts = dm.find_places_by_filter(filter)
+    for place in place_dicts:
+        action_handler.generate_dynamic_score_for_place(place)
+
     return json.dumps({'places': place_dicts})
 
 

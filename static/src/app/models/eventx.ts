@@ -5,6 +5,8 @@ export class Eventx {
         public start_time: number,
         public duration: number,
         public senti_score: number,
-        public location: string
+        public dynamic_senti_score: number,
+        public location: string,
+        public geo_coordinates: string
         ){}
 }

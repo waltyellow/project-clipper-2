@@ -11,15 +11,16 @@ import time
 min_place_dict = {
     'place_id': '',
     'type': 'place',
+    'name': '',
     'rating_count': 0,
     'rating_average': 0,
     'senti_score': 0,
     'senti_score_updated_time': time.time(),
     'mood_tag_counter': {},
     'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
-    'deleted': False
+    'deleted': False,
+    'dynamic_senti_score': 0 # dynamic_senti_score is the senti_score given contexts like where it is happening
 }
-
 
 class PlaceDataManager:
     ''' connect to mongo through init
