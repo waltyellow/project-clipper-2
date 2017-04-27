@@ -2,12 +2,12 @@
 <div class="details-panel">
     <h3 class="building-title">{{building? building.name : ''}}</h3>
     <div class="time-location">
-        Location: {{building? building.location : ''}}
+        Location: {{building ? building.location : ''}}
     </div>
 </div>
 <div class="divider"></div>
 <div class="details-panel">
-    <span>This is an building that is taking place for a reason and will be located at a place and things</span>
+    <span>Description: {{building ? building.description : ''}}</span>
 </div>
 <div class="divider"></div>
 <div class="comments-container">
