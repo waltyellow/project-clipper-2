@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import {ViewEncapsulation} from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { TitleService } from '../services/title.service';
+import { PlaceService } from '../services/place.service';
+import { Place }        from '../models/place';
+import { SortService } from '../services/sort.service';
 
 @Component({
   selector: 'app-study-locations',
@@ -8,10 +13,14 @@ import { TitleService } from '../services/title.service';
 })
 export class StudyLocationsComponent implements OnInit {
 
-  constructor(private titleService: TitleService) { }
+  constructor(private titleService: TitleService, private sortService: SortService, private placeService: PlaceService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Study Locations');
+    this.placeService.getStudyLocations().subscribe(studyLoc => this.studyLoc = studyLoc['places']);
+  }
+  setListView(listView: boolean){
+    this.listView = listView;
   }
 
 }
