@@ -21,6 +21,7 @@ def webhook():
     action = data_object['result']['action']
 
     print(action)
+    print(data_object)
 
     reply = "sorry, I did not understand this command"
 
