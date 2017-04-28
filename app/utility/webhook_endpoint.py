@@ -27,7 +27,7 @@ def webhook():
         try:
             location, place = find_location_and_place(data_object)
             print("getting"+location)
-                if location == '':
+            if location == '':
                 return "No location", 404
         except KeyError:
             return "No location", 404
@@ -36,16 +36,17 @@ def webhook():
             # we cannot find a place
             reply = reply_no_location(location)
         else:
+            print(place)
             reply = reply_for_place(place)
 
     elif action == 'find_events':
         try:
             location, place = find_location_and_place(data_object)
             print("getting" + location)
-            print("find place" + place['place_id'])
             if not place:
                 reply = reply_for_events_vague_location(location, location)
             else:
+                print(place)
                 reply = reply_for_events_at_place(place, location_name=place['name'])
         except KeyError:
             return "No location", 404
@@ -125,7 +126,7 @@ def reply_for_events(events: [dict], location_name: str):
     if len(events) == 0:
         reply = "sorry, we cannot find any events near {0}.".format(location_name)
     else:
-        reply = "Here are the events. There are {0} events. ".format(len(events))
+        reply = "Here are the events. There are {0} events. The first event is ".format(len(events))
     print(reply)
     first = False
     for event in events:
