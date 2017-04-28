@@ -1,4 +1,4 @@
-<div class="sort-options">    
+<div class="sort-options">
     <div class="sort-dropdown" *ngIf="sortOptionsVisible">
         <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
         <br />
@@ -16,8 +16,8 @@
         </div>
     </div>
     <div class="sort-components">
-            <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
-            <input type="text" id="search_text" placeholder="Search events" [(ngModel)]="searchText" />
-            <a class="btn btn-square" [routerLink]="['/events']" [queryParams]="{search: searchText}">Search</a>
+        <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
+        <input type="text" id="search_text" [placeholder]="boxText" [(ngModel)]="searchText" />
+        <a class="btn btn-square" [routerLink]="link" [queryParams]="{search: searchText}">Search</a>
     </div>
 </div>

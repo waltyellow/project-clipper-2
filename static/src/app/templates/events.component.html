@@ -7,7 +7,7 @@
     </div>
 </div>
 <div *ngIf="listView">
-    <sort [items]="buildings" [soonest]="true"> </sort>
+    <sort [items]="events" boxText="Search events" [link]="['/events']" [soonest]="true"></sort>
     <div class="list-container">
         <div class="list-item" *ngFor="let event of events">
             <div class="top-row">

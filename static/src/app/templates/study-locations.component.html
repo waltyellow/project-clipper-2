@@ -1,6 +1,4 @@
-<sort [items]="studyLocations" [soonest]="false"> </sort>
-<!--button type="button" class="btn btn-square" [routerLink]="['/study-locations']" [queryParams]="{search: searchText}">Search</button-->
-
+<sort [items]="studyLocations" boxText="Search study locations" [link]="['/study-locations']"></sort>
 <div class="list-container">
     <div class="list-item" *ngFor="let location of studyLocations">
         <div class="top-row">

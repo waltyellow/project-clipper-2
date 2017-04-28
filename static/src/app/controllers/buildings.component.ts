@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import { TitleService } from '../services/title.service';
 import { PlaceService } from '../services/place.service';
 import { Place }        from '../models/place';
+import { ActivatedRoute } from '@angular/router';
+import { SortComponent } from './sort.component';
 
 
 @Component({
@@ -12,17 +14,22 @@ import { Place }        from '../models/place';
   styles: []
 })
 export class BuildingsComponent implements OnInit {
-  public listView: boolean = true;
   public buildings: Place[];
+  public sub: any;
+  public searchText: string = "";
 
-  constructor(private titleService: TitleService, private placeService: PlaceService) {
+  constructor(private titleService: TitleService, private placeService: PlaceService, private route: ActivatedRoute) {
   }
+
   ngOnInit() {
     this.titleService.setTitle('Campus Buildings');
-    this.placeService.getBuildings().subscribe(buildings => this.buildings = buildings['places']);
-  }
 
-  setListView(listView: boolean){
-    this.listView = listView;
+    this.sub = this.route.queryParams.subscribe(params => {
+        let sanitizedSearch = params['search']
+        this.placeService.getBuildings(sanitizedSearch).subscribe(buildings => {
+            this.buildings = buildings['places']
+            SortComponent.sortByRating(this.buildings);
+        });
+    });
   }
 }
