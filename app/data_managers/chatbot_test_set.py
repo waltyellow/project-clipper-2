@@ -68,7 +68,7 @@ def insert():
                          'cannot be used to enjoy this food.'
     food_week['senti_score'] = -7
     food_week['place_id'] = tomlinson['place_id']
-    food_week['location'] = 'white'
+    food_week['location'] = 'Tomlinson'
     food_week['geo_coordinates'] = Point((100, 10.0021))
 
     edm.insert_event_one(ece)
