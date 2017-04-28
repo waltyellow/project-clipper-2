@@ -4,8 +4,6 @@ import { PlaceService } from '../services/place.service'
 import {ActivatedRoute } from '@angular/router';
 import { Place }        from '../models/place';
 import { TitleService } from '../services/title.service';
-import {MessageComponent} from './messages.component';
-
 
 @Component({
   selector: 'app-building',
@@ -25,7 +23,6 @@ export class BuildingComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         this.parentId = params['id'];
         this.placeService.getPlace(this.parentId).subscribe(building => this.building = building)
-        //this.subscribeToComments(this.parentId)
     });
   }
 

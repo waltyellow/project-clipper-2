@@ -4,7 +4,6 @@ import { EventService } from '../services/event.service'
 import {ActivatedRoute } from '@angular/router';
 import { Eventx }        from '../models/eventx';
 import { TitleService } from '../services/title.service';
-import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-event',
@@ -15,8 +14,7 @@ export class EventComponent implements OnInit {
   private sub:any;
   private parentId : string;
 
-  constructor(private titleService: TitleService, private eventService: EventService, private commentSvc: CommentService,
-          private route: ActivatedRoute) {
+  constructor(private titleService: TitleService, private eventService: EventService, private route: ActivatedRoute) {
   }
  
   ngOnInit() {
@@ -24,7 +22,6 @@ export class EventComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
         this.parentId = params['id'];
         this.eventService.getEvent(this.parentId).subscribe(event => this.event = event)
-        //this.subscribeToComments(this.parentId)
     });
   }
 
