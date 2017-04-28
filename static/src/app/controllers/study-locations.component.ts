@@ -15,7 +15,6 @@ export class StudyLocationsComponent implements OnInit {
   public studyLocations: Place[];
   public sub: any;
   public searchText: string = "";
-  public sortOptionsVisible: boolean = false;
 
   constructor(private titleService: TitleService, private placeService: PlaceService, private route: ActivatedRoute) { }
 
