@@ -84,14 +84,13 @@ def webhook():
             event['location'] = location
             print(event)
             edm.insert_event_one(event)
-            if not place:
-                reply = "Success " + serialize_event(event, 'created') + " from Google Assistant"
-            else:
+            if place:
                 event['geo_coordinates'] = place['geo_coordinates']
                 event['place_id'] = place['place_id']
                 edm.replace_one_event(event)
             print('created')
             print(event)
+            reply = "Success " + serialize_event(event, 'created') + " from Google Assistant"
 
         except KeyError:
             reply = "Event Creation failed due to unknown reasons"
