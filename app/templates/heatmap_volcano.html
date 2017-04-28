@@ -326,7 +326,7 @@
         resize();
         svg.selectAll("*").remove();
         draw(v);
-        draw_events(events);
+        draw_events(entities);
     }
     function checkKey(e) {
 
@@ -459,7 +459,7 @@
 
     v = {{ data_points|tojson|safe }}
         draw(v)
-    draw_events(events)
+    draw_events(entities)
 
     var text = svg.append("text").attr("x", mouse_position[0])
         .attr("y", mouse_position[1])
