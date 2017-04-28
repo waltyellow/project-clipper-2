@@ -151,7 +151,7 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return d.name;
+                return d.name + "<"+ d.score.toFixed(2) +">";
             })
 
             .attr("font-family", "sans-serif")
