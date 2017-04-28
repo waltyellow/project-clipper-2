@@ -54,8 +54,8 @@
     var nearby_events = events;
     var nearby_places = places;
 
-    var lowerbound = mean - sigma * stdev - 0.01,
-        upperbound = mean + sigma * stdev + 0.02;
+    var lowerbound = mean - sigma * stdev - 0.01 + 1.5*stdev,
+        upperbound = mean + sigma * stdev + 0.02 + 1.5*stdev;
 
     function calculate_color_bounds() {
         lowerbound = mean - sigma * stdev - 0.01,
@@ -151,7 +151,7 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return d.name + "<"+ d.score.toFixed(2) +">";
+                return d.name + "<" + d.score.toFixed(2) + ">";
             })
 
             .attr("font-family", "sans-serif")
@@ -232,6 +232,18 @@
     }
 
     function get_url() {
+        if (radius > 10000){
+            radius = 10000
+        }
+        if (length > 2000000){
+            length = 2000000
+        }
+        if (h > 20){
+            h = 20
+        }
+        if (h < 5){
+            h = 5
+        }
         var params = {'long': long, 'lat': lat, 'length': length, 'h': h, 'radius': radius.toFixed(2)};
         var new_url = window.location.href.split('?')[0] + "?" + jQuery.param(params);
         return new_url
@@ -263,21 +275,24 @@
         window.location = get_url();
     }
 
-    function zoom_in() {
+    function zoom_in(is_wheel) {
         length = (parseFloat(length) / 1.4).toFixed(2)
         if (parseFloat(length) < 80) {
             length = 80
         }
-        set_coordinate_to_mouse((1 / 1.4));
-
+        if (is_wheel) {
+            set_coordinate_to_mouse((1 / 1.4));
+        }
         radius = length * 0.45
         window.location = get_url();
     }
 
-    function zoom_out() {
+    function zoom_out(is_wheel) {
         length = (parseFloat(length) * 1.4).toFixed(2)
-        set_coordinate_to_mouse(1.4);
 
+        if (is_wheel) {
+            set_coordinate_to_mouse(1.4);
+        }
         radius = length * 0.45
 
         window.location = get_url();
@@ -320,12 +335,12 @@
             move_east()
         }
         else if (e.keyCode == '187') {
-            // right arrow
-            zoom_in()
+            // plus
+            zoom_in(false)
         }
         else if (e.keyCode == '189') {
-            // right arrow
-            zoom_out()
+            // minus
+            zoom_out(false)
         }
         else if (e.keyCode == '219') {
             upperbound = upperbound / 1.2
@@ -423,11 +438,11 @@
 
     window.addEventListener('wheel', function (e) {
         if (e.deltaY < 0) {
-            zoom_out()
+            zoom_out(true)
             window.scrollTo(0, 0)
         }
         if (e.deltaY > 0) {
-            zoom_in()
+            zoom_in(true)
             window.scrollTo(0, 0)
         }
     });

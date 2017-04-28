@@ -29,8 +29,8 @@ def get_map():
         radius = float(request.args['radius'])
 
     nearby_events = edm.EventDataManager().find_events_near(long=long,
-                                                            lat=lat, radius=length * math.sqrt(2))
-    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=length * math.sqrt(2))
+                                                            lat=lat, radius=radius + length * math.sqrt(2))
+    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + length * math.sqrt(2))
 
     h = int(request.args['h'])
     if h > 30:
