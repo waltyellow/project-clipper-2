@@ -263,6 +263,13 @@ def find():
     generate_dynamic_score_for_event(event)
     print(event)
 
+def test():
+    long = 55.0118416
+    lat = 55.0061712
+    events = EventDataManager().find_events_near(long=-155,
+                                        lat=-25,
+                                        radius=5)
+    print(events)
 
 if __name__ == '__main__':
-    find()
+    test()

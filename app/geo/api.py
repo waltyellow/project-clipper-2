@@ -67,6 +67,7 @@ def get_map():
     x_diff = x_right - x_left
     y_diff = y_top - y_bottom
     for event in nearby_events:
+        action_handler.refresh_score_for_entity(event, action_handler.event_senti_lifetime_in_days)
         long = event['geo_coordinates']['coordinates'][0]
         lat = event['geo_coordinates']['coordinates'][1]
         out_events.append({"x": ((long - x_left) / x_diff),
@@ -77,6 +78,7 @@ def get_map():
 
     out_places = []
     for place in nearby_places:
+        action_handler.refresh_score_for_entity(place, action_handler.place_senti_lifetime_in_days)
         long = place['geo_coordinates']['coordinates'][0]
         lat = place['geo_coordinates']['coordinates'][1]
         out_places.append({"x": ((long - x_left) / x_diff),
