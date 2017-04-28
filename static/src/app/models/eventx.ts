@@ -4,6 +4,7 @@ export class Eventx {
         public name: string,
         public start_time: number,
         public duration: number,
+        public description: string,
         public senti_score: number,
         public dynamic_senti_score: number,
         public location: string,
