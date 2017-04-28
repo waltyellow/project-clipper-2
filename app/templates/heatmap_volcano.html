@@ -2,30 +2,31 @@
 <body style="background-color:#181d24">
 
 
+<svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
 
-<div style="background-color:#4c5455;
-    width: 1600px;
-    ">
-    <svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
-</div>
 <br/>
 <h3 style="color:white; font-family:sans-serif">
-    Navigate
-
+    <button style="height:30px;
+    width:120px; background: white" onclick="refresh()">Auto-Size ⟳
+    </button>
     <button style="height:30px;
     width:30px; background: white" onclick="move_west()">←
     </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_east()">→</button>
+    width:30px; background: white" onclick="move_east()">→
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_south()">↓</button>
+    width:30px; background: white" onclick="move_south()">↓
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_north()">↑</button>
+    width:30px; background: white" onclick="move_north()">↑
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="zoom_in()">+</button>
+    width:30px; background: white" onclick="zoom_in()">+
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="zoom_out()">-</button>
-    Adjust
+    width:30px; background: white" onclick="zoom_out()">-
+    </button>
     <button style="background: white" onclick="higher_res()">res+</button>
     <button style="background: white" onclick="lower_res()">res-</button>
     <button style="background: white" onclick="reset()">reset radius, color scales and refresh</button>
@@ -46,11 +47,11 @@
 <script>
     //referenced https://www.dashingd3js.com/svg-text-element
     var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height"),
+        width = window.innerWidth - 20, //+svg.attr("width"),
+        height = window.innerHeight - 225,// +svg.attr("height"),
         stdev ={{ stdev }},
         mouse_position = [width / 2, height / 2],
-    min_value ={{ min_value }},
+        min_value ={{ min_value }},
         max_value ={{ max_value }},
         long_left = {{ long_left }},
         long_right = {{ long_right }},
@@ -61,14 +62,19 @@
         steps = 200,
         mean = {{ mean }};
 
+    function find_ratio() {
+        height = (width / 2).toFixed(0)
+        if (height > (window.innerHeight - 225)) {
+            height = window.innerHeight - 225;
+            width = height * 2;
+        }
+    }
+    find_ratio()
+    resize()
+
     var i0 = d3.interpolateHsvLong(d3.hsv(140, 0.2, 0.5), d3.hsv(60, 0.9, 0.9)),
         i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0, 0.9))
-    var events =
-    {{ events|tojson|safe}}
-    var places =
-    {{ places|tojson|safe }}
-    var nearby_events = events;
-    var nearby_places = places;
+    var entities = {{ entities|tojson|safe }};
 
     var lowerbound = mean - sigma * stdev - 0.01 + 1.5 * stdev,
         upperbound = mean + sigma * stdev + 0.02 + 1.5 * stdev;
@@ -77,6 +83,7 @@
         lowerbound = mean - sigma * stdev - 0.01,
             upperbound = mean + sigma * stdev + 0.02;
     }
+
 
     interpolateTerrain = function (t) {
         if (t > 1) {
@@ -131,9 +138,10 @@
             });
     }
 
-    function draw_events(events) {
+
+    function draw_events(entities) {
         var circles = svg.selectAll("circle")
-            .data(events)
+            .data(entities)
             .enter()
             .append("circle");
 
@@ -149,73 +157,33 @@
                 return 1 + Math.abs(d.score / 5);
             })
             .style("fill", function (d) {
-                return d.score > 0 ? "white" : "black";
+                if (d.type == "event")
+                    return d.score > 0 ? "white" : "gray";
+                else
+                    return d.score > 0 ? "blue" : "brown";
             });
 
         //Add the SVG Text Element to the svgContainer
         var text = svg.selectAll("text")
-            .data(events)
+            .data(entities)
             .enter()
             .append("text");
 
         //Add SVG Text Element Attributes
         var textLabels = text
             .attr("x", function (d) {
-                return width * d.x + 5;
+                return width * d.x + 5 ;
             })
             .attr("y", function (d) {
-                return height * d.y;
+                return (height * d.y) + ((d.type == "event")? 12:-12);
             })
             .text(function (d) {
-                return d.name + "<" + d.score.toFixed(2) + ">";
+                return d.name + "-" + d.type +"(" + d.score.toFixed(1) + ")";
             })
 
             .attr("font-family", "sans-serif")
             .attr("font-size", "10px")
             .attr("fill", "black");
-    }
-
-    function draw_places(places) {
-        var circles = svg.selectAll("circle")
-            .data(places)
-            .enter()
-            .append("circle");
-
-
-        var circleAttributes = circles
-            .attr("cx", function (d) {
-                return width * d.x;
-            })
-            .attr("cy", function (d) {
-                return height * d.y;
-            })
-            .attr("r", function (d) {
-                return 2;
-            })
-            .style("fill", function (d) {
-                return d.score > 0 ? "blue" : "purple";
-            });
-
-        //Add the SVG Text Element to the svgContainer
-        var text = svg.selectAll("text")
-            .data(places)
-            .enter()
-            .append("text");
-
-        //Add SVG Text Element Attributes
-        var textLabels = text
-            .attr("x", function (d) {
-                return width * d.x + 5;
-            })
-            .attr("y", function (d) {
-                return height * d.y;
-            })
-            .text(function (d) {
-                return "<a href=\"#\">" + d.name + " <a/>";
-            })
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px")
-            .attr("fill", "#eee");
     }
 
     function reset() {
@@ -315,17 +283,17 @@
             set_coordinate_to_mouse((1 / 1.4));
         }
         radius = length * 0.45
-        width = width*1.2
-        height = height*1.2
-        redraw()
+        width = width * 1.2
+        height = height * 1.2
+        //redraw()
         window.location = get_url();
     }
 
     function zoom_out(is_wheel) {
         length = (parseFloat(length) * 1.4).toFixed(2)
         width = parseInt(width / 1.2)
-        height = parseInt(height/ 1.2)
-        redraw()
+        height = parseInt(height / 1.2)
+        //redraw()
         if (is_wheel) {
             set_coordinate_to_mouse(1.4);
         }
@@ -350,12 +318,15 @@
     document.onkeydown = checkKey;
 
     //http://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript
-    function redraw() {
+    function resize() {
         svg.attr("width", width);
         svg.attr("height", height);
+    }
+    function redraw() {
+        resize();
         svg.selectAll("*").remove();
-        draw(v)
-        draw_events(events)
+        draw(v);
+        draw_events(entities);
     }
     function checkKey(e) {
 
@@ -383,15 +354,14 @@
         }
         else if (e.keyCode == '189') {
             // minus
-            zoom_out(true)
+            zoom_out(false)
         }
         else if (e.keyCode == '219') {
             upperbound = upperbound / 1.2
             lowerbound = lowerbound / 1.2
             color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
             svg.selectAll("*").remove();
-            draw(v)
-            draw_events(events)
+            redraw()
 
         }
         else if (e.keyCode == '221') {
@@ -405,16 +375,14 @@
             lowerbound = lowerbound + 0.5 * stdev
             color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
             svg.selectAll("*").remove();
-            draw(v)
-            draw_events(events)
+            redraw()
         }
         else if (e.keyCode == '222') {
             upperbound = upperbound - 0.5 * stdev
             lowerbound = lowerbound - 0.5 * stdev
             color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
             svg.selectAll("*").remove();
-            draw(v)
-            draw_events(events)
+            redraw()
         }
         else if (e.keyCode == '188') {
             radius = radius / 1.4
@@ -491,8 +459,7 @@
 
     v = {{ data_points|tojson|safe }}
         draw(v)
-    draw_events(events)
-    //draw_places(places)
+    draw_events(entities)
 
     var text = svg.append("text").attr("x", mouse_position[0])
         .attr("y", mouse_position[1])
@@ -564,6 +531,9 @@
         text.attr("x", mouse_position[0]).attr("y", mouse_position[1])
         //d3.transform(text)
         //console.log(mouse_position)
+    }
+    function refresh() {
+        window.location = get_url()
     }
     var onMouseMove = function () {
         mouse_position = d3.mouse(this);

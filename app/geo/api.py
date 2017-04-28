@@ -75,6 +75,7 @@ def get_map():
         out_events.append({"x": ((long - x_left) / x_diff),
                            "y": ((y_top - lat) / y_diff),
                            "name": event['name'],
+                           "type": "event",
                            "score": event['senti_score'],
                            "id": event['event_id']})
 
@@ -86,13 +87,17 @@ def get_map():
         out_places.append({"x": ((long - x_left) / x_diff),
                            "y": ((y_top - lat) / y_diff),
                            "name": place['name'],
+                           "type": "place",
                            "id": place['place_id'],
                            "score": place['senti_score']})
+        print(place)
 
     volcano = {"width": w, "height": h, 'values': data_points}
+
     # return json.dumps(
     #    {"width":w, "height": h, 'values': data_points})
-    return render_template('heatmap_volcano.html', data_points=volcano, stdev=stdev, mean=mean, events=out_events,
-                           places=out_places, min_value=min_score, max_value=max_score,
+    return render_template('heatmap_volcano.html', data_points=volcano, stdev=stdev, mean=mean,
+                           entities=out_events + out_places,
+                           min_value=min_score, max_value=max_score,
                            long_left=x_left, long_right=x_right, lat_top=y_top, lat_bottom=y_bottom,
                            w=w, h=h)

@@ -1,4 +1,4 @@
-import base64
+import base64, random
 from typing import Any
 
 from bson.objectid import ObjectId
@@ -122,14 +122,13 @@ class PlaceDataManager:
 
 
 def insert():
-    place1 = min_place_dict.copy()
-    place1['name'] = 'Tink Food Court'
-    place1['geo_coordinates'] = Point((123, 45))
-    place1['senti_score'] = 25
-    place1['rating_average'] = 4.5
-    dm = PlaceDataManager()
-    dm.insert_one_place(place1)
-    print(place1)
+    for i in range(0, 30):
+        place = min_place_dict.copy()
+        place['name'] = 'evrs' + str(i)
+        place['senti_score'] = random.random() * 50
+        place['geo_coordinates'] = Point((50+ 0.4 * random.random(), 50.9 + 0.5 * random.random()))
+        PlaceDataManager().insert_one_place(place)
+        print(place)
 
 
 def find():
