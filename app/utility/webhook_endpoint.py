@@ -75,6 +75,7 @@ def webhook():
             event['descriptions'] = parameters['descriptions']
             event['time'] = parameters['time']
             event['location'] = location
+            print(event)
             edm.insert_event_one(event)
             if not place:
                 reply = "Success " + serialize_event(event, 'created') + "by Google user id " + google_id
