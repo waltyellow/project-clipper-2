@@ -4,36 +4,29 @@ import { PlaceService } from '../services/place.service'
 import {ActivatedRoute } from '@angular/router';
 import { Place }        from '../models/place';
 import { TitleService } from '../services/title.service';
-import { CommentService } from '../services/comment.service';
-import { MessageComponent } from './messages.component';
+import {MessageComponent} from './messages.component';
+
 
 @Component({
   selector: 'app-building',
   templateUrl: '../templates/building.component.html',
 })
 
-export class BuildingComponent extends MessageComponent implements OnInit {
+export class BuildingComponent implements OnInit {
   public building: Place;
   private sub:any;
+  private parentId : string;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService,
-        private route: ActivatedRoute) {
-    super(commentSvc)
-  }
-  
-  public postComment() : void {
-    super.postComment(this.building.place_id)
+  constructor(private titleService: TitleService, private placeService: PlaceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.titleService.setTitle('Buildings');
     this.sub = this.route.params.subscribe(params => {
-        let id = params['id'];
-        console.log(id)
-        this.placeService.getPlace(id).subscribe(building => this.building = building)
-        this.subscribeToComments(id)
+        this.parentId = params['id'];
+        this.placeService.getPlace(this.parentId).subscribe(building => this.building = building)
+        //this.subscribeToComments(this.parentId)
     });
-    super.ngOnInit()
   }
 
   ngOnDestroy() {

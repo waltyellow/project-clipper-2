@@ -18,6 +18,8 @@ import { StudyLocationsComponent } from './controllers/study-locations.component
 import { QuestionsComponent } from './controllers/questions.component';
 import { SortComponent } from './controllers/sort.component';
 import { StudyLocationComponent} from './controllers/study-location.component';
+import {MessageComponent} from './controllers/messages.component';
+
 
 import { EventService } from './services/event.service'
 import { PlaceService } from './services/place.service';
@@ -39,7 +41,8 @@ import { SortService } from './services/sort.service';
     StudyLocationsComponent,
     QuestionsComponent,
     SortComponent,
-    StudyLocationComponent
+    StudyLocationComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
