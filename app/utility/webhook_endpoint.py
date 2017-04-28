@@ -27,7 +27,7 @@ def webhook():
         try:
             location, place = find_location_and_place(data_object)
             print("getting"+location)
-            print("find place" + place)
+            print("find place" + place['place_id'])
             if location == '':
                 return "No location", 404
         except KeyError:
@@ -43,7 +43,7 @@ def webhook():
         try:
             location, place = find_location_and_place(data_object)
             print("getting" + location)
-            print("find place" + place)
+            print("find place" + place['place_id'])
             if not place:
                 reply = reply_for_events_vague_location(location, location)
             else:
