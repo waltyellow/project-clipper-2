@@ -28,7 +28,6 @@ export class StudyLocationComponent extends MessageComponent implements OnInit {
     this.titleService.setTitle('Study Spaces');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        console.log(id)
         this.placeService.getPlace(id).subscribe(studyLocation => this.studyLocation = studyLocation)
         this.subscribeToComments(id)
     });

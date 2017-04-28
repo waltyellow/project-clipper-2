@@ -18,11 +18,11 @@ const MAINMENU_ROUTES: Routes = [
     { path: 'places/:id/place', component: PlaceComponent },
     { path: 'events', component: EventsComponent },
     { path: 'events/:id/event', component: EventComponent },
-    { path: 'campus-buildings/:id/campus-buildings', component: BuildingComponent },
+    { path: 'campus-buildings/:id/campus-building', component: BuildingComponent },
     { path: 'campus-buildings', component: BuildingsComponent },
     { path: 'questions', component: QuestionsComponent },
     { path: 'study-locations', component: StudyLocationsComponent },
-    { path: 'study-locations/:id/study-locations', component: StudyLocationComponent }
+    { path: 'study-locations/:id/study-location', component: StudyLocationComponent }
 
 ];
 export const routing = RouterModule.forRoot(MAINMENU_ROUTES);
