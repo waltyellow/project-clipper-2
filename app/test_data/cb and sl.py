@@ -1,0 +1,211 @@
+__author__ = 'navyakandkuri'
+__author__ = 'navyakandkuri'
+from app.data_managers import places_data_manager, event_data_manager
+from geojson import Point
+from app.data_managers.places_data_manager import PlaceDataManager
+from app.data_managers.event_data_manager import EventDataManager
+import time
+
+'''campus buildings'''
+def create_yost():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Yost Hall'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((200, 50))
+    place['senti_score'] = 2
+    place['rating_average'] = 3.9
+    place['rating_count'] = 21
+    return place
+
+def create_strosacker():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Strosacker Auditorium'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((210, 45))
+    place['senti_score'] = 8
+    place['rating_average'] = 4.1
+    place['rating_count'] = 18
+    return place
+
+def create_nord():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Nord Hall'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((211,42))
+    place['senti_score'] = 35
+    place['rating_average'] = 4.7
+    place['rating_count'] = 43
+    return place
+
+def create_white():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'White'
+    place['type'] = 'FoodEntertainment'
+    place['geo_coordinates'] = Point((400, 11))
+    place['senti_score'] = 2
+    place['rating_average'] = 2.6
+    place['rating_count'] = 33
+    return place
+
+def create_glennan():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Glennan Student Building'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((126, 120))
+    place['senti_score'] = 5
+    place['rating_average'] = 3.7
+    place['rating_count'] = 42
+    return place
+
+def create_bingham():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Bingham Hall'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((60, 60))
+    place['senti_score'] = 17
+    place['rating_average'] = 4
+    place['rating_count'] = 61
+    return place
+
+def create_tink():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Tinkham Veale University Center'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((41, 41))
+    place['senti_score'] = 4
+    place['rating_average'] = 4
+    place['rating_count'] = 83
+    return place
+
+
+def create_thwing():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Thwing Student Center'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((123, 46))
+    place['senti_score'] = 6
+    place['rating_average'] = 4
+    place['rating_count'] = 14
+    return place
+
+
+def create_veale():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Veale Athletic Center'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((129, 57))
+    place['senti_score'] = 7
+    place['rating_average'] = 4
+    place['rating_count'] = 45
+    return place
+
+'''study locations'''
+def create_ksl():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Kelvin Smith Library'
+    place['type'] = 'StudyLocation'
+    place['geo_coordinates'] = Point((200, 257))
+    place['senti_score'] = 4
+    place['rating_average'] = 4.1
+    place['rating_count'] = 20
+    return place
+
+def create_glennan_lounge():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Glennan Lounge'
+    place['type'] = 'StudyLocation'
+    place['geo_coordinates'] = Point((100, 57))
+    place['senti_score'] = 1
+    place['rating_average'] = 3
+    place['rating_count'] = 42
+    return place
+
+def create_bingham_lounge():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Bingham Lounge'
+    place['type'] = 'StudyLocation'
+    place['geo_coordinates'] = Point((101, 157))
+    place['senti_score'] = 7
+    place['rating_average'] = 3
+    place['rating_count'] = 81
+    return place
+
+def create_wade_commons():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Wade Commons'
+    place['type'] = 'StudyLocation'
+    place['geo_coordinates'] = Point((10, 12))
+    place['senti_score'] = 12
+    place['rating_average'] = 2
+    place['rating_count'] = 17
+    return place
+
+def create_all_cb_and_sl():
+    pm = PlaceDataManager()
+    yost = create_yost()
+    strosacker = create_strosacker()
+    nord = create_nord()
+    white = create_white()
+    glennan = create_glennan()
+    bingham = create_bingham()
+    tink =create_tink()
+    thwing = create_thwing()
+    veale = create_veale()
+    pm.insert_one_place(yost)
+    pm.insert_one_place(strosacker)
+    pm.insert_one_place(nord)
+    pm.insert_one_place(white)
+    pm.insert_one_place(glennan)
+    pm.insert_one_place(bingham)
+    pm.insert_one_place(tink)
+    pm.insert_one_place(veale)
+    ksl = create_ksl()
+    glennan_lounge = create_glennan_lounge()
+    b_lounge = create_bingham_lounge()
+    wade = create_wade_commons()
+    pm.insert_one_place(ksl)
+    pm.insert_one_place(glennan_lounge)
+    pm.insert_one_place(b_lounge)
+    pm.insert_one_place(wade)
+
+if __name__ == '__main__':
+    create_all_cb_and_sl()
