@@ -29,8 +29,8 @@ def get_map():
         radius = float(request.args['radius'])
 
     nearby_events = edm.EventDataManager().find_events_near(long=long,
-                                                            lat=lat, radius=length * math.sqrt(2))
-    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=length * math.sqrt(2))
+                                                            lat=lat, radius=radius + length * math.sqrt(2))
+    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + length * math.sqrt(2))
 
     h = int(request.args['h'])
     if h > 30:
@@ -45,24 +45,26 @@ def get_map():
     y_top = lat + (h / 2) * ystep
     y_bottom = y_top - h * ystep
     print(('y', y_top, y_bottom))
-    min_score = 0
-    max_score = 0
+
     data_points = []
     for i in range(0, h):
         y = y_top - i * ystep
+        row = []
         for j in range(0, w):
             x = x_left + j * xstep
             score = action_handler.get_dynamic_score_for_heatmap_efficient(x, y, radius=radius,
                                                                            nearby_events=nearby_events,
                                                                            nearby_places=nearby_places)
-            if score < min_score:
-                min_score = score
-            elif score > max_score:
-                max_score = score
-            data_points.insert(len(data_points), score)
+            # if score < min_score:
+            #     min_score = score
+            # elif score > max_score:
+            #     max_score = score
+            row.append(score)
+        data_points += row
     stdev = statistics.stdev(data_points)
     mean = statistics.mean(data_points)
-
+    min_score = min(data_points)
+    max_score = max(data_points)
     out_events = []
     x_diff = x_right - x_left
     y_diff = y_top - y_bottom

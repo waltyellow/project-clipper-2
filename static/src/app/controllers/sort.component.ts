@@ -9,15 +9,15 @@ import { Eventx }        from '../models/eventx';
 })
 
 export class SortComponent {
- 
- constructor(private sortService: SortService) {
-  }
-  @Input() items: Eventx[];
-  @Input() soonest: boolean;
 
-  public sortOptionsVisible: boolean = false;
+    constructor(private sortService: SortService) {
+    }
+    @Input() items: Eventx[];
+    @Input() soonest: boolean;
 
-    public sortEventsByProximity() {
+    public sortOptionsVisible: boolean = false;
+
+    public sortByProximity() {
         if (!!navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(position => {
                 this.items.sort((a, b) => {
@@ -41,22 +41,25 @@ export class SortComponent {
         let long2 = position.coords.longitude
         let lat2 = position.coords.latitude
         return Math.sqrt(Math.pow(long2 - long1, 2) + Math.pow(lat2 - lat1, 2));
-    } 
+    }
 
-    public sortEventsByDate() {
+    public sortByDate() {
         SortService.propertySort<Eventx>(this.items, 'start_time', true);
     }
 
     public static sortEventsByName(items) {
-      SortService.propertySort<Eventx>(items, 'name');
+        SortService.propertySort<Eventx>(items, 'name');
     }
 
-    public sortPlacesByRating() {
-        SortService.propertySort(this.items, 'rating_average', true)
+    public sortByName() {
+        SortService.propertySort<Eventx>(this.items, 'name');
+    }
+
+    public sortByRating() {
+        SortService.propertySort<Eventx>(this.items, 'rating_average', true);
     }
 
     public toggleDropdown() {
         this.sortOptionsVisible = !this.sortOptionsVisible;
     }
 }
-

@@ -3,16 +3,16 @@
         <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
         <br />
         <div class="radio" *ngIf="soonest">
-            <label><input type="radio" name="sortradio" (click)="sortEventsByDate()" checked>by soonest</label>
+            <label><input type="radio" name="sortradio" (click)="sortByDate()" checked>by soonest</label>
         </div>
         <div class="radio">
-            <label><input type="radio" name="sortradio" (click)="sortPlacesByRating()" checked>by rating</label>
+            <label><input type="radio" name="sortradio" (click)="sortByRating()" checked>by rating</label>
         </div>
         <div class="radio">
-            <label><input type="radio" name="sortradio" (click)="sortEventsByProximity()">by nearest</label>
+            <label><input type="radio" name="sortradio" (click)="sortByProximity()">by nearest</label>
         </div>
         <div class="radio">
-            <label><input type="radio" name="sortradio" (click)="sortEventsByName()">alphabetically</label>
+            <label><input type="radio" name="sortradio" (click)="sortByName()">alphabetically</label>
         </div>
     </div>
     <div class="sort-components">

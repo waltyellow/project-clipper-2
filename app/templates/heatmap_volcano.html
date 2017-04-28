@@ -1,25 +1,38 @@
 <!DOCTYPE html>
-<body style="background-color:#222a34">
+<body style="background-color:#181d24">
 <h1 style="color:white; font-family:sans-serif">Evention Global Data Explorer</h1>
 <p style="color:white; font-family:sans-serif">Resolution is {{ w }} by {{ h }}. Resolution higher than 20x10 might
     significantly affect performance</p>
-<p style="color:white; font-family:sans-serif">Use array keys to move, +/- or mouse wheels to zoom,
-    [] to expand or narrow color scales, ; and ' to shift color scales, <> to change impact radius of events and
+<p style="color:white; font-family:sans-serif">Move with arrow keys , zoom with +/- ,
+    [ ] to adjust color scales span, ; and ' to shift color scales, < > to change impact radius of events and
     places.</p>
-<h2 style="color:white; font-family:sans-serif">navigate
-    <button onclick="move_east()">move east</button>
-    <button onclick="move_west()">move west</button>
-    <button onclick="move_south()">move south</button>
-    <button onclick="move_north()">move north</button>
-    <button onclick="zoom_in()">zoom in</button>
-    <button onclick="zoom_out()">zoom out</button>
-    explore
-    <button onclick="higher_res()">res+</button>
-    <button onclick="lower_res()">res-</button>
-    <button onclick="reset()">reset radius, color scales and refresh</button>
-</h2>
+<h3 style="color:white; font-family:sans-serif">
+    Navigate
+
+    <button style="height:30px;
+    width:30px; background: white" onclick="move_west()">←
+    </button>
+    <button style="height:30px;
+    width:30px; background: white" onclick="move_east()">→</button>
+    <button style="height:30px;
+    width:30px; background: white" onclick="move_south()">↓</button>
+    <button style="height:30px;
+    width:30px; background: white" onclick="move_north()">↑</button>
+    <button style="height:30px;
+    width:30px; background: white" onclick="zoom_in()">+</button>
+    <button style="height:30px;
+    width:30px; background: white" onclick="zoom_out()">-</button>
+    Adjust
+    <button style="background: white" onclick="higher_res()">res+</button>
+    <button style="background: white" onclick="lower_res()">res-</button>
+    <button style="background: white" onclick="reset()">reset radius, color scales and refresh</button>
+</h3>
 <br/>
-<svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
+<div style="background-color:#4c5455;
+    width: 1600px;
+    ">
+    <svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
+</div>
 </body>
 
 
@@ -54,8 +67,8 @@
     var nearby_events = events;
     var nearby_places = places;
 
-    var lowerbound = mean - sigma * stdev - 0.01,
-        upperbound = mean + sigma * stdev + 0.02;
+    var lowerbound = mean - sigma * stdev - 0.01 + 1.5 * stdev,
+        upperbound = mean + sigma * stdev + 0.02 + 1.5 * stdev;
 
     function calculate_color_bounds() {
         lowerbound = mean - sigma * stdev - 0.01,
@@ -151,7 +164,7 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return d.name + "<"+ d.score.toFixed(2) +">";
+                return d.name + "<" + d.score.toFixed(2) + ">";
             })
 
             .attr("font-family", "sans-serif")
@@ -227,12 +240,39 @@
     var length = getParameterByName("length");
     var h = getParameterByName("h");
     radius = parseFloat(getParameterByName('radius'));
+    var mx = getParameterByName("mx");
+    var my = getParameterByName("my");
     if ((radius == null) || (radius == '') || (isNaN(radius))) {
         radius = 0.45 * length
     }
+    if ((mx == null) || (mx == '') || (isNaN(mx)) || (my == null) || (my == '') || (isNaN(my))) {
+        mouse_position = [width / 2, height / 2]
+    } else {
+        mouse_position = [mx, my]
+    }
 
     function get_url() {
-        var params = {'long': long, 'lat': lat, 'length': length, 'h': h, 'radius': radius.toFixed(2)};
+        if (radius > 10000) {
+            radius = 10000
+        }
+        if (length > 2000000) {
+            length = 2000000
+        }
+        if (h > 20) {
+            h = 20
+        }
+        if (h < 5) {
+            h = 5
+        }
+        var params = {
+            'long': long,
+            'lat': lat,
+            'length': length,
+            'h': h,
+            'radius': radius.toFixed(2),
+            'mx': parseInt(mouse_position[0]).toFixed(0),
+            'my': parseInt(mouse_position[1]).toFixed(0)
+        };
         var new_url = window.location.href.split('?')[0] + "?" + jQuery.param(params);
         return new_url
     }
@@ -263,21 +303,24 @@
         window.location = get_url();
     }
 
-    function zoom_in() {
+    function zoom_in(is_wheel) {
         length = (parseFloat(length) / 1.4).toFixed(2)
         if (parseFloat(length) < 80) {
             length = 80
         }
-        set_coordinate_to_mouse((1 / 1.4));
-
+        if (is_wheel) {
+            set_coordinate_to_mouse((1 / 1.4));
+        }
         radius = length * 0.45
         window.location = get_url();
     }
 
-    function zoom_out() {
+    function zoom_out(is_wheel) {
         length = (parseFloat(length) * 1.4).toFixed(2)
-        set_coordinate_to_mouse(1.4);
 
+        if (is_wheel) {
+            set_coordinate_to_mouse(1.4);
+        }
         radius = length * 0.45
 
         window.location = get_url();
@@ -320,12 +363,12 @@
             move_east()
         }
         else if (e.keyCode == '187') {
-            // right arrow
-            zoom_in()
+            // plus
+            zoom_in(true)
         }
         else if (e.keyCode == '189') {
-            // right arrow
-            zoom_out()
+            // minus
+            zoom_out(true)
         }
         else if (e.keyCode == '219') {
             upperbound = upperbound / 1.2
@@ -421,16 +464,16 @@
         lat = m_lat - (0.5 - mouse_y_percentage) * zoom * (lat_top - lat_bottom);
     }
 
-    window.addEventListener('wheel', function (e) {
-        if (e.deltaY < 0) {
-            zoom_out()
-            window.scrollTo(0, 0)
-        }
-        if (e.deltaY > 0) {
-            zoom_in()
-            window.scrollTo(0, 0)
-        }
-    });
+    {#    window.addEventListener('wheel', function (e) {#}
+    {#        if (e.deltaY < 0) {#}
+    {#            zoom_out(true)#}
+    {#            window.scrollTo(0, 0)#}
+    {#        }#}
+    {#        if (e.deltaY > 0) {#}
+    {#            zoom_in(true)#}
+    {#            window.scrollTo(0, 0)#}
+    {#        }#}
+    {#    });#}
 
 
     v = {{ data_points|tojson|safe }}
@@ -438,12 +481,23 @@
     draw_events(events)
     //draw_places(places)
 
-    var text = svg.append("text").attr("x", width / 2)
-        .attr("y", height / 2)
+    var text = svg.append("text").attr("x", mouse_position[0])
+        .attr("y", mouse_position[1])
         .text("+")
         .attr("font-family", "sans-serif")
         .attr("font-size", "20px")
         .attr("fill", "black");
+
+    var pointing =
+        svg.append("text")
+            .attr("x", width - 200)
+            .attr("y", 15)
+            .text("(" + parseFloat(long).toFixed(5) + "," + parseFloat(lat).toFixed(5) + ")")
+
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#black");
+
 
     var label_long_left = svg.append("text").attr("x", 0)
         .attr("y", height / 2)
@@ -488,9 +542,24 @@
         .attr("font-family", "sans-serif")
         .attr("font-size", "12px")
         .attr("fill", "#333");
-    svg.on("mousemove", function () {
-        mouse_position = d3.mouse(this);
+    function calculate_mouse_positions() {
+        var mouse_x_percentage = (mouse_position[0] / width);
+        var mouse_y_percentage = (mouse_position[1] / height);
+        var m_long = (long_left + (mouse_x_percentage ) * (long_right - long_left));
+        var m_lat = lat_top - (mouse_y_percentage) * (lat_top - lat_bottom);
+        pointing.text("Pointing(" + parseFloat(m_long).toFixed(5) + "," + parseFloat(m_lat).toFixed(5) + ")")
+        text.attr("x", mouse_position[0]).attr("y", mouse_position[1])
+        //d3.transform(text)
         //console.log(mouse_position)
-    })
+    }
+    var onMouseMove = function () {
+        mouse_position = d3.mouse(this);
+
+        calculate_mouse_positions();
+    };
+    svg.on("mousemove", onMouseMove)
+
+    calculate_mouse_positions()
     console.log("Hello")
+
 </script>
