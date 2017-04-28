@@ -23,7 +23,7 @@ def create_place():
     posted_dict = json.loads(decoded_json)
     dm.insert_one_place(posted_dict)
     action_handler.generate_dynamic_score_for_place(posted_dict)
-    return posted_dict
+    return json.dumps(posted_dict)
 
 
 '''replace does not replace ID'''
@@ -40,7 +40,7 @@ def replace_one_place():
         raise Exception('invalid input')
     place = dm.replace_one_place(posted_dict)
     action_handler.generate_dynamic_score_for_place(place)
-    return place
+    return json.dumps(place)
 
 
 '''update by a list of diffs '''
@@ -62,7 +62,7 @@ def update_place(place_id: str):
         dm.update_one_place(place_id=place_id, key=key, new_val=new_value)
     place = dm.find_one_place_by_id(place_id)
     action_handler.generate_dynamic_score_for_place(place)
-    return place
+    return json.dumps(place)
 
 
 '''listing endpoints'''

@@ -36,11 +36,12 @@ def generate_dynamic_score_for_event(event: dict, radius: float = 1000):
                                                                      long=event['geo_coordinates']['coordinates'][0],
                                                                      lat=event['geo_coordinates']['coordinates'][1],
                                                                      radius=radius)
+
     else:
         geo_score = 0
 
     event_score = event['senti_score']
-    dynamic_score = event_score + place_score + geo_score
+    dynamic_score = event_score + place_score*0.5 + geo_score*0.2
     event['dynamic_senti_score'] = dynamic_score
     return dynamic_score
 
@@ -63,7 +64,7 @@ def generate_dynamic_score_for_place(place: dict, radius: float = 1000):
         geo_score = 0
 
     place_score = place['senti_score']
-    dynamic_score = event_score + place_score + geo_score
+    dynamic_score = event_score*0.5 + place_score + geo_score*0.2
     place['dynamic_senti_score'] = dynamic_score
     return dynamic_score
 
@@ -93,6 +94,8 @@ def get_dynamic_score_for_heatmap_efficient(long: float, lat: float, radius: flo
 def get_raw_score_for_place(place_id: str):
     dm = PlaceDataManager()
     place = dm.find_one_place_by_id(place_id)
+    if place is None:
+        return 0
     refresh_score_for_entity(place, place_senti_lifetime_in_days)
     return place['senti_score']
 

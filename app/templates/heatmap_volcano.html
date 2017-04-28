@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <body style="background-color:#181d24">
-<h1 style="color:white; font-family:sans-serif">Evention Global Data Explorer</h1>
-<p style="color:white; font-family:sans-serif">Resolution is {{ w }} by {{ h }}. Resolution higher than 20x10 might
-    significantly affect performance</p>
-<p style="color:white; font-family:sans-serif">Move with arrow keys , zoom with +/- ,
-    [ ] to adjust color scales span, ; and ' to shift color scales, < > to change impact radius of events and
-    places.</p>
+
+
+
+<div style="background-color:#4c5455;
+    width: 1600px;
+    ">
+    <svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
+</div>
+<br/>
 <h3 style="color:white; font-family:sans-serif">
     Navigate
 
@@ -27,12 +30,12 @@
     <button style="background: white" onclick="lower_res()">res-</button>
     <button style="background: white" onclick="reset()">reset radius, color scales and refresh</button>
 </h3>
-<br/>
-<div style="background-color:#4c5455;
-    width: 1600px;
-    ">
-    <svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
-</div>
+<h1 style="color:white; font-family:sans-serif">Evention Global Data Explorer</h1>
+<p style="color:white; font-family:sans-serif">Resolution is {{ w }} by {{ h }}. Resolution higher than 20x10 might
+    significantly affect performance</p>
+<p style="color:white; font-family:sans-serif">Move with arrow keys , zoom with +/- ,
+    [ ] to adjust color scales span, ; and ' to shift color scales, < > to change impact radius of events and
+    places.</p>
 </body>
 
 
@@ -46,7 +49,7 @@
         width = +svg.attr("width"),
         height = +svg.attr("height"),
         stdev ={{ stdev }},
-        mouse_position = [width / 2, height / 2]
+        mouse_position = [width / 2, height / 2],
     min_value ={{ min_value }},
         max_value ={{ max_value }},
         long_left = {{ long_left }},
@@ -312,12 +315,17 @@
             set_coordinate_to_mouse((1 / 1.4));
         }
         radius = length * 0.45
+        width = width*1.2
+        height = height*1.2
+        redraw()
         window.location = get_url();
     }
 
     function zoom_out(is_wheel) {
         length = (parseFloat(length) * 1.4).toFixed(2)
-
+        width = parseInt(width / 1.2)
+        height = parseInt(height/ 1.2)
+        redraw()
         if (is_wheel) {
             set_coordinate_to_mouse(1.4);
         }
@@ -342,6 +350,13 @@
     document.onkeydown = checkKey;
 
     //http://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript
+    function redraw() {
+        svg.attr("width", width);
+        svg.attr("height", height);
+        svg.selectAll("*").remove();
+        draw(v)
+        draw_events(events)
+    }
     function checkKey(e) {
 
         e = e || window.event;
@@ -383,9 +398,7 @@
             upperbound = upperbound * 1.2
             lowerbound = lowerbound * 1.2
             color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound])
-            svg.selectAll("*").remove();
-            draw(v)
-            draw_events(events)
+            redraw();
         }
         else if (e.keyCode == '186') {
             upperbound = upperbound + 0.5 * stdev
