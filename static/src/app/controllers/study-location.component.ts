@@ -9,27 +9,30 @@ import { MessageComponent } from './messages.component';
 import { SortService } from '../services/sort.service';
 
 @Component({
-  selector: 'app-place',
-  templateUrl: '../templates/place.component.html',
+  selector: 'app-study-location',
+  templateUrl: '../templates/study-location.component.html',
 })
-export class PlaceComponent extends MessageComponent implements OnInit {
-  public place: Place;
-  private sub:any;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService,
+export class StudyLocationComponent extends MessageComponent implements OnInit {
+    public studyLocation: Place;
+    private sub:any;
+
+    constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService,
         private route: ActivatedRoute, private sorter: SortService) {
     super(commentSvc, sorter)
   }
-
-  public postComment() : void {
-    super.postComment(this.place.place_id)
+    public postComment() : void {
+        console.log(this.studyLocation)
+        console.log(this.studyLocation.place_id)
+        super.postComment(this.studyLocation.place_id)
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Food & Entertainment');
+    this.titleService.setTitle('Study Spaces');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
-        this.placeService.getPlace(id).subscribe(place => this.place = place)
+        console.log(id)
+        this.placeService.getPlace(id).subscribe(studyLocation => this.studyLocation = studyLocation)
         this.subscribeToComments(id)
     });
     super.ngOnInit()
@@ -39,4 +42,5 @@ export class PlaceComponent extends MessageComponent implements OnInit {
     // Clean sub to avoid memory leak
     this.sub.unsubscribe();
   }
+
 }

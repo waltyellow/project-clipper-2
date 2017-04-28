@@ -1,26 +1,39 @@
 <div class="sort-options">
-	<form class="form-inline" method="post">
-        <button type="button" class="btn btn-square">Sort</button>
-        <input type="text" id="search_text" placeholder="Search places" name="search_text" />
-        <input type="submit" class="btn btn-square" value="Search" />
-    </form>
+	<div class="sort-dropdown" *ngIf="sortOptionsVisible">
+		<button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
+		<br />
+		<div class="radio">
+			<label><input type="radio" name="sortradio" (click)="sortPlacesByRating()" checked>by rating</label>
+		</div>
+		<div class="radio">
+			<label><input type="radio" name="sortradio" (click)="sortPlacesByDistance()">by nearest</label>
+		</div>
+		<div class="radio">
+			<label><input type="radio" name="sortradio" (click)="sortPlacesByName()">alphabetically</label>
+		</div>
+	</div>
+	<div class="sort-components">
+		<button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
+		<input type="text" id="search-text" placeholder="Search places" [(ngModel)]="searchText" />
+		<button type="button" class="btn btn-square" [routerLink]="['/places']" [queryParams]="{search: searchText}">Search</button>
+	</div>
 </div>
 <div class="list-container">
     <div class="list-item" *ngFor="let place of places">
         <div class="top-row">
-            <div class="place-name">
+            <div class="event-name">
                 <span>{{place.name}}</span>
             </div>
-            <div class="place-expand">
-                <a class="btn btn-default" [routerLink]="['/place', event.event_id, 'event']">Show Event</a>
+            <div class="event-expand">
+                <a class="btn btn-default" [routerLink]="['/place', place.place_id, 'place']">Show Place</a>
             </div>
         </div>
         <div class="bottom-row">
             <div class="event-location">
-                <span>{{event.location}}</span>
+                <span>Rating: {{place.rating_average}} ({{place.rating_count}} reviews)</span>
             </div>
             <div class="event-datetime">
-                <span>{{event.start_time}}</span>
+                <span>Score: {{place.dynamic_senti_score | number: '1.2-2'}}</span>
             </div>
         </div>
     </div>

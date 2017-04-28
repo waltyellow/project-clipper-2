@@ -66,7 +66,7 @@ class PlaceDataManager:
         print('replacing place ' + place_dict['place_id'])
         place_dict['_id'] = PlaceDataManager.convert_to_object_id(place_dict['place_id'])
         place_dict['deleted'] = False
-        place_dict['type'] = 'place'
+        #place_dict['type'] = 'place'
         self.place_collection.replace_one({'_id': PlaceDataManager.convert_to_object_id(place_dict['place_id'])}
                                           , place_dict)
 
