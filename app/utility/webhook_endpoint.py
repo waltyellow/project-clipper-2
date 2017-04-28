@@ -123,18 +123,23 @@ def reply_for_events_vague_location(location: str, location_name: str = 'the loc
 
 
 def reply_for_events(events: [dict], location_name: str):
+    first_string = 'first '
     if len(events) == 0:
-        reply = "sorry, we cannot find any events near {0}.".format(location_name)
+        reply = "sorry, we cannot find any events at {0}.".format(location_name)
     else:
-        reply = "Here are the events. There are {0} events. The first event is ".format(len(events))
+        if len(events) == 1:
+            reply = "I found one event. The event is ".format(len(events))
+            first_string = ''
+        else:
+            reply = "Here are the {0} events at {1}. ".format(len(events), location_name)
     print(reply)
     first = False
     for event in events:
         if not first:
-            reply += serialize_event(event, 'first')
+            reply += serialize_event(event, first_string)
             first = True
         else:
-            reply += serialize_event(event, 'next')
+            reply += serialize_event(event, 'next ')
     return reply
 
 
@@ -144,10 +149,10 @@ def serialize_event(event: dict, seq: str = 'next'):
     location = event['location']
     description = event['description']
 
-    reply = "The {0} event is {1} at  {2} The excitement level is {3} at this moment.".format(seq, name, location,
+    reply = "The {0} event is {1} at {2}. Our data show it is {3} at this moment. ".format(seq, name, location,
                                                                                               excitement_level)
     if description != '':
-        reply += "It is about {0}".format(description)
+        reply += "This event is about {0}.".format(description)
     else:
         pass
     return reply
