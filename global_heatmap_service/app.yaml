@@ -1,0 +1,14 @@
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: .*  # This regex directs all routes to main.app
+  script: main.app
+
+libraries:
+- name: MySQLdb
+  version: "latest"
+
+- name: ssl
+  version: 2.7.11

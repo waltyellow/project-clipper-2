@@ -1,36 +1,47 @@
+"""`main` is the top level module for this Flask application."""
+import os
+import sys
 import json
+import logging, geojson
 import time, math, statistics
 
 from flask import request, render_template
+from global_heatmap_service.utility import action_handler, commons, geo
 
-import app.data_managers.event_data_manager as edm
-import app.data_managers.places_data_manager as pdm
-from app import server
-from app.data_managers.common import search_parameter_to_db_filter
-from app.data_managers.event_data_manager import EventDataManager
-from app.utility import action_handler
+from flask import Flask, request
+import requests
+from app.geo import api
+
+# from google.appengine.api import urlfetch
+import requests_toolbelt.adapters.appengine
+
+requests_toolbelt.adapters.appengine.monkeypatch()
+
+app = Flask(__name__)
+
+event_url = "https://cl1.zhenglinhuang.com:5000/events/search?"
+
+place_url = "https://cl1.zhenglinhuang.com:5000/places/search?"
 
 
-@server.route(rule='/here', endpoint='here_get_score', methods=['GET'])
-def here():
-    long = float(request.args['long'])
-    lat = float(request.args['lat'])
-    return json.dumps({'dynamic_senti_score': action_handler.get_dynamic_score_for_geolocation(long, lat)})
+# Note: We don't need to call run() since our application is embedded within
+# the App Engine WSGI application server.
 
-
-@server.route(rule='/global', endpoint='get_map', methods=['GET'])
+@app.route(rule='/', endpoint='get_map', methods=['GET'])
 def get_map():
     length = float(request.args['length'])
     long = float(request.args['long'])
     lat = float(request.args['lat'])
-    radius = 0.45 * length
+    influence_radius = 0.45 * length
 
     if 'radius' in request.args:
-        radius = float(request.args['radius'])
+        influence_radius = float(request.args['radius'])
 
-    nearby_events = edm.EventDataManager().find_events_near(long=long,
-                                                            lat=lat, radius=length * math.sqrt(2))
-    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=length * math.sqrt(2))
+    request_radius = influence_radius + length + 0.5 * length * math.sqrt(
+        3)
+
+    args = "geo_coordinates={0}&radius={1}".format(geojson.Point((long, lat)), request_radius)
+    nearby_events = requests.request(event_url + args)
 
     h = int(request.args['h'])
     if h > 30:
@@ -52,7 +63,7 @@ def get_map():
         y = y_top - i * ystep
         for j in range(0, w):
             x = x_left + j * xstep
-            score = action_handler.get_dynamic_score_for_heatmap_efficient(x, y, radius=radius,
+            score = action_handler.get_dynamic_score_for_heatmap_efficient(x, y, radius=influence_radius,
                                                                            nearby_events=nearby_events,
                                                                            nearby_places=nearby_places)
             if score < min_score:
@@ -94,3 +105,8 @@ def get_map():
                            places=out_places, min_value=min_score, max_value=max_score,
                            long_left=x_left, long_right=x_right, lat_top=y_top, lat_bottom=y_bottom,
                            w=w, h=h)
+
+
+if __name__ == '__main__':
+    resp = requests.request('GET', 'https://cl1.zhenglinhuang.com:5000/places')
+    print(resp)

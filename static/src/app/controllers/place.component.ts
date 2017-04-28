@@ -26,7 +26,7 @@ export class PlaceComponent extends MessageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.titleService.setTitle('Places');
+    this.titleService.setTitle('Food & Entertainment');
     this.sub = this.route.params.subscribe(params => {
         let id = params['id'];
         this.placeService.getPlace(id).subscribe(place => this.place = place)
