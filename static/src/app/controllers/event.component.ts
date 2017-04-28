@@ -6,7 +6,6 @@ import { Eventx }        from '../models/eventx';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
 import { MessageComponent } from './messages.component';
-import { SortService } from '../services/sort.service';
 
 @Component({
   selector: 'app-event',
@@ -17,8 +16,8 @@ export class EventComponent extends MessageComponent implements OnInit {
   private sub:any;
 
   constructor(private titleService: TitleService, private eventService: EventService, private commentSvc: CommentService,
-          private route: ActivatedRoute, private sorter: SortService) {
-    super(commentSvc, sorter)
+          private route: ActivatedRoute) {
+    super(commentSvc)
   }
   
   public postComment() {
