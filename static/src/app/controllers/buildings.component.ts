@@ -5,6 +5,7 @@ import { TitleService } from '../services/title.service';
 import { PlaceService } from '../services/place.service';
 import { Place }        from '../models/place';
 
+
 @Component({
   selector: 'app-buildings',
   templateUrl: '../templates/buildings.component.html',

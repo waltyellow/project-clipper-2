@@ -5,6 +5,7 @@ import { PlaceService } from '../services/place.service';
 import { TitleService } from '../services/title.service';
 import { Place }        from '../models/place';
 import { ActivatedRoute } from '@angular/router';
+import { SortComponent } from './sort.component';
 
 @Component({
   selector: 'app-events',
@@ -25,7 +26,7 @@ export class EntertainmentsComponent implements OnInit {
         let sanitizedSearch = params['search']
         this.placeService.getFoodAndEntertainment(sanitizedSearch).subscribe(places => {
             this.places = places['places']
-            //this.sortPlacesByRating();
+            SortComponent.sortByRating(this.places);
         });
     });
   }

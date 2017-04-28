@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { EventService } from '../services/event.service';
 import { TitleService } from '../services/title.service';
 import { Eventx }        from '../models/eventx';
+import { SortComponent } from './sort.component'
+
 
 @Component({
   selector: 'app-events',
@@ -26,6 +28,7 @@ export class EventsComponent implements OnInit {
         let sanitizedSearch = params['search']
         this.eventService.getEvents(sanitizedSearch).subscribe(events => {
             this.events = events['events']
+            SortComponent.sortByDate(this.events)
         });
     });
   }

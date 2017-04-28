@@ -43,20 +43,24 @@ export class SortComponent {
         return Math.sqrt(Math.pow(long2 - long1, 2) + Math.pow(lat2 - lat1, 2));
     }
 
-    public sortByDate() {
-        SortService.propertySort<Eventx>(this.items, 'start_time', true);
+    public static sortByDate(items) {
+        SortService.propertySort<Eventx>(items, 'start_time', true);
     }
 
-    public static sortEventsByName(items) {
-        SortService.propertySort<Eventx>(items, 'name');
+    public sortByDate() {
+        SortComponent.sortByDate(this.items);
     }
 
     public sortByName() {
         SortService.propertySort<Eventx>(this.items, 'name');
     }
 
+    public static sortByRating(items) {
+        SortService.propertySort<Eventx>(items, 'rating_average', true);
+    }
+
     public sortByRating() {
-        SortService.propertySort<Eventx>(this.items, 'rating_average', true);
+        SortComponent.sortByRating(this.items)
     }
 
     public toggleDropdown() {
