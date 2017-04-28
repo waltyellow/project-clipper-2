@@ -127,6 +127,7 @@ def reply_for_events(events: [dict], location_name: str):
         reply = "sorry, we cannot find any events near {0}.".format(location_name)
     else:
         reply = "Here are the events. There are {0} events. The first event is ".format(len(events))
+    print(reply)
     first = False
     for event in events:
         if not first:
