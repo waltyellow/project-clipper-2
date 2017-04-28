@@ -67,8 +67,6 @@ def webhook():
         try:
             location, place = find_location_and_place(data_object)
             print("mark1")
-            google_user = data_object['originalRequest']['user']
-            google_id = google_user['user_id']
             print("mark2")
             edm = EventDataManager()
             event = edm.create_empty_event()
@@ -80,7 +78,7 @@ def webhook():
             print(event)
             edm.insert_event_one(event)
             if not place:
-                reply = "Success " + serialize_event(event, 'created') + "by Google user id " + google_id
+                reply = "Success " + serialize_event(event, 'created') + " from Google Assistant"
             else:
                 event['geo_coordinates'] = place['geo_coordinates']
                 event['place_id'] = place['place_id']
