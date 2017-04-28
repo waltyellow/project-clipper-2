@@ -19,11 +19,15 @@ def webhook():
 
     action = data_object['result']['action']
 
+    print (action)
+
     reply = "sorry, I did not understand this command"
 
     if action == 'get_place':
         try:
             location, place = find_location_and_place(data_object)
+            print("getting"+location)
+            print("find place" + place)
             if location == '':
                 return "No location", 404
         except KeyError:
@@ -38,11 +42,11 @@ def webhook():
     elif action == 'find_events':
         try:
             location, place = find_location_and_place(data_object)
-
+            print("getting" + location)
+            print("find place" + place)
             if not place:
                 reply = reply_for_events_vague_location(location, location)
             else:
-                query_position = place['geo_coordinate']
                 reply = reply_for_events_at_place(place, location_name=place['name'])
         except KeyError:
             return "No location", 404
@@ -103,7 +107,7 @@ def reply_for_place(place: dict):
 
 def reply_for_events_at_place(place: dict, location_name: str):
     events = EventDataManager().find_events_by_filter({'place_id': place['place_id']})
-    reply_for_events(events, place['name'])
+    return reply_for_events(events, place['name'])
 
 
 def reply_for_events_exact_coordinates(long: float, lat: float, location_name: str = 'where you are'):
