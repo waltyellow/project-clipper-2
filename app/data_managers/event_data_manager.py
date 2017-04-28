@@ -6,8 +6,7 @@ from pymongo import MongoClient, IndexModel, GEOSPHERE
 from geojson import Point
 from app.utility import geo
 import time
-from app import database_name
-
+import app.data_managers.common as common
 min_event_dict = {
     'event_id': '',
     'keywords': [],
@@ -32,7 +31,7 @@ class EventDataManager:
 
     def __init__(self):
         self.client = MongoClient('localhost', 27017)
-        self.db = self.client.get_database(database_name)
+        self.db = self.client.get_database(common.database_name)
         self.event_collection = self.db.get_collection('events')
         self.event_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
 
@@ -66,6 +65,7 @@ class EventDataManager:
         event_dict['event_id'] = EventDataManager.convert_to_event_id(event_dict['_id'])
         self.replace_one_event(event_dict)
         print('inserted event' + event_dict['event_id'])
+        event_dict.pop('_id')
         return event_dict
 
     '''finds an event by its event id'''

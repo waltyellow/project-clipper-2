@@ -6,7 +6,7 @@ import base64, time
 from typing import Any
 from app.utility import geo, action_handler
 from app.data_managers import places_data_manager
-from app import database_name
+import app.data_managers.common as common
 
 import geojson
 
@@ -34,7 +34,7 @@ class MessageDataManager:
 
     def __init__(self):
         self.client = MongoClient('localhost', 27017)
-        self.db = self.client.get_database(database_name)
+        self.db = self.client.get_database(common.database_name)
         self.message_collection = self.db.get_collection('messages')
         # self.message_collection.create_index([("thread_id", pymongo.ASCENDING),
         #                                       ("type", pymongo.ASCENDING)])

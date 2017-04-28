@@ -6,7 +6,7 @@ from pymongo import MongoClient, GEOSPHERE
 from app.utility import geo
 from geojson import Point
 from app.utility import action_handler
-from app import database_name
+import app.data_managers.common as common
 import time
 
 min_place_dict = {
@@ -31,7 +31,7 @@ class PlaceDataManager:
     def __init__(self):
         self.client = MongoClient('localhost',
                                   27017)  # localhost for now, may change to properties file if time permits
-        self.db = self.client.get_database(database_name)  # not sure what this is yet, using same as events
+        self.db = self.client.get_database(common.database_name)  # not sure what this is yet, using same as events
         self.place_collection = self.db.get_collection('locations')
         self.place_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
 
