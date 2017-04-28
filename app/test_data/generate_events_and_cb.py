@@ -11,7 +11,7 @@ def create_cs_presentation(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'Computer Science Capstone Presentations'
+    event['name'] = 'CS Capstone Presentations'
     event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Nord'
     event['description'] =  'Free food for CWRU Students'
@@ -24,7 +24,7 @@ def create_bio_presentation(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'Biology Capstone Presentations'
+    event['name'] = 'Bio Capstone Presentations'
     event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Bingham'
     event['description'] =  'Free food for CWRU Students'
@@ -63,7 +63,7 @@ def create_undergrad(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'Undergraduate Appreciation Week'
+    event['name'] = 'Undergrad Appreciation Week'
     event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Tinkham Veale Center'
     event['description'] =  'Free food for CWRU Students'
