@@ -27,7 +27,7 @@ export class EntertainmentsComponent implements OnInit {
         let sanitizedSearch = params['search']
         this.placeService.getFoodAndEntertainment(sanitizedSearch).subscribe(places => {
             this.places = places['places']
-            // call initial sorting method
+            this.sortPlacesByRating();
         });
     });
   }
@@ -36,5 +36,15 @@ export class EntertainmentsComponent implements OnInit {
       this.sortOptionsVisible = !this.sortOptionsVisible;
   }
 
+  public sortPlacesByRating() {
+      this.sortService.propertySort(this.places, 'rating_average', true)
+  }
 
+  public sortPlacesByDistance() {
+
+  }
+
+  public sortPlacesByName() {
+      this.sortService.propertySort(this.places, 'name')
+  }
 }

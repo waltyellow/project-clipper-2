@@ -3,13 +3,13 @@
 		<button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
 		<br />
 		<div class="radio">
-			<label><input type="radio" name="sortradio" (click)="sortEventsByDate()" checked>by soonest</label>
+			<label><input type="radio" name="sortradio" (click)="sortPlacesByRating()" checked>by rating</label>
 		</div>
 		<div class="radio">
-			<label><input type="radio" name="sortradio" (click)="sortEventsByProximity()">by nearest</label>
+			<label><input type="radio" name="sortradio" (click)="sortPlacesByDistance()">by nearest</label>
 		</div>
 		<div class="radio">
-			<label><input type="radio" name="sortradio" (click)="sortEventsByName()">alphabetically</label>
+			<label><input type="radio" name="sortradio" (click)="sortPlacesByName()">alphabetically</label>
 		</div>
 	</div>
 	<div class="sort-components">
@@ -25,16 +25,15 @@
                 <span>{{place.name}}</span>
             </div>
             <div class="event-expand">
-				<span>{{place.dynamic_senti_score | number: '1.2-2'}}</span>
                 <a class="btn btn-default" [routerLink]="['/place', place.place_id, 'place']">Show Place</a>
             </div>
         </div>
         <div class="bottom-row">
             <div class="event-location">
-                <span>{{place.location}}</span>
+                <span>Rating: {{place.rating_average}} ({{place.rating_count}} reviews)</span>
             </div>
             <div class="event-datetime">
-                <span>{{place.start_time}}</span>
+                <span>Score: {{place.dynamic_senti_score | number: '1.2-2'}}</span>
             </div>
         </div>
     </div>
