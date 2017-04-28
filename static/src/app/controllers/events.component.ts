@@ -70,7 +70,7 @@ export class EventsComponent implements OnInit {
   }
 
   public sortEventsByDate() {
-      this.sortService.propertySort<Eventx>(this.events, 'start_time', true);
+    this.sortService.propertySort<Eventx>(this.events, 'start_time', true);
   }
 
   setListView(listView: boolean) {
