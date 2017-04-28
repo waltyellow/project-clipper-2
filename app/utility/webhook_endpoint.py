@@ -1,6 +1,7 @@
 from app import server
 from flask import request, make_response
 from app.data_managers import common
+
 from app.data_managers.event_data_manager import EventDataManager
 from app.data_managers.places_data_manager import PlaceDataManager
 from app.utility import action_handler
@@ -19,11 +20,15 @@ def webhook():
 
     action = data_object['result']['action']
 
+    print(action)
+    print(data_object)
+
     reply = "sorry, I did not understand this command"
 
     if action == 'get_place':
         try:
             location, place = find_location_and_place(data_object)
+            print("getting" + location)
             if location == '':
                 return "No location", 404
         except KeyError:
@@ -33,16 +38,18 @@ def webhook():
             # we cannot find a place
             reply = reply_no_location(location)
         else:
+            print(place)
             reply = reply_for_place(place)
 
     elif action == 'find_events':
         try:
             location, place = find_location_and_place(data_object)
+            print("getting" + location)
             if not place:
                 reply = reply_for_events_vague_location(location, location)
             else:
-                query_position = place['geo_coordinate']
-                reply = reply_for_events_exact_coordinates(query_position, location_name=place['name'])
+                print(place)
+                reply = reply_for_events_at_place(place, location_name=place['name'])
         except KeyError:
             return "No location", 404
 
@@ -60,17 +67,38 @@ def webhook():
     elif action == 'create_event_yes':
         try:
             location, place = find_location_and_place(data_object)
-            google_user = data_object['originalRequest']['user']
-            google_id = google_user['user_id']
-            # google_id -> user_id
-            #
+            print(location)
+            print(place)
+            edm = EventDataManager()
+            event = edm.create_empty_event()
+            print(event)
+            parameters = data_object['result']['parameters']
+            print(parameters)
+            event['name'] = parameters['name']
+            print(event)
+            event['description'] = parameters['description']
+            print(event)
+            event['time'] = parameters['time']
+            print(event)
+
+            event['location'] = location
+            print(event)
+            edm.insert_event_one(event)
+            if place:
+                event['geo_coordinates'] = place['geo_coordinates']
+                event['place_id'] = place['place_id']
+                edm.replace_one_event(event)
+            print('created')
+            print(event)
+            reply = "Success " + serialize_event(event, 'created') + " from Google Assistant"
+
         except KeyError:
             reply = "Event Creation failed due to unknown reasons"
     res = {
         "speech": reply,
         "source": "evention"
     }
-
+    print("sent" + reply)
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -79,7 +107,7 @@ def webhook():
 
 
 def reply_no_location(location: str):
-    reply = "Sorry, we cannot find" + location + ", try a different name?"
+    reply = "Sorry, we cannot find " + location + ", try a different name?"
     return reply
 
 
@@ -100,7 +128,14 @@ def reply_for_place(place: dict):
     return reply
 
 
-def reply_for_events_exact_coordinates(long:float, lat:float, location_name: str = 'where you are'):
+def reply_for_events_at_place(place: dict, location_name: str):
+    print("events for" + place['place_id'])
+    events = EventDataManager().find_events_by_filter({'place_id': place['place_id']})
+    print(events)
+    return reply_for_events(events, place['name'])
+
+
+def reply_for_events_exact_coordinates(long: float, lat: float, location_name: str = 'where you are'):
     events = EventDataManager().find_events_near(long=long, lat=lat)
     return reply_for_events(events, location_name)
 
@@ -111,33 +146,41 @@ def reply_for_events_vague_location(location: str, location_name: str = 'the loc
 
 
 def reply_for_events(events: [dict], location_name: str):
+    first_string = 'first '
     if len(events) == 0:
-        reply = "sorry, we cannot find any events near {0}.".format(location_name)
+        reply = "sorry, we cannot find any events at {0}.".format(location_name)
     else:
-        reply = "Here are the events. There are {0} events. The first event is ".format(len(events))
+        if len(events) == 1:
+            reply = "I found one event. The event is ".format(len(events))
+            first_string = ''
+        else:
+            reply = "Here are the {0} events at {1}. ".format(len(events), location_name)
+    print(reply)
     first = False
     for event in events:
         if not first:
-            reply += serialize_event(event, 'first')
+            reply += serialize_event(event, first_string)
             first = True
         else:
-            reply += serialize_event(event, 'next')
+            reply += serialize_event(event, 'next ')
     return reply
 
 
 def serialize_event(event: dict, seq: str = 'next'):
-    action_handler.refresh_score_for_entity(event)
     name = event['name']
-    excitement_level = score_to_quality(event['senti_score'])
+    excitement_level = score_to_quality(event['dynamic_senti_score'])
     location = event['location']
     description = event['description']
 
-    reply = "The {0} event is {1} at  {2} The excitement level is {3} at this moment.".format(seq, name, location,
-                                                                                              excitement_level)
+    reply = "The {0} event is {1} at {2}. Our data show it is {3} at this moment. ".format(seq, name, location,
+                                                                                           excitement_level)
     if description != '':
-        reply += "It is about {0}".format(description)
+        reply += "This event is about {0}.".format(description)
     else:
         pass
+
+    if 'food' in event and event['food'] != '':
+        reply += "In terms of food, there is also {0} offered there.".format(event['food'])
     return reply
 
 

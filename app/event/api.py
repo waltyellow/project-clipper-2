@@ -22,8 +22,9 @@ def create_event():
     decoded_json = request.get_data().decode("utf-8")
     posted_dict = json.loads(decoded_json)
     dm.insert_event_one(posted_dict)
+    print (posted_dict)
     action_handler.generate_dynamic_score_for_event(event=posted_dict)
-    return posted_dict
+    return json.dumps(posted_dict)
 
 
 '''replace does not replace ID'''
@@ -39,7 +40,7 @@ def replace_one_event():
     if not event_id.__contains__('ev-'):
         raise Exception('invalid input')
     action_handler.generate_dynamic_score_for_event(event=posted_dict)
-    return dm.replace_one_event(posted_dict)
+    return json.dumps(dm.replace_one_event(posted_dict))
 
 
 '''update by a list of diffs '''
@@ -61,7 +62,7 @@ def update_event(event_id: str):
         dm.update_one_event_by_diff(event_id=event_id, key=key, new_value=new_value)
     event = dm.find_event_by_id(event_id)
     action_handler.generate_dynamic_score_for_event(event=event)
-    return event
+    return json.dumps(event)
 
 
 

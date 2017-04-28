@@ -12,8 +12,9 @@ export class PlaceService {
 
     private getPlaces(type:string, search:string = '') : Observable<Place[]> {
        let url = this.searchURL + '?type=' + type
+
        if (search) {
-           url += '?name_search=' + search
+           url += '&name_search=' + search
        }
        return this.http.get(url).map((res:Response) => res.json())
     }
@@ -26,13 +27,9 @@ export class PlaceService {
         return this.getPlaces('CampusBuilding', search)
     }
 
-    public getStudyLocations() : Observable<Place[]> {
-        return this.http.get(this.searchURL + '?type=StudyLocation').map(res => res.json())
-    }
-}
 
 
-    public getStudySpaces(search:string = '') : Observable<Place[]> {
+    public getStudyLocations(search:string = '') : Observable<Place[]> {
         return this.getPlaces('StudyLocation', search)
     }
 
@@ -40,4 +37,4 @@ export class PlaceService {
         return this.getPlaces('FoodEntertainment', search)
     }
 }
->>>>>>> master
+

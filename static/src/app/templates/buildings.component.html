@@ -1,11 +1,4 @@
-<div class="sort-options">
-	sort icon<span style="float: right">filter icon</span>
-</div>
-<div class="sort-options">
-        <button type="button" class="btn btn-square">Sort</button>
-        <input type="text" id="search_text" placeholder="Search campus building" [(ngModel)]="searchText" />
-        <a class="btn btn-square">Search</a>
-    </div>
+<sort [items]="buildings" [soonest]="false"> </sort>
 <div class="list-container">
     <div class="list-item" *ngFor="let building of buildings">
         <div class="top-row">

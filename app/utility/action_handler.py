@@ -3,6 +3,8 @@ from app.data_managers.places_data_manager import PlaceDataManager
 from app.data_managers.event_data_manager import EventDataManager
 from app.sentiment import emotion
 from geopy.distance import great_circle
+from multiprocessing import Pool
+import functools
 
 import geojson
 
@@ -34,11 +36,12 @@ def generate_dynamic_score_for_event(event: dict, radius: float = 1000):
                                                                      long=event['geo_coordinates']['coordinates'][0],
                                                                      lat=event['geo_coordinates']['coordinates'][1],
                                                                      radius=radius)
+
     else:
         geo_score = 0
 
     event_score = event['senti_score']
-    dynamic_score = event_score + place_score + geo_score
+    dynamic_score = event_score + place_score*0.5 + geo_score*0.2
     event['dynamic_senti_score'] = dynamic_score
     return dynamic_score
 
@@ -61,7 +64,7 @@ def generate_dynamic_score_for_place(place: dict, radius: float = 1000):
         geo_score = 0
 
     place_score = place['senti_score']
-    dynamic_score = event_score + place_score + geo_score
+    dynamic_score = event_score*0.5 + place_score + geo_score*0.2
     place['dynamic_senti_score'] = dynamic_score
     return dynamic_score
 
@@ -80,9 +83,9 @@ def get_dynamic_score_for_geolocation(long: float, lat: float, radius: float = 1
 
 
 def get_dynamic_score_for_heatmap_efficient(long: float, lat: float, radius: float, nearby_events, nearby_places):
-    nearby_events_score = aggregate_raw_score_from_entities_distance_based(nearby_events, event_senti_lifetime_in_days,
+    nearby_events_score = aggregate_raw_score_from_entities_distance_based_efficient(nearby_events, event_senti_lifetime_in_days,
                                                                            long, lat, radius)
-    nearby_places_score = aggregate_raw_score_from_entities_distance_based(nearby_places, place_senti_lifetime_in_days,
+    nearby_places_score = aggregate_raw_score_from_entities_distance_based_efficient(nearby_places, place_senti_lifetime_in_days,
                                                                            long, lat, radius)
     dynamic_score = nearby_places_score + nearby_events_score
     return dynamic_score
@@ -91,6 +94,8 @@ def get_dynamic_score_for_heatmap_efficient(long: float, lat: float, radius: flo
 def get_raw_score_for_place(place_id: str):
     dm = PlaceDataManager()
     place = dm.find_one_place_by_id(place_id)
+    if place is None:
+        return 0
     refresh_score_for_entity(place, place_senti_lifetime_in_days)
     return place['senti_score']
 
@@ -100,6 +105,26 @@ def aggregate_raw_score_from_entities(entities, lifetime):
     for entity in entities:
         sum += extract_raw_score_from_entity(entity, lifetime)
     return sum
+
+
+def aggregate_raw_score_from_entities_distance_based_efficient(entities, lifetime, long, lat, radius):
+    center_loc = (long, lat)
+    # for entity in entities:
+    #     single_score = entity_to_geo_score(center_loc, entity, radius)
+    #     sum += single_score
+    scores = (map(functools.partial(entity_to_geo_score, center_loc=center_loc, radius=radius), entities))
+    score = (sum(list(scores)))
+    return score
+
+
+def entity_to_geo_score(entity, center_loc, radius):
+    entity_loc = (entity['geo_coordinates']['coordinates'][0], entity['geo_coordinates']['coordinates'][1])
+    distance = great_circle(entity_loc, center_loc).meters
+    fraction = (1 - distance / radius)
+    if fraction < 0:
+        fraction = 0
+    single_score = entity['senti_score'] * fraction * fraction
+    return single_score
 
 
 def aggregate_raw_score_from_entities_distance_based(entities, lifetime, long, lat, radius):
@@ -180,6 +205,10 @@ def refresh_score_for_entity(entity: dict, lifetime_in_days: float):
     # get decay factor
     current_time = time.time()
     last_updated_time = entity['senti_score_updated_time']
+    time_delta = (current_time - last_updated_time)
+    if (time_delta) < 1800:
+        return
+
     decay_factor = get_decay_factor(last_updated_time=last_updated_time,
                                     current_time=current_time,
                                     lifetime_in_days=lifetime_in_days)
