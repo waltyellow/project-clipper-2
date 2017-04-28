@@ -31,7 +31,7 @@ class EventDataManager:
 
     def __init__(self):
         self.client = MongoClient('localhost', 27017)
-        self.db = self.client.get_database('experimental_2')
+        self.db = self.client.get_database('experimental1_2')
         self.event_collection = self.db.get_collection('events')
         self.event_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
 
@@ -138,7 +138,7 @@ def insert():
         event1 = min_event_dict.copy()
         event1['name'] = 'evrs' + str(i)
         event1['senti_score'] = random.random() * 50
-        event1['geo_coordinates'] = Point((55.5 + 0.4 * random.random(), 53.9 + 0.5 * random.random()))
+        event1['geo_coordinates'] = Point((50+ 0.4 * random.random(), 50.9 + 0.5 * random.random()))
         EventDataManager().insert_event_one(event1)
         print(event1)
 
@@ -148,8 +148,7 @@ def insert():
 
 def find():
     eventDataManager = EventDataManager()
-    events = eventDataManager.find_events_near(125, 35.0000, radius=5)
-    events = eventDataManager.find_event_by_id('ev-WQEHXE9tc1py6OPs')
+    events = eventDataManager.find_all_events()
     print(events)
 
 
@@ -166,4 +165,4 @@ def test2():
 
 
 if __name__ == '__main__':
-    insert()
+    find()
