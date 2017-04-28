@@ -88,8 +88,10 @@ def get_map():
                            "name": place['name'],
                            "id": place['place_id'],
                            "score": place['senti_score']})
+        print(place)
 
     volcano = {"width": w, "height": h, 'values': data_points}
+
     # return json.dumps(
     #    {"width":w, "height": h, 'values': data_points})
     return render_template('heatmap_volcano.html', data_points=volcano, stdev=stdev, mean=mean, events=out_events,
