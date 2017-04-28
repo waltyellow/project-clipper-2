@@ -13,13 +13,13 @@ import { SortService } from '../services/sort.service';
 })
 export class StudyLocationsComponent implements OnInit {
   public listView: boolean = true;
-  public studyLoc: Place[];
+  public studyLocations: Place[];
 
   constructor(private titleService: TitleService, private sortService: SortService, private placeService: PlaceService) { }
 
   ngOnInit() {
     this.titleService.setTitle('Study Locations');
-    this.placeService.getStudyLocations().subscribe(studyLoc => this.studyLoc = studyLoc['places']);
+    this.placeService.getStudyLocations().subscribe(studyLocations => this.studyLocations = studyLocations['places']);
   }
   setListView(listView: boolean){
     this.listView = listView;

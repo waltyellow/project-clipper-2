@@ -116,8 +116,15 @@ def insert_events_and_places():
     #create data managers
     em = EventDataManager()
     pm = PlaceDataManager()
-    glennen = create_glennen()
-    pm.insert_one_place(place_glennen_dict)
+    glennen = pm.create_empty_place()
+    glennen['name'] = 'Yost'
+    glennen['type'] = 'StudyLocation'
+    glennen['geo_coordinates'] = Point((123, 45.2))
+    glennen['senti_score'] = 400
+    glennen['rating_average'] = 0
+    pm.insert_one_place(glennen)
+    #pm.update_one_place(glennen['place_id'],'type','StudyLocation')
+    #glennen['type'] = 'StudyLocation'
 '''
     #create places
     tink = create_place1()
