@@ -175,7 +175,7 @@
                 return width * d.x + 5 ;
             })
             .attr("y", function (d) {
-                return height * d.y + d.type == "event"?12:-12;
+                return height * d.y + (d.type == "event")? 12:-12;
             })
             .text(function (d) {
                 return d.name + "-" + d.type +"(" + d.score.toFixed(1) + ")";
