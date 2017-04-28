@@ -12,8 +12,9 @@ export class PlaceService {
 
     private getPlaces(type:string, search:string = '') : Observable<Place[]> {
        let url = this.searchURL + '?type=' + type
+
        if (search) {
-           url += '?name_search=' + search
+           url += '&name_search=' + search
        }
        return this.http.get(url).map((res:Response) => res.json())
     }

@@ -1,8 +1,8 @@
-<div class="sort-options">
-        <button type="button" class="btn btn-square">Sort</button>
-        <input type="text" id="search_text" placeholder="Search Study Spaces" [(ngModel)]="searchText" />
-        <a class="btn btn-square">Search</a>
-    </div>
+<div class="sort-components">
+            <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
+            <input type="text" id="search-text" placeholder="Search Study Spaces" [(ngModel)]="searchText" />
+            <button type="button" class="btn btn-square" [routerLink]="['/study-locations']" [queryParams]="{search: searchText}">Search</button>
+        </div>
 <div class="list-container">
     <div class="list-item" *ngFor="let location of studyLocations">
         <div class="top-row">
