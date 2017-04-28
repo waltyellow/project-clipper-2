@@ -11,7 +11,6 @@ export class MessageComponent {
   constructor(public commentService: CommentService, public sortService: SortService) { }
 
   public postComment(parentId: string) : void {
-    console.log(parentId)
     this.newComment.posted = new Date().getTime()
     this.newComment.parent = parentId
     this.newComment.type = this.commentView? 'comment' : 'question'

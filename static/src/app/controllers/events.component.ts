@@ -5,8 +5,6 @@ import { Observable } from 'rxjs/Observable';
 import { EventService } from '../services/event.service';
 import { TitleService } from '../services/title.service';
 import { Eventx }        from '../models/eventx';
-import { SortService } from '../services/sort.service';
-
 
 @Component({
   selector: 'app-events',
@@ -18,7 +16,7 @@ export class EventsComponent implements OnInit {
   public sub: any;
   public searchText: string = "";
 
-  constructor(private titleService: TitleService, private eventService: EventService, private sortService: SortService, private route: ActivatedRoute) {
+  constructor(private titleService: TitleService, private eventService: EventService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {

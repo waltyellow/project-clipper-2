@@ -15,7 +15,6 @@ export class SortComponent {
   @Input() items: Eventx[];
   @Input() soonest: boolean;
 
-  //public items: Eventx[];
   public sortOptionsVisible: boolean = false;
 
     public sortEventsByProximity() {
@@ -50,6 +49,10 @@ export class SortComponent {
 
     public static sortEventsByName(items) {
       SortService.propertySort<Eventx>(items, 'name');
+    }
+
+    public sortPlacesByRating() {
+        SortService.propertySort(this.items, 'rating_average', true)
     }
 
     public toggleDropdown() {
