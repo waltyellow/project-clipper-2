@@ -13,7 +13,7 @@ def insert():
     white['senti_score'] = 8
     white['rating_average'] = 2.8
     white['rating_count'] = 6
-    white['geo_coordinates'] = Point((100, 10.003))
+    white['geo_coordinates'] = Point((100.003, 10))
 
     tink = place_proto.copy()
     tink['name'] = 'Tinkham Veale University Center'
@@ -27,14 +27,14 @@ def insert():
     tomlinson['senti_score'] = -6
     tomlinson['rating_average'] = 2.1
     tomlinson['rating_count'] = 12
-    tomlinson['geo_coordinates'] = Point((100, 10.002))
+    tomlinson['geo_coordinates'] = Point((100.002, 10))
 
     melt = place_proto.copy()
     melt['name'] = 'Melt University'
     melt['senti_score'] = 2
     melt['rating_average'] = 0
     melt['rating_count'] = 0
-    melt['geo_coordinates'] = Point((100.001, 10.0011))
+    melt['geo_coordinates'] = Point((100.0011, 10.001))
 
     pdm = PlaceDataManager()
     edm = EventDataManager()
@@ -50,7 +50,7 @@ def insert():
     ece['senti_score'] = 2
     ece['place_id'] = white['place_id']
     ece['location'] = 'white'
-    ece['geo_coordinates'] = Point((100, 10.003))
+    ece['geo_coordinates'] = Point((100.003, 10.0003))
 
     cmp = event_proto.copy()
     cmp['name'] = 'Computer science senior project presentations Day 2'
@@ -58,7 +58,7 @@ def insert():
     cmp['senti_score'] = 15
     cmp['place_id'] = white['place_id']
     cmp['location'] = 'white'
-    cmp['geo_coordinates'] = Point((100, 10.0032))
+    cmp['geo_coordinates'] = Point((100.0032, 10.0001))
 
     food_week = event_proto.copy()
     food_week['name'] = 'Bon Appetit International Week Gourmet and Wine Tasting'
@@ -69,8 +69,11 @@ def insert():
     food_week['senti_score'] = -7
     food_week['place_id'] = tomlinson['place_id']
     food_week['location'] = 'Tomlinson'
-    food_week['geo_coordinates'] = Point((100, 10.0021))
+    food_week['geo_coordinates'] = Point((100.0021, 10.0004))
 
     edm.insert_event_one(ece)
     edm.insert_event_one(cmp)
     edm.insert_event_one(food_week)
+
+if __name__ == '__main__':
+    insert()

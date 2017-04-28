@@ -1,4 +1,4 @@
-<sort [items]="places"> </sort>
+<sort [items]="places" boxText="Search food and entertainment" [link]="['/places']"></sort>
 <div class="list-container">
     <div class="list-item" *ngFor="let place of places">
         <div class="top-row">
@@ -6,7 +6,7 @@
                 <span>{{place.name}}</span>
             </div>
             <div class="event-expand">
-                <a class="btn btn-default" [routerLink]="['/place', place.place_id, 'place']">Show Place</a>
+                <a class="btn btn-default" [routerLink]="['/places', place.place_id, 'place']">Show Place</a>
             </div>
         </div>
         <div class="bottom-row">

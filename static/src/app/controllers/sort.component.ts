@@ -12,8 +12,11 @@ export class SortComponent {
 
     constructor(private sortService: SortService) {
     }
+
     @Input() items: Eventx[];
-    @Input() soonest: boolean;
+    @Input() boxText: string;
+    @Input() link: string;
+    @Input() soonest: boolean = false;
 
     public sortOptionsVisible: boolean = false;
 

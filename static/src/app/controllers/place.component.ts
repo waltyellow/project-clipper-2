@@ -4,35 +4,25 @@ import { PlaceService } from '../services/place.service'
 import {ActivatedRoute } from '@angular/router';
 import { Place }        from '../models/place';
 import { TitleService } from '../services/title.service';
-import { CommentService } from '../services/comment.service';
-import { MessageComponent } from './messages.component';
-import { SortService } from '../services/sort.service';
 
 @Component({
   selector: 'app-place',
   templateUrl: '../templates/place.component.html',
 })
-export class PlaceComponent extends MessageComponent implements OnInit {
+export class PlaceComponent implements OnInit {
   public place: Place;
   private sub:any;
+  private parentId : string;
 
-  constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService,
-        private route: ActivatedRoute, private sorter: SortService) {
-    super(commentSvc, sorter)
-  }
-
-  public postComment() : void {
-    super.postComment(this.place.place_id)
+  constructor(private titleService: TitleService, private placeService: PlaceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.titleService.setTitle('Food & Entertainment');
     this.sub = this.route.params.subscribe(params => {
-        let id = params['id'];
-        this.placeService.getPlace(id).subscribe(place => this.place = place)
-        this.subscribeToComments(id)
+        this.parentId = params['id'];
+        this.placeService.getPlace(this.parentId).subscribe(place => this.place = place)
     });
-    super.ngOnInit()
   }
 
   ngOnDestroy() {

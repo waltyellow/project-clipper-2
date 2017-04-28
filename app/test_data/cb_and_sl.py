@@ -14,7 +14,7 @@ def create_yost():
     place = proto.copy()
     place['name'] = 'Yost Hall'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((200, 50))
+    place['geo_coordinates'] = Point((-81.608950, 41.503553))
     place['senti_score'] = 2
     place['rating_average'] = 3.9
     place['rating_count'] = 21
@@ -27,7 +27,7 @@ def create_strosacker():
     place = proto.copy()
     place['name'] = 'Strosacker Auditorium'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((210, 45))
+    place['geo_coordinates'] = Point((-81.607330, 41.503304))
     place['senti_score'] = 8
     place['rating_average'] = 4.1
     place['rating_count'] = 18
@@ -40,7 +40,7 @@ def create_nord():
     place = proto.copy()
     place['name'] = 'Nord Hall'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((211,42))
+    place['geo_coordinates'] = Point((-81.607824, 41.502485))
     place['senti_score'] = 35
     place['rating_average'] = 4.7
     place['rating_count'] = 43
@@ -51,9 +51,9 @@ def create_white():
     proto = places_data_manager.min_place_dict
 
     place = proto.copy()
-    place['name'] = 'White'
-    place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((400, 11))
+    place['name'] = 'White Building'
+    place['type'] = 'CampusBuilding'
+    place['geo_coordinates'] = Point((-81.607416, 41.501922))
     place['senti_score'] = 2
     place['rating_average'] = 2.6
     place['rating_count'] = 33
@@ -66,7 +66,7 @@ def create_glennan():
     place = proto.copy()
     place['name'] = 'Glennan Student Building'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((126, 120))
+    place['geo_coordinates'] = Point((-81.606998, 41.501553))
     place['senti_score'] = 5
     place['rating_average'] = 3.7
     place['rating_count'] = 42
@@ -79,7 +79,7 @@ def create_bingham():
     place = proto.copy()
     place['name'] = 'Bingham Hall'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((60, 60))
+    place['geo_coordinates'] = Point((-81.606955, 41.502412))
     place['senti_score'] = 17
     place['rating_average'] = 4
     place['rating_count'] = 61
@@ -92,7 +92,7 @@ def create_tink():
     place = proto.copy()
     place['name'] = 'Tinkham Veale University Center'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((41, 41))
+    place['geo_coordinates'] = Point((-81.608752, 41.508473))
     place['senti_score'] = 4
     place['rating_average'] = 4
     place['rating_count'] = 83
@@ -106,7 +106,7 @@ def create_thwing():
     place = proto.copy()
     place['name'] = 'Thwing Student Center'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((123, 46))
+    place['geo_coordinates'] = Point((-81.608199, 41.507386))
     place['senti_score'] = 6
     place['rating_average'] = 4
     place['rating_count'] = 14
@@ -120,7 +120,7 @@ def create_veale():
     place = proto.copy()
     place['name'] = 'Veale Athletic Center'
     place['type'] = 'CampusBuilding'
-    place['geo_coordinates'] = Point((129, 57))
+    place['geo_coordinates'] = Point((-81.606295, 41.500936))
     place['senti_score'] = 7
     place['rating_average'] = 4
     place['rating_count'] = 45
@@ -134,7 +134,7 @@ def create_ksl():
     place = proto.copy()
     place['name'] = 'Kelvin Smith Library'
     place['type'] = 'StudyLocation'
-    place['geo_coordinates'] = Point((200, 257))
+    place['geo_coordinates'] = Point((-81.609578, 41.507348))
     place['senti_score'] = 4
     place['rating_average'] = 4.1
     place['rating_count'] = 20
@@ -147,7 +147,7 @@ def create_glennan_lounge():
     place = proto.copy()
     place['name'] = 'Glennan Lounge'
     place['type'] = 'StudyLocation'
-    place['geo_coordinates'] = Point((100, 57))
+    place['geo_coordinates'] = Point((-81.606998, 41.501553))
     place['senti_score'] = 1
     place['rating_average'] = 3
     place['rating_count'] = 42
@@ -160,7 +160,7 @@ def create_bingham_lounge():
     place = proto.copy()
     place['name'] = 'Bingham Lounge'
     place['type'] = 'StudyLocation'
-    place['geo_coordinates'] = Point((101, 157))
+    place['geo_coordinates'] = Point((-81.606955, 41.502412))
     place['senti_score'] = 7
     place['rating_average'] = 3
     place['rating_count'] = 81
@@ -173,7 +173,7 @@ def create_wade_commons():
     place = proto.copy()
     place['name'] = 'Wade Commons'
     place['type'] = 'StudyLocation'
-    place['geo_coordinates'] = Point((10, 12))
+    place['geo_coordinates'] = Point((-81.605211, 41.513051))
     place['senti_score'] = 12
     place['rating_average'] = 2
     place['rating_count'] = 17

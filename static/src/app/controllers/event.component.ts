@@ -4,35 +4,25 @@ import { EventService } from '../services/event.service'
 import {ActivatedRoute } from '@angular/router';
 import { Eventx }        from '../models/eventx';
 import { TitleService } from '../services/title.service';
-import { CommentService } from '../services/comment.service';
-import { MessageComponent } from './messages.component';
-import { SortService } from '../services/sort.service';
 
 @Component({
   selector: 'app-event',
   templateUrl: '../templates/event.component.html',
 })
-export class EventComponent extends MessageComponent implements OnInit {
+export class EventComponent implements OnInit {
   public event: Eventx;
   private sub:any;
+  private parentId : string;
 
-  constructor(private titleService: TitleService, private eventService: EventService, private commentSvc: CommentService,
-          private route: ActivatedRoute, private sorter: SortService) {
-    super(commentSvc, sorter)
+  constructor(private titleService: TitleService, private eventService: EventService, private route: ActivatedRoute) {
   }
-  
-  public postComment() {
-    super.postComment(this.event.event_id)
-  }
-
+ 
   ngOnInit() {
     this.titleService.setTitle('Events');
     this.sub = this.route.params.subscribe(params => {
-        let id = params['id'];
-        this.eventService.getEvent(id).subscribe(event => this.event = event)
-        this.subscribeToComments(id)
+        this.parentId = params['id'];
+        this.eventService.getEvent(this.parentId).subscribe(event => this.event = event)
     });
-    super.ngOnInit()
   }
 
   ngOnDestroy() {

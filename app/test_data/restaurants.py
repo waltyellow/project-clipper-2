@@ -12,7 +12,7 @@ def create_qdoba():
     place = proto.copy()
     place['name'] = 'Qdoba Mexican Grill'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((123, 45.002))
+    place['geo_coordinates'] = Point((-81.605453, 41.508404))
     place['senti_score'] = 25
     place['rating_average'] = 3.9
     place['rating_count'] = 20
@@ -25,7 +25,7 @@ def create_jimmy_johns():
     place = proto.copy()
     place['name'] = 'Jimmy Johns Sub Shop'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((120, 45.002))
+    place['geo_coordinates'] = Point((-81.603951, 41.509651))
     place['senti_score'] = 15
     place['rating_average'] = 4.1
     place['rating_count'] = 16
@@ -38,7 +38,7 @@ def create_chipotle():
     place = proto.copy()
     place['name'] = 'Chipotle Mexican Grill'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((123, 45.002))
+    place['geo_coordinates'] = Point((-81.603951, 41.509799))
     place['senti_score'] = 35
     place['rating_average'] = 4.7
     place['rating_count'] = 52
@@ -51,7 +51,7 @@ def create_potbelly():
     place = proto.copy()
     place['name'] = 'Potbelly Sandwich Shop'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((126, 45.002))
+    place['geo_coordinates'] = Point((-81.604890, 41.509554))
     place['senti_score'] = 10
     place['rating_average'] = 2.6
     place['rating_count'] = 26
@@ -64,7 +64,7 @@ def create_panera_bread():
     place = proto.copy()
     place['name'] = 'Panera Bread'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((128, 45.002))
+    place['geo_coordinates'] = Point((-81.603854, 41.509765))
     place['senti_score'] = 16
     place['rating_average'] = 3.7
     place['rating_count'] = 61
@@ -77,7 +77,7 @@ def create_kenkos():
     place = proto.copy()
     place['name'] = 'Kenkos Sushi'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((123, 48))
+    place['geo_coordinates'] = Point((-81.605740, 41.508316))
     place['senti_score'] = 12
     place['rating_average'] = 4
     place['rating_count'] = 11
