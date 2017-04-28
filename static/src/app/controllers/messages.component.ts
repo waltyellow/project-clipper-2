@@ -8,7 +8,7 @@ export class MessageComponent {
   public newComment : Comment
   public commentView: boolean = true;
 
-  constructor(public commentService: CommentService, public sortService: SortService) { }
+  constructor(public commentService: CommentService) { }
 
   public postComment(parentId: string) : void {
     this.newComment.posted = new Date().getTime()
@@ -31,10 +31,10 @@ export class MessageComponent {
         let messages = comments['messages']
         
         this.comments = messages.filter(msg => msg.type == 'comment')
-        //this.sortService.propertySort(this.comments, 'posted', true)
+        SortService.propertySort(this.comments, 'posted', true)
         
         this.questions = messages.filter(msg => msg.type == 'question')
-        //this.sortService.propertySort(this.questions, 'posted', true)
+        SortService.propertySort(this.questions, 'posted', true)
     })
   }
   
