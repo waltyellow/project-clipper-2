@@ -37,7 +37,7 @@ export class EntertainmentsComponent implements OnInit {
   }
 
   public sortPlacesByRating() {
-      this.sortService.propertySort(this.places, 'rating_average', true)
+    //  this.sortService.propertySort(this.places, 'rating_average', true)
   }
 
   public sortPlacesByDistance() {
@@ -45,6 +45,6 @@ export class EntertainmentsComponent implements OnInit {
   }
 
   public sortPlacesByName() {
-      this.sortService.propertySort(this.places, 'name')
+     // this.sortService.propertySort(this.places, 'name')
   }
 }

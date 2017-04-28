@@ -22,10 +22,6 @@ export class BuildingsComponent implements OnInit {
     this.placeService.getBuildings().subscribe(buildings => this.buildings = buildings['places']);
   }
 
-  public sortBuildings(){
-    this.sortService.propertySort<Place>(this.buildings, 'name');
-  }
-
   setListView(listView: boolean){
     this.listView = listView;
   }

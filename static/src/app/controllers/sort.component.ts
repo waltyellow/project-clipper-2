@@ -45,11 +45,11 @@ export class SortComponent {
     } 
 
     public sortEventsByDate() {
-        this.sortService.propertySort<Eventx>(this.items, 'start_time', true);
+        SortService.propertySort<Eventx>(this.items, 'start_time', true);
     }
 
-    public sortEventsByName() {
-      this.sortService.propertySort<Eventx>(this.items, 'name');
+    public static sortEventsByName(items) {
+      SortService.propertySort<Eventx>(items, 'name');
     }
 
     public toggleDropdown() {

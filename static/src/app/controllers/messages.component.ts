@@ -28,15 +28,14 @@ export class MessageComponent {
   }
   
   subscribeToComments(id) {
-    console.log(id)
     this.commentService.getComments(id).subscribe(comments => {
         let messages = comments['messages']
         
         this.comments = messages.filter(msg => msg.type == 'comment')
-        this.sortService.propertySort(this.comments, 'posted', true)
+        //this.sortService.propertySort(this.comments, 'posted', true)
         
         this.questions = messages.filter(msg => msg.type == 'question')
-        this.sortService.propertySort(this.questions, 'posted', true)
+        //this.sortService.propertySort(this.questions, 'posted', true)
     })
   }
   
