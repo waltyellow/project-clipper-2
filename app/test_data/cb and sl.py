@@ -51,8 +51,8 @@ def create_white():
     proto = places_data_manager.min_place_dict
 
     place = proto.copy()
-    place['name'] = 'White'
-    place['type'] = 'FoodEntertainment'
+    place['name'] = 'White Building'
+    place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.607416, 41.501922))
     place['senti_score'] = 2
     place['rating_average'] = 2.6
