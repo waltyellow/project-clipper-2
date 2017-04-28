@@ -1,6 +1,7 @@
 from app import server
 from flask import request, make_response
 from app.data_managers import common
+
 from app.data_managers.event_data_manager import EventDataManager
 from app.data_managers.places_data_manager import PlaceDataManager
 from app.utility import action_handler
@@ -19,14 +20,14 @@ def webhook():
 
     action = data_object['result']['action']
 
-    print (action)
+    print(action)
 
     reply = "sorry, I did not understand this command"
 
     if action == 'get_place':
         try:
             location, place = find_location_and_place(data_object)
-            print("getting"+location)
+            print("getting" + location)
             if location == '':
                 return "No location", 404
         except KeyError:
@@ -67,15 +68,30 @@ def webhook():
             location, place = find_location_and_place(data_object)
             google_user = data_object['originalRequest']['user']
             google_id = google_user['user_id']
-            # google_id -> user_id
-            #
+            edm = EventDataManager()
+            event = edm.create_empty_event()
+            parameters = data_object['result']['parameters']
+            event['name'] = parameters['name']
+            event['descriptions'] = parameters['descriptions']
+            event['time'] = parameters['time']
+            event['location'] = location
+            edm.insert_event_one(event)
+            if not place:
+                reply = "Success " + serialize_event(event, 'created') + "by Google user id " + google_id
+            else:
+                event['geo_coordinates'] = place['geo_coordinates']
+                event['place_id'] = place['place_id']
+                edm.replace_one_event(event)
+            print('created')
+            print(event)
+
         except KeyError:
             reply = "Event Creation failed due to unknown reasons"
     res = {
         "speech": reply,
         "source": "evention"
     }
-    print ("sent"+reply)
+    print("sent" + reply)
     res = json.dumps(res, indent=4)
     # print(res)
     r = make_response(res)
@@ -106,7 +122,7 @@ def reply_for_place(place: dict):
 
 
 def reply_for_events_at_place(place: dict, location_name: str):
-    print("events for"+place['place_id'])
+    print("events for" + place['place_id'])
     events = EventDataManager().find_events_by_filter({'place_id': place['place_id']})
     print(events)
     return reply_for_events(events, place['name'])
@@ -150,11 +166,14 @@ def serialize_event(event: dict, seq: str = 'next'):
     description = event['description']
 
     reply = "The {0} event is {1} at {2}. Our data show it is {3} at this moment. ".format(seq, name, location,
-                                                                                              excitement_level)
+                                                                                           excitement_level)
     if description != '':
         reply += "This event is about {0}.".format(description)
     else:
         pass
+
+    if 'food' in event and event['food'] != '':
+        reply += "In terms of food, there is also {0} offered there.".format(event['food'])
     return reply
 
 

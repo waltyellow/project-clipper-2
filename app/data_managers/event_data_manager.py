@@ -54,7 +54,7 @@ class EventDataManager:
         return ObjectId(base64.urlsafe_b64decode(event_id[3:]))
 
     def create_empty_event(self) -> dict:
-        return min_event_dict
+        return min_event_dict.copy()
 
     '''inserts an event, updates the event's _id and event_id and returns the object'''
 
