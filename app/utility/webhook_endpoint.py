@@ -106,6 +106,7 @@ def reply_for_place(place: dict):
 
 
 def reply_for_events_at_place(place: dict, location_name: str):
+    print("events for"+place['place_id'])
     events = EventDataManager().find_events_by_filter({'place_id': place['place_id']})
     return reply_for_events(events, place['name'])
 
