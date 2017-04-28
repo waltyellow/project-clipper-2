@@ -71,10 +71,16 @@ def webhook():
             print(place)
             edm = EventDataManager()
             event = edm.create_empty_event()
+            print(event)
             parameters = data_object['result']['parameters']
+            print(parameters)
             event['name'] = parameters['name']
-            event['descriptions'] = parameters['descriptions']
+            print(event)
+            event['description'] = parameters['description']
+            print(event)
             event['time'] = parameters['time']
+            print(event)
+
             event['location'] = location
             print(event)
             edm.insert_event_one(event)
