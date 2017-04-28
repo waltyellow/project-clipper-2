@@ -505,9 +505,9 @@
         svg.attr("width", width);
         svg.attr("height", height);
         svg.selectAll("*").remove();
-        draw(v)
-        draw_events(events)
-        draw_places(places)
+        draw(v);
+        draw_events(events);
+        draw_places(places);
     }
     function checkKey(e) {
 
@@ -644,10 +644,11 @@
     v = {{ data_points|tojson|safe }}
         draw(v)
     draw_events(events)
-    redraw();
+
 
 
     draw_places(places)
+    redraw();
 
 
     function calculate_mouse_positions() {
