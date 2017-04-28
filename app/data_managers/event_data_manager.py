@@ -6,6 +6,7 @@ from pymongo import MongoClient, IndexModel, GEOSPHERE
 from geojson import Point
 from app.utility import geo
 import time
+from app import database_name
 
 min_event_dict = {
     'event_id': '',
@@ -31,7 +32,7 @@ class EventDataManager:
 
     def __init__(self):
         self.client = MongoClient('localhost', 27017)
-        self.db = self.client.get_database('experimental1_2')
+        self.db = self.client.get_database(database_name)
         self.event_collection = self.db.get_collection('events')
         self.event_collection.ensure_index([('geo_coordinates', GEOSPHERE)])
 
