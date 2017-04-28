@@ -14,7 +14,6 @@ export class EventService {
         if (search) {
             url += 'search?name_search=' + search
         }
-        console.log(url)
         return this.http.get(url).map((res:Response) => res.json())
     }
 

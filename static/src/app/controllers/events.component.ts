@@ -24,7 +24,6 @@ export class EventsComponent implements OnInit {
 
   ngOnInit() {
     this.titleService.setTitle('Events');
-    this.eventService.getEvents().subscribe(events => this.events = events['events']);
 
     this.sub = this.route.queryParams.subscribe(params => {
         let sanitizedSearch = params['search']
