@@ -27,7 +27,6 @@ def webhook():
         try:
             location, place = find_location_and_place(data_object)
             print("getting"+location)
-            print("find place" + place['place_id'])
             if location == '':
                 return "No location", 404
         except KeyError:
