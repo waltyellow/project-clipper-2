@@ -168,7 +168,7 @@ def reply_for_events(events: [dict], location_name: str):
 
 def serialize_event(event: dict, seq: str = 'next'):
     name = event['name']
-    excitement_level = score_to_quality(event['dynamic_senti_score'])
+    excitement_level = score_to_quality(event['senti_score'])
     location = event['location']
     description = event['description']
 
