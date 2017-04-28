@@ -51,6 +51,8 @@
     {{ events|tojson|safe}}
     var places =
     {{ places|tojson|safe }}
+    var nearby_events = events;
+    var nearby_places = places;
 
     var lowerbound = mean - sigma * stdev - 0.01,
         upperbound = mean + sigma * stdev + 0.02;
@@ -70,6 +72,35 @@
         return t < 0.5 ? i0(t * 2) : i1((t - 0.5) * 2);
     },
         color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound]);
+
+    function compute_heatmap() {
+        w = h * 2
+        var xstep = (length / 110574) / w
+        var ystep = (0.5 * length / (111320 * Math.cos((0.0174533 * lat)))) / h
+        var x_left = long - (w / 2) * xstep
+        var x_right = x_left + w * xstep
+
+        var y_top = lat + (h / 2) * ystep
+        var y_bottom = y_top - h * ystep
+        var min_score = 0
+        var max_score = 0
+        var data_points = []
+        for (var i = 0; i < h; i++) {
+            var y = y_top - i * ystep
+            for (var j = 0; j < w; j++) {
+                var x = x_left + j * xstep
+                score = 1;
+                if (score < min_score) {
+                    min_score = score
+                } else if (score > max_score) {
+                    max_score = score
+                }
+            }
+            data_points.insert(len(data_points), score)
+            stdev = statistics.stdev(data_points)
+            mean = statistics.mean(data_points)
+        }
+    }
 
     function draw(volcano) {
         svg.selectAll("path")
@@ -164,7 +195,7 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return "<a href=\"#\">"+d.name+" <a/>" ;
+                return "<a href=\"#\">" + d.name + " <a/>";
             })
             .attr("font-family", "sans-serif")
             .attr("font-size", "12px")
@@ -389,6 +420,7 @@
         long = m_long + (0.5 - mouse_x_percentage) * zoom * (long_right - long_left);
         lat = m_lat - (0.5 - mouse_y_percentage) * zoom * (lat_top - lat_bottom);
     }
+
     window.addEventListener('wheel', function (e) {
         if (e.deltaY < 0) {
             zoom_out()

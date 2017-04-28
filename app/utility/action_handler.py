@@ -52,7 +52,7 @@ def generate_dynamic_score_for_place(place: dict, radius: float = 1000):
     if 'geo_coordinates' in place and place['geo_coordinates'] != geojson.Point((0, 0)):
         nearby_events = EventDataManager().find_events_near(long=place['geo_coordinates']['coordinates'][0],
                                                             lat=place['geo_coordinates']['coordinates'][1],
-                                                            radius=radius),
+                                                            radius=radius)
         geo_score = aggregate_raw_score_from_entities_distance_based(nearby_events, event_senti_lifetime_in_days,
                                                                      long=place['geo_coordinates']['coordinates'][0],
                                                                      lat=place['geo_coordinates']['coordinates'][1],
@@ -263,6 +263,13 @@ def find():
     generate_dynamic_score_for_event(event)
     print(event)
 
+def test():
+    long = 55.0118416
+    lat = 55.0061712
+    events = EventDataManager().find_events_near(long=-155,
+                                        lat=-25,
+                                        radius=5)
+    print(events)
 
 if __name__ == '__main__':
-    find()
+    test()
