@@ -6,7 +6,6 @@ import { Place }        from '../models/place';
 import { TitleService } from '../services/title.service';
 import { CommentService } from '../services/comment.service';
 import { MessageComponent } from './messages.component';
-import { SortService } from '../services/sort.service';
 
 @Component({
   selector: 'app-study-location',
@@ -18,12 +17,10 @@ export class StudyLocationComponent extends MessageComponent implements OnInit {
     private sub:any;
 
     constructor(private titleService: TitleService, private placeService: PlaceService, private commentSvc: CommentService,
-        private route: ActivatedRoute, private sorter: SortService) {
-    super(commentSvc, sorter)
+        private route: ActivatedRoute) {
+    super(commentSvc)
   }
     public postComment() : void {
-        console.log(this.studyLocation)
-        console.log(this.studyLocation.place_id)
         super.postComment(this.studyLocation.place_id)
   }
 
