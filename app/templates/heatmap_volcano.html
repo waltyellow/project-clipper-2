@@ -2,8 +2,6 @@
 <body style="background-color:#181d24">
 
 
-
-
 <svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
 
 <br/>
@@ -15,15 +13,20 @@
     width:30px; background: white" onclick="move_west()">←
     </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_east()">→</button>
+    width:30px; background: white" onclick="move_east()">→
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_south()">↓</button>
+    width:30px; background: white" onclick="move_south()">↓
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_north()">↑</button>
+    width:30px; background: white" onclick="move_north()">↑
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="zoom_in()">+</button>
+    width:30px; background: white" onclick="zoom_in()">+
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="zoom_out()">-</button>
+    width:30px; background: white" onclick="zoom_out()">-
+    </button>
     <button style="background: white" onclick="higher_res()">res+</button>
     <button style="background: white" onclick="lower_res()">res-</button>
     <button style="background: white" onclick="reset()">reset radius, color scales and refresh</button>
@@ -48,7 +51,7 @@
         height = window.innerHeight - 225,// +svg.attr("height"),
         stdev ={{ stdev }},
         mouse_position = [width / 2, height / 2],
-    min_value ={{ min_value }},
+        min_value ={{ min_value }},
         max_value ={{ max_value }},
         long_left = {{ long_left }},
         long_right = {{ long_right }},
@@ -59,7 +62,7 @@
         steps = 200,
         mean = {{ mean }};
 
-        function find_ratio() {
+    function find_ratio() {
         height = (width / 2).toFixed(0)
         if (height > (window.innerHeight - 225)) {
             height = window.innerHeight - 225;
@@ -71,10 +74,8 @@
 
     var i0 = d3.interpolateHsvLong(d3.hsv(140, 0.2, 0.5), d3.hsv(60, 0.9, 0.9)),
         i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0, 0.9))
-    var events =
-    {{ events|tojson|safe}}
-    var places =
-    {{ places|tojson|safe }}
+    var events = {{ events|tojson|safe }};
+    var places = {{ places|tojson|safe }};
     var nearby_events = events;
     var nearby_places = places;
 
@@ -325,8 +326,8 @@
             set_coordinate_to_mouse((1 / 1.4));
         }
         radius = length * 0.45
-        width = width*1.2
-        height = height*1.2
+        width = width * 1.2
+        height = height * 1.2
         //redraw()
         window.location = get_url();
     }
@@ -334,7 +335,7 @@
     function zoom_out(is_wheel) {
         length = (parseFloat(length) * 1.4).toFixed(2)
         width = parseInt(width / 1.2)
-        height = parseInt(height/ 1.2)
+        height = parseInt(height / 1.2)
         //redraw()
         if (is_wheel) {
             set_coordinate_to_mouse(1.4);
@@ -368,7 +369,7 @@
         resize();
         svg.selectAll("*").remove();
         draw(v);
-        draw_events(events);
+        //draw_events(events);
         draw_places(places);
     }
     function checkKey(e) {
@@ -502,7 +503,7 @@
 
     v = {{ data_points|tojson|safe }}
         draw(v)
-    draw_events(events)
+    //draw_events(events)
     draw_places(places)
 
     var text = svg.append("text").attr("x", mouse_position[0])
