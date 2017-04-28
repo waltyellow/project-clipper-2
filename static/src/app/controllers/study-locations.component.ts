@@ -12,6 +12,8 @@ import { SortService } from '../services/sort.service';
   styles: []
 })
 export class StudyLocationsComponent implements OnInit {
+  public listView: boolean = true;
+  public studyLoc: Place[];
 
   constructor(private titleService: TitleService, private sortService: SortService, private placeService: PlaceService) { }
 

@@ -21,7 +21,7 @@ export class PlaceService {
     public getBuildings() : Observable<Place[]> {
         return this.http.get(this.searchURL + '?type=CampusBuilding').map(res => res.json())
     }
-    public getStudyLocations(): Observable<Place[]>{
-        return this.http.get(this.searchURL + '?type=StudyLocation'.map(res => res,json())
+    public getStudyLocations() : Observable<Place[]> {
+        return this.http.get(this.searchURL + '?type=StudyLocation').map(res => res.json())
     }
 }

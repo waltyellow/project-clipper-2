@@ -2,6 +2,8 @@ from app.data_managers import places_data_manager, event_data_manager
 from geojson import Point
 from app.data_managers.places_data_manager import PlaceDataManager
 from app.data_managers.event_data_manager import EventDataManager
+import time
+
 
 def create_place1():
 
@@ -42,6 +44,33 @@ def create_place4():
     place4['senti_score'] = 1
     place4['rating_average'] = 4.8
     return place4
+
+def create_glennen():
+    proto = places_data_manager.min_place_dict
+    place = proto.copy()
+
+    place['name']= 'Glennen Lounge'
+    place['type'] ='StudyLocation'
+    place['geo_coordinates'] = Point((123, 45.12))
+    place['senti_score'] = 1
+    place['rating_average'] = 4.8
+    return place
+
+place_glennen_dict = {
+    'place_id': '',
+    'name': 'Glennen Lounge',
+    'type': 'StudyLocation',
+    'deleted': False,
+    'rating_count': 0,
+    'rating_average': 0,
+    'senti_score': 0,
+    'senti_score_updated_time': time.time(),
+    'mood_tag_counter': {},
+    'geo_coordinates': Point((0, 0)),  # in format of geojson.Point((x,y))
+    'dynamic_senti_score': 0 # dynamic_senti_score is the senti_score given contexts like where it is happening
+}
+
+
 
 # insert those things here first so we get ids
 
@@ -87,7 +116,9 @@ def insert_events_and_places():
     #create data managers
     em = EventDataManager()
     pm = PlaceDataManager()
-
+    glennen = create_glennen()
+    pm.insert_one_place(place_glennen_dict)
+'''
     #create places
     tink = create_place1()
     tomlinson = create_place2()
@@ -108,7 +139,9 @@ def insert_events_and_places():
     #insert events
     em.insert_event_one(food)
     em.insert_event_one(presentation_cs)
-    em.insert_event_one(presentation_om)
+    em.insert_event_one(presentation_om)'''
+
+
 
 
 
