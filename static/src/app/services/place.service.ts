@@ -9,7 +9,7 @@ export class PlaceService {
 
     private baseURL = 'http://localhost:5000/places/';
     private searchURL = this.baseURL + 'search'
-''
+
     public getPlaces() : Observable<Place[]> {
        return this.http.get(this.baseURL).map((res:Response) => res.json())
     }
