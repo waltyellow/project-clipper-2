@@ -10,7 +10,7 @@ import requests
 
 #from google.appengine.api import urlfetch
 import requests_toolbelt.adapters.appengine
-requests_toolbelt.adapters.appengine.monkeypatch()
+#requests_toolbelt.adapters.appengine.monkeypatch()
 
 app = Flask(__name__)
 
@@ -43,5 +43,5 @@ def webhook_get():
     return "Welcome to get", 200
 
 if __name__ == '__main__':
-    resp = requests.request('GET', 'https://cl1.zhenglinhuang.com:5000/wh')
+    resp = requests.request('GET', 'https://cl1.zhenglinhuang.com:5000/events')
     print(resp)
