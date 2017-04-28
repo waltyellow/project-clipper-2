@@ -141,49 +141,6 @@
             });
     }
 
-    function draw_places(places) {
-        var circles = svg.selectAll("circle")
-            .data(places)
-            .enter()
-            .append("circle");
-
-
-        var circleAttributes = circles
-            .attr("cx", function (d) {
-                return width * d.x;
-            })
-            .attr("cy", function (d) {
-                return height * d.y;
-            })
-            .attr("r", function (d) {
-                return 1 + Math.abs(d.score / 5);
-            })
-            .style("fill", function (d) {
-                return d.score > 0 ? "blue" : "red";
-            });
-
-        //Add the SVG Text Element to the svgContainer
-        var text = svg.selectAll("text")
-            .data(places)
-            .enter()
-            .append("text");
-
-        //Add SVG Text Element Attributes
-        var textLabels = text
-            .attr("x", function (d) {
-                return width * d.x + 5;
-            })
-            .attr("y", function (d) {
-                return height * d.y;
-            })
-            .text(function (d) {
-                return d.name + "-place<" + d.score.toFixed(2) + ">";
-            })
-
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "10px")
-            .attr("fill", "black");
-    }
 
     function draw_events(events) {
         var circles = svg.selectAll("circle")
@@ -203,7 +160,10 @@
                 return 1 + Math.abs(d.score / 5);
             })
             .style("fill", function (d) {
-                return d.score > 0 ? "white" : "gray";
+                if (d.type == "event")
+                    return d.score > 0 ? "white" : "gray";
+                else
+                    return d.score > 0 ? "blue" : "brown";
             });
 
         //Add the SVG Text Element to the svgContainer
@@ -221,7 +181,7 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return d.name + "-event<" + d.score.toFixed(2) + ">";
+                return d.name + "-" + d.type +"(" + d.score.toFixed(1) + ")";
             })
 
             .attr("font-family", "sans-serif")
@@ -369,7 +329,7 @@
         resize();
         svg.selectAll("*").remove();
         draw(v);
-        //draw_events(events);
+        draw_events(events);
         draw_places(places);
     }
     function checkKey(e) {
@@ -503,8 +463,7 @@
 
     v = {{ data_points|tojson|safe }}
         draw(v)
-    //draw_events(events)
-    draw_places(places)
+    draw_events(events)
 
     var text = svg.append("text").attr("x", mouse_position[0])
         .attr("y", mouse_position[1])
