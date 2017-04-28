@@ -66,8 +66,8 @@ def webhook():
     elif action == 'create_event_yes':
         try:
             location, place = find_location_and_place(data_object)
-            print("mark1")
-            print("mark2")
+            print(location)
+            print(place)
             edm = EventDataManager()
             event = edm.create_empty_event()
             parameters = data_object['result']['parameters']
