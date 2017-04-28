@@ -172,10 +172,10 @@
         //Add SVG Text Element Attributes
         var textLabels = text
             .attr("x", function (d) {
-                return width * d.x + 5 + Math.random()*10 ;
+                return width * d.x + 5 ;
             })
             .attr("y", function (d) {
-                return height * d.y +Math.random()*20 - 10;
+                return height * d.y + d.type == "event"?12:-12;
             })
             .text(function (d) {
                 return d.name + "-" + d.type +"(" + d.score.toFixed(1) + ")";
