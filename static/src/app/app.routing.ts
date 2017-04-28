@@ -8,6 +8,7 @@ import { BuildingsComponent } from "./controllers/buildings.component";
 import { BuildingComponent } from "./controllers/building.component";
 import { QuestionsComponent } from "./controllers/questions.component";
 import { StudyLocationsComponent } from "./controllers/study-locations.component";
+import { StudyLocationComponent } from "./controllers/study-location.component";
 
 const MAINMENU_ROUTES: Routes = [
     //full : makes sure the path is absolute path
@@ -20,6 +21,8 @@ const MAINMENU_ROUTES: Routes = [
     { path: 'campus-buildings/:id/campus-buildings', component: BuildingComponent },
     { path: 'campus-buildings', component: BuildingsComponent },
     { path: 'questions', component: QuestionsComponent },
-    { path: 'study-locations', component: StudyLocationsComponent }
+    { path: 'study-locations', component: StudyLocationsComponent },
+    { path: 'study-locations/:id/study-locations', component: StudyLocationComponent }
+
 ];
 export const routing = RouterModule.forRoot(MAINMENU_ROUTES);
