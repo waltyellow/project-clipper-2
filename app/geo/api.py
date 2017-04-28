@@ -33,9 +33,9 @@ def get_map():
     nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + length * math.sqrt(2))
 
     h = int(request.args['h'])
+    w = int(request.args['w'])
     if h > 30:
         h = 30
-    w = h * 2
     xstep = (length / 110574) / w
     ystep = (0.5 * length / (111320 * math.cos(math.radians(lat)))) / h
     x_left = long - (w / 2) * xstep

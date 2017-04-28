@@ -2,40 +2,51 @@
 <body style="background-color:#181d24">
 
 
-
-<div style="background-color:#4c5455;
-    width: 1600px;
-    ">
-    <svg width="1600" height="800" stroke="#ddd" stroke-width="0"></svg>
-</div>
+<svg width="1200" height="600" stroke="#ddd" stroke-width="0"></svg>
 <br/>
-<h3 style="color:white; font-family:sans-serif">
+
+<div style="
+    position: absolute;
+    bottom: 0;
+    left: 0;
+ ">
+    <h3 style="color:white; font-family:sans-serif">
     Navigate
 
+    <button style="height:30px;
+    width:120px; background: white" onclick="refresh()">Auto-Size ⟳
+    </button>
     <button style="height:30px;
     width:30px; background: white" onclick="move_west()">←
     </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_east()">→</button>
+    width:30px; background: white" onclick="move_east()">→
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_south()">↓</button>
+    width:30px; background: white" onclick="move_south()">↓
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="move_north()">↑</button>
+    width:30px; background: white" onclick="move_north()">↑
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="zoom_in()">+</button>
+    width:30px; background: white" onclick="zoom_in()">+
+    </button>
     <button style="height:30px;
-    width:30px; background: white" onclick="zoom_out()">-</button>
+    width:30px; background: white" onclick="zoom_out()">-
+    </button>
     Adjust
+
     <button style="background: white" onclick="higher_res()">res+</button>
     <button style="background: white" onclick="lower_res()">res-</button>
     <button style="background: white" onclick="reset()">reset radius, color scales and refresh</button>
 </h3>
-<h1 style="color:white; font-family:sans-serif">Evention Global Data Explorer</h1>
-<p style="color:white; font-family:sans-serif">Resolution is {{ w }} by {{ h }}. Resolution higher than 20x10 might
-    significantly affect performance</p>
-<p style="color:white; font-family:sans-serif">Move with arrow keys , zoom with +/- ,
-    [ ] to adjust color scales span, ; and ' to shift color scales, < > to change impact radius of events and
-    places.</p>
+    <h1 style="color:white; font-family:sans-serif">Evention Global Data Explorer</h1>
+    <p style="color:white; font-family:sans-serif">Resolution is {{ w }} by {{ h }}. Resolution higher than 20x10 might
+        significantly affect performance</p>
+    <p style="color:white; font-family:sans-serif">Move with arrow keys , zoom with +/- ,
+        [ ] to adjust color scales span, ; and ' to shift color scales, < > to change impact radius of events and
+        places.</p>
+</div>
 </body>
 
 
@@ -46,11 +57,11 @@
 <script>
     //referenced https://www.dashingd3js.com/svg-text-element
     var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height"),
+        width = window.innerWidth - 20, //+svg.attr("width"),
+        height = window.innerHeight - 20,// +svg.attr("height"),
         stdev ={{ stdev }},
         mouse_position = [width / 2, height / 2],
-    min_value ={{ min_value }},
+        min_value ={{ min_value }},
         max_value ={{ max_value }},
         long_left = {{ long_left }},
         long_right = {{ long_right }},
@@ -60,6 +71,15 @@
         sigma = 3,
         steps = 200,
         mean = {{ mean }};
+
+    function find_ratio() {
+        height = (width / 2).toFixed(0)
+        if (height > (window.innerHeight - 225)) {
+            height = window.innerHeight - 225;
+            width = height * 2;
+        }
+    }
+    //find_ratio();
 
     var i0 = d3.interpolateHsvLong(d3.hsv(140, 0.2, 0.5), d3.hsv(60, 0.9, 0.9)),
         i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0, 0.9))
@@ -167,7 +187,7 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return d.name + "<" + d.score.toFixed(2) + ">";
+                return d.name + " event<" + d.score.toFixed(2) + ">";
             })
 
             .attr("font-family", "sans-serif")
@@ -190,10 +210,10 @@
                 return height * d.y;
             })
             .attr("r", function (d) {
-                return 2;
+                return 1 + Math.abs(d.score / 5);
             })
             .style("fill", function (d) {
-                return d.score > 0 ? "blue" : "purple";
+                return d.score > 0 ? "blue" : "red";
             });
 
         //Add the SVG Text Element to the svgContainer
@@ -211,11 +231,14 @@
                 return height * d.y;
             })
             .text(function (d) {
-                return "<a href=\"#\">" + d.name + " <a/>";
+                return d.name + " place<" + d.score.toFixed(2) + ">";
             })
+
             .attr("font-family", "sans-serif")
-            .attr("font-size", "12px")
-            .attr("fill", "#eee");
+            .attr("font-size", "10px")
+            .attr("fill", function (d) {
+                return d.score > 0 ? "blue" : "red";
+            });
     }
 
     function reset() {
@@ -272,12 +295,17 @@
             'lat': lat,
             'length': length,
             'h': h,
+            'w': (h * width / height).toFixed(0),
             'radius': radius.toFixed(2),
             'mx': parseInt(mouse_position[0]).toFixed(0),
             'my': parseInt(mouse_position[1]).toFixed(0)
         };
         var new_url = window.location.href.split('?')[0] + "?" + jQuery.param(params);
         return new_url
+    }
+
+    function refresh(){
+        window.location = get_url()
     }
 
     get_url();
@@ -315,17 +343,17 @@
             set_coordinate_to_mouse((1 / 1.4));
         }
         radius = length * 0.45
-        width = width*1.2
-        height = height*1.2
-        redraw()
+        width = width * 1.2
+        height = height * 1.2
+        //redraw()
         window.location = get_url();
     }
 
     function zoom_out(is_wheel) {
         length = (parseFloat(length) * 1.4).toFixed(2)
         width = parseInt(width / 1.2)
-        height = parseInt(height/ 1.2)
-        redraw()
+        height = parseInt(height / 1.2)
+        //redraw()
         if (is_wheel) {
             set_coordinate_to_mouse(1.4);
         }
@@ -349,13 +377,137 @@
 
     document.onkeydown = checkKey;
 
+    var text = svg.append("text").attr("x", mouse_position[0])
+        .attr("y", mouse_position[1])
+        .text("+")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")
+        .attr("fill", "black");
+
+    var pointing =
+        svg.append("text")
+            .attr("x", width - 200)
+            .attr("y", 15)
+            .text("(" + parseFloat(long).toFixed(5) + "," + parseFloat(lat).toFixed(5) + ")")
+
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#black");
+
+
+    var label_long_left = svg.append("text").attr("x", 0)
+        .attr("y", height / 2)
+        .text("Long:" + long_left.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+    var label_long_right = svg.append("text").attr("x", width - 100)
+        .attr("y", height / 2)
+        .text("Long:" + long_right.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+    var label_lat_top = svg.append("text").attr("x", width / 2)
+        .attr("y", 20)
+        .text("Lat:" + lat_top.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+    var label_lat_bottom = svg.append("text").attr("x", width / 2)
+        .attr("y", height - 6)
+        .text("Lat:" + lat_bottom.toFixed(7))
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
+
+    var ruler = svg.append("line")
+        .attr("x1", width - 250)
+        .attr("y1", 50)
+        .attr("x2", width - 50)
+        .attr("y2", 50)
+        .attr('stroke', "gray")
+        .attr("stroke-width", 5);
+
+    var ruler_scale = svg.append("text").attr("x", width - 180)
+        .attr("y", 40)
+        .text((length / 8).toFixed(1) + "meters")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .attr("fill", "#333");
+
     //http://stackoverflow.com/questions/5597060/detecting-arrow-key-presses-in-javascript
     function redraw() {
+        text = svg.append("text").attr("x", mouse_position[0])
+            .attr("y", mouse_position[1])
+            .text("+")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "20px")
+            .attr("fill", "black");
+
+        pointing =
+            svg.append("text")
+                .attr("x", width - 200)
+                .attr("y", 15)
+                .text("(" + parseFloat(long).toFixed(5) + "," + parseFloat(lat).toFixed(5) + ")")
+
+                .attr("font-family", "sans-serif")
+                .attr("font-size", "12px")
+                .attr("fill", "#black");
+
+
+        label_long_left = svg.append("text").attr("x", 0)
+            .attr("y", height / 2)
+            .text("Long:" + long_left.toFixed(7))
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#333");
+
+        label_long_right = svg.append("text").attr("x", width - 100)
+            .attr("y", height / 2)
+            .text("Long:" + long_right.toFixed(7))
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#333");
+
+        label_lat_top = svg.append("text").attr("x", width / 2)
+            .attr("y", 20)
+            .text("Lat:" + lat_top.toFixed(7))
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#333");
+
+        label_lat_bottom = svg.append("text").attr("x", width / 2)
+            .attr("y", height - 6)
+            .text("Lat:" + lat_bottom.toFixed(7))
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#333");
+
+
+        ruler = svg.append("line")
+            .attr("x1", width - 250)
+            .attr("y1", 50)
+            .attr("x2", width - 50)
+            .attr("y2", 50)
+            .attr('stroke', "gray")
+            .attr("stroke-width", 5);
+
+        ruler_scale = svg.append("text").attr("x", width - 180)
+            .attr("y", 40)
+            .text((length / 8).toFixed(1) + "meters")
+            .attr("font-family", "sans-serif")
+            .attr("font-size", "12px")
+            .attr("fill", "#333");
         svg.attr("width", width);
         svg.attr("height", height);
         svg.selectAll("*").remove();
         draw(v)
         draw_events(events)
+        draw_places(places)
     }
     function checkKey(e) {
 
@@ -492,69 +644,12 @@
     v = {{ data_points|tojson|safe }}
         draw(v)
     draw_events(events)
-    //draw_places(places)
-
-    var text = svg.append("text").attr("x", mouse_position[0])
-        .attr("y", mouse_position[1])
-        .text("+")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "20px")
-        .attr("fill", "black");
-
-    var pointing =
-        svg.append("text")
-            .attr("x", width - 200)
-            .attr("y", 15)
-            .text("(" + parseFloat(long).toFixed(5) + "," + parseFloat(lat).toFixed(5) + ")")
-
-            .attr("font-family", "sans-serif")
-            .attr("font-size", "12px")
-            .attr("fill", "#black");
+    redraw();
 
 
-    var label_long_left = svg.append("text").attr("x", 0)
-        .attr("y", height / 2)
-        .text("Long:" + long_left.toFixed(7))
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "12px")
-        .attr("fill", "#333");
-
-    var label_long_right = svg.append("text").attr("x", width - 100)
-        .attr("y", height / 2)
-        .text("Long:" + long_right.toFixed(7))
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "12px")
-        .attr("fill", "#333");
-
-    var label_lat_top = svg.append("text").attr("x", width / 2)
-        .attr("y", 20)
-        .text("Lat:" + lat_top.toFixed(7))
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "12px")
-        .attr("fill", "#333");
-
-    var label_lat_bottom = svg.append("text").attr("x", width / 2)
-        .attr("y", height - 6)
-        .text("Lat:" + lat_bottom.toFixed(7))
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "12px")
-        .attr("fill", "#333");
+    draw_places(places)
 
 
-    var ruler = svg.append("line")
-        .attr("x1", width - 250)
-        .attr("y1", 50)
-        .attr("x2", width - 50)
-        .attr("y2", 50)
-        .attr('stroke', "gray")
-        .attr("stroke-width", 5);
-
-    var ruler_scale = svg.append("text").attr("x", width - 180)
-        .attr("y", 40)
-        .text((length / 8).toFixed(1) + "meters")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "12px")
-        .attr("fill", "#333");
     function calculate_mouse_positions() {
         var mouse_x_percentage = (mouse_position[0] / width);
         var mouse_y_percentage = (mouse_position[1] / height);
@@ -570,8 +665,7 @@
 
         calculate_mouse_positions();
     };
-    svg.on("mousemove", onMouseMove)
-
+    svg.on("mousemove", onMouseMove);
     calculate_mouse_positions()
     console.log("Hello")
 
