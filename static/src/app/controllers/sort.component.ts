@@ -66,6 +66,10 @@ export class SortComponent {
         SortComponent.sortByRating(this.items)
     }
 
+    public sortByExcitement() {
+        SortService.propertySort<Eventx>(this.items, 'dynamic_senti_score', true);
+    }
+
     public toggleDropdown() {
         this.sortOptionsVisible = !this.sortOptionsVisible;
     }
