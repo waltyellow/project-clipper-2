@@ -1,5 +1,5 @@
 <div class="sort-options">
-    <div class="sort-dropdown" *ngIf="sortOptionsVisible">
+    <div class="sort-dropdown" [hidden]="!sortOptionsVisible">
         <button type="button" class="btn btn-square" (click)="toggleDropdown()">Sort</button>
         <br />
         <div class="radio" *ngIf="soonest">
