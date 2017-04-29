@@ -5,7 +5,7 @@
         <div class="radio" *ngIf="soonest">
             <label><input type="radio" name="sortradio" (click)="sortByDate()" checked>by soonest</label>
         </div>
-        <div class="radio">
+        <div class="radio" *ngIf="!soonest">
             <label><input type="radio" name="sortradio" (click)="sortByRating()" checked>by rating</label>
         </div>
         <div class="radio">
