@@ -1,13 +1,10 @@
-<a class="btn btn-default btn-block back-button" [routerLink]="['/places']" role="button">Back to place list</a>
+<a class="btn btn-default btn-block back-button" [routerLink]="['/places']" role="button">Back to list</a>
 <div class="details-panel">
     <h3 class="place-title">{{place? place.name : ''}}</h3>
-    <div class="time-location">
-        Location: {{place? place.location : ''}}
-    </div>
 </div>
 <div class="divider"></div>
 <div class="details-panel">
-    <span>Placeeeeeeeeeee yep a place this is one of em woo</span>
+    <span>{{(place && place.description)? place.description : 'No description available.'}}</span>
 </div>
 <div class="divider"></div>
 <comment [parentId]="parentId"> </comment>

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import geojson
+import argparse
 from geojson import FeatureCollection, Feature
 from app.data_managers.event_data_manager import EventDataManager
 from app.utility.action_handler import generate_dynamic_score_for_event
@@ -18,6 +19,11 @@ def create_feature(event):
         'excitement': event['dynamic_senti_score']
     })
 
+parser = argparse.ArgumentParser()
+parser.add_argument("dest")
+args = parser.parse_args()
 edm = EventDataManager()
 events = edm.find_all_events()
-print(create_feature_collection(events))
+
+outfile = open(args.dest, 'w')
+outfile.write(create_feature_collection(events).__str__())

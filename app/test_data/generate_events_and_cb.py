@@ -11,8 +11,8 @@ def create_cs_presentation(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'Computer Science Capstone Presentations'
-    event['geo_coordinates'] = Point((123, 45))
+    event['name'] = 'CS Capstone Presentations'
+    event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Nord'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
@@ -24,8 +24,8 @@ def create_bio_presentation(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'Biology Capstone Presentations'
-    event['geo_coordinates'] = Point((123, 45))
+    event['name'] = 'Bio Capstone Presentations'
+    event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Bingham'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
@@ -38,7 +38,7 @@ def create_basketball_game(place):
 
     event = proto.copy()
     event['name'] = 'Basketball Game'
-    event['geo_coordinates'] = Point((123, 45))
+    event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Veale'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
@@ -51,7 +51,7 @@ def create_lecture(place):
 
     event = proto.copy()
     event['name'] = 'Lecture on Internet of Things'
-    event['geo_coordinates'] = Point((123, 45))
+    event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Strosacker'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
@@ -63,8 +63,8 @@ def create_undergrad(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'Undergraduate Appreciation Week'
-    event['geo_coordinates'] = Point((123, 45))
+    event['name'] = 'Undergrad Appreciation Week'
+    event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Tinkham Veale Center'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
@@ -77,7 +77,7 @@ def create_karaoke(place):
 
     event = proto.copy()
     event['name'] = 'Karaoke Night'
-    event['geo_coordinates'] = Point((123, 45))
+    event['geo_coordinates'] = place['geo_coordinates']
     event['location'] = 'Thwing Center'
     event['description'] =  'Come sing songs with your friends!'
     event['place_id'] = place['place_id']
@@ -120,4 +120,3 @@ def create_campus_buildings_and_events():
 
 if __name__ == '__main__':
     create_campus_buildings_and_events()
-

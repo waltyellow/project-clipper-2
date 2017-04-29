@@ -8,7 +8,7 @@
 </div>
 <div class="divider"></div>
 <div class="details-panel">
-    <span>{{event? event.description : ''}}</span>
+    <span>{{(event && event.description)? event.description : 'No event description available.'}}</span>
 </div>
 <div class="divider"></div>
 <comment [parentId]="parentId"> </comment>

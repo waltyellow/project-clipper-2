@@ -1,13 +1,10 @@
 <a class="btn btn-default btn-block back-button" [routerLink]="['/campus-buildings']" role="button">Back to building list</a>
 <div class="details-panel">
     <h3 class="building-title">{{building? building.name : ''}}</h3>
-    <div class="time-location">
-        Location: {{building ? building.location : ''}}
-    </div>
 </div>
 <div class="divider"></div>
 <div class="details-panel">
-    <span>Description: {{building ? building.description : ''}}</span>
+    <span>{{(building && building.description)? building.description : 'No description available.'}}</span>
 </div>
 <div class="divider"></div>
 <comment [parentId]="parentId"> </comment>
