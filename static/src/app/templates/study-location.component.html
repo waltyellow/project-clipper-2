@@ -7,7 +7,7 @@
 </div>
 <div class="divider"></div>
 <div class="details-panel">
-    <span>Description: {{studyLocation ? studyLocation.description : ''}}</span>
+    <span>{{(studyLocation && studyLocation.description)? studyLocation.description : 'No description available.'}}</span>
 </div>
 <div class="divider"></div>
 <comment [parentId]="parentId"> </comment>

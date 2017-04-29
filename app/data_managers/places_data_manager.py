@@ -13,6 +13,7 @@ min_place_dict = {
     'place_id': '',
     'type': 'place',
     'name': '',
+    'description': '',
     'rating_count': 0,
     'rating_average': 0,
     'senti_score': 0,

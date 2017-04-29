@@ -7,5 +7,6 @@ export class Place {
         public senti_score: number,
         public geo_coordinates: string,
         public dynamic_senti_score: number
+        public description: string
         ){}
 }
