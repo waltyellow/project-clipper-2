@@ -1,7 +1,7 @@
 import json
 import app.utility.geo as geo
 
-database_name = 'experimental_2'
+database_name = 'prod'
 
 def search_parameter_to_db_filter(arguments: dict):
     filter = {}
