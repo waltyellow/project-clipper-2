@@ -41,7 +41,7 @@ function createMap(position) {
             stops: [
                 [-50, 1],
                 [-10, 1],
-                [15, 30],
+                [25, 30],
                 [50, 30]
             ]
         });
