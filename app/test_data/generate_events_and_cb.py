@@ -42,7 +42,7 @@ def create_basketball_game(place):
     event['location'] = 'Veale'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
-    event['senti_score'] = 4
+    event['senti_score'] = 10
     return event
 
 def create_lecture(place):
@@ -105,7 +105,7 @@ def create_campus_buildings_and_events():
     pm.insert_one_place(veale)
 
     em = EventDataManager()
-    cs_presentation = create_cs_presentation(nord)
+    cs_presentation = create_cs_presentation(white)
     bio_pres = create_bio_presentation(bingham)
     basketball = create_basketball_game(veale)
     lect = create_lecture(strosacker)

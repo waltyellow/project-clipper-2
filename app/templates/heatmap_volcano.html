@@ -77,8 +77,8 @@
         i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0.25, 1))
     var entities = {{ entities|tojson|safe }};
 
-    var lowerbound = min_value,
-        upperbound = max_value;
+    var lowerbound = min_value - 0.00000001,
+        upperbound = max_value + 0.0000001;
 
     function calculate_color_bounds() {
         lowerbound = mean - sigma * stdev - 0.01,
@@ -101,7 +101,7 @@
         svg.selectAll("path")
             .data(d3.contours()
                 .size([volcano.width, volcano.height])
-                .thresholds(d3.range(min_value - 0.01, max_value + 0.01, stdev / 12 + 0.0001))
+                .thresholds(d3.range(min_value - 0.01, max_value + 0.01, stdev / 14 + 0.0001))
                 (volcano.values))
             .enter().append("path")
             .attr("d", d3.geoPath(d3.geoIdentity().scale(width / volcano.width)))
@@ -201,11 +201,13 @@
         if (length > 2000000) {
             length = 2000000
         }
-        if (h > 24) {
-            h = 24
+        var h_limit = 60;
+        if (h > h_limit) {
+            h = h_limit
         }
-        if (h < 5) {
-            h = 5
+        var h_floor = 8;
+        if (h < h_floor) {
+            h = h_floor
         }
         var params = {
             'long': long,
@@ -274,9 +276,6 @@
 
     function higher_res() {
         h = (parseInt(h) * 1.2).toFixed(0)
-        if (h > 20) {
-            h = 20
-        }
         window.location = get_url();
     }
 

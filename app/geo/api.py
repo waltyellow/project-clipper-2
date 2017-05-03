@@ -34,8 +34,8 @@ def get_map():
     nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + 0.5*horizontal_distance * math.sqrt(3))
 
     vertical_resolution = int(request.args['h'])
-    if vertical_resolution > 30:
-        vertical_resolution = 30
+    if vertical_resolution > 60:
+        vertical_resolution = 60
     horizontal_resolution = vertical_resolution * 2
     meters_per_degree_longitude = (111320 * math.cos(math.radians(lat)))
     xstep = ((horizontal_distance/horizontal_resolution) / meters_per_degree_longitude)

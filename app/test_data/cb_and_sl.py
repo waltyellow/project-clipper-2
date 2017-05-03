@@ -41,7 +41,7 @@ def create_nord():
     place['name'] = 'Nord Hall'
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.607824, 41.502485))
-    place['senti_score'] = 35
+    place['senti_score'] = 3
     place['rating_average'] = 4.7
     place['rating_count'] = 43
     return place
@@ -54,7 +54,7 @@ def create_white():
     place['name'] = 'White Building'
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.607416, 41.501922))
-    place['senti_score'] = 2
+    place['senti_score'] = 12
     place['rating_average'] = 2.6
     place['rating_count'] = 33
     return place
@@ -80,7 +80,7 @@ def create_bingham():
     place['name'] = 'Bingham Hall'
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.606955, 41.502412))
-    place['senti_score'] = 17
+    place['senti_score'] = -1
     place['rating_average'] = 4
     place['rating_count'] = 61
     return place
@@ -135,7 +135,7 @@ def create_ksl():
     place['name'] = 'Kelvin Smith Library'
     place['type'] = 'StudyLocation'
     place['geo_coordinates'] = Point((-81.609578, 41.507348))
-    place['senti_score'] = 4
+    place['senti_score'] = -9
     place['rating_average'] = 4.1
     place['rating_count'] = 20
     return place
