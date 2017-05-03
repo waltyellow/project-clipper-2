@@ -91,7 +91,7 @@ def create_chipotle2():
     place = proto.copy()
     place['name'] = 'Chipotle Mexican Grill at Coventry'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((-81.601951, 41.509799))
+    place['geo_coordinates'] = Point((-81.591951, 41.509799))
     place['senti_score'] = 4.51
     place['rating_average'] = 4.1
     place['rating_count'] = 52
@@ -104,7 +104,7 @@ def create_pacific_east():
     place = proto.copy()
     place['name'] = 'Pacific East Coventry'
     place['type'] = 'FoodEntertainment'
-    place['geo_coordinates'] = Point((-81.601951, 41.509929))
+    place['geo_coordinates'] = Point((-81.591951, 41.509929))
     place['senti_score'] = 7.5
     place['rating_average'] = 4.4
     place['rating_count'] = 52
