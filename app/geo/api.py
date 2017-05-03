@@ -30,8 +30,8 @@ def get_map():
         radius = float(request.args['radius'])
 
     nearby_events = edm.EventDataManager().find_events_near(long=long,
-                                                            lat=lat, radius=radius + 0.5*horizontal_distance * math.sqrt(3))
-    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + 0.5*horizontal_distance * math.sqrt(3))
+                                                            lat=lat, radius=2*radius + horizontal_distance * math.sqrt(3))
+    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=2*radius + horizontal_distance * math.sqrt(3))
 
     vertical_resolution = int(request.args['h'])
     if vertical_resolution > 60:

@@ -15,7 +15,7 @@ def create_yost():
     place['name'] = 'Yost Hall'
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.608950, 41.503553))
-    place['senti_score'] = 2
+    place['senti_score'] = -3.55
     place['rating_average'] = 3.9
     place['rating_count'] = 21
     return place
@@ -41,7 +41,7 @@ def create_nord():
     place['name'] = 'Nord Hall'
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.607824, 41.502485))
-    place['senti_score'] = 3
+    place['senti_score'] = 8.66
     place['rating_average'] = 4.7
     place['rating_count'] = 43
     return place
@@ -54,7 +54,7 @@ def create_white():
     place['name'] = 'White Building'
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.607416, 41.501922))
-    place['senti_score'] = 12
+    place['senti_score'] = 4.20
     place['rating_average'] = 2.6
     place['rating_count'] = 33
     return place

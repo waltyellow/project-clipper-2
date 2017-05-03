@@ -13,7 +13,7 @@ def create_qdoba():
     place['name'] = 'Qdoba Mexican Grill'
     place['type'] = 'FoodEntertainment'
     place['geo_coordinates'] = Point((-81.605453, 41.508404))
-    place['senti_score'] = 25
+    place['senti_score'] = 12
     place['rating_average'] = 3.9
     place['rating_count'] = 20
     return place
@@ -26,7 +26,7 @@ def create_jimmy_johns():
     place['name'] = 'Jimmy Johns Sub Shop'
     place['type'] = 'FoodEntertainment'
     place['geo_coordinates'] = Point((-81.603951, 41.509651))
-    place['senti_score'] = 15
+    place['senti_score'] = -3
     place['rating_average'] = 4.1
     place['rating_count'] = 16
     return place
@@ -39,8 +39,8 @@ def create_chipotle():
     place['name'] = 'Chipotle Mexican Grill'
     place['type'] = 'FoodEntertainment'
     place['geo_coordinates'] = Point((-81.603951, 41.509799))
-    place['senti_score'] = 35
-    place['rating_average'] = 4.7
+    place['senti_score'] = -20
+    place['rating_average'] = 1.7
     place['rating_count'] = 52
     return place
 
@@ -65,7 +65,7 @@ def create_panera_bread():
     place['name'] = 'Panera Bread'
     place['type'] = 'FoodEntertainment'
     place['geo_coordinates'] = Point((-81.603854, 41.509765))
-    place['senti_score'] = 16
+    place['senti_score'] = 2.87
     place['rating_average'] = 3.7
     place['rating_count'] = 61
     return place
@@ -78,9 +78,36 @@ def create_kenkos():
     place['name'] = 'Kenkos Sushi'
     place['type'] = 'FoodEntertainment'
     place['geo_coordinates'] = Point((-81.605740, 41.508316))
-    place['senti_score'] = 12
+    place['senti_score'] = -2
     place['rating_average'] = 4
     place['rating_count'] = 11
+    return place
+
+
+def create_chipotle2():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Chipotle Mexican Grill at Coventry'
+    place['type'] = 'FoodEntertainment'
+    place['geo_coordinates'] = Point((-81.601951, 41.509799))
+    place['senti_score'] = 4.51
+    place['rating_average'] = 4.1
+    place['rating_count'] = 52
+    return place
+
+def create_pacific_east():
+
+    proto = places_data_manager.min_place_dict
+
+    place = proto.copy()
+    place['name'] = 'Pacific East Coventry'
+    place['type'] = 'FoodEntertainment'
+    place['geo_coordinates'] = Point((-81.601951, 41.509929))
+    place['senti_score'] = 7.5
+    place['rating_average'] = 4.4
+    place['rating_count'] = 52
     return place
 
 def create_all_restaurants():
@@ -97,6 +124,9 @@ def create_all_restaurants():
     pm.insert_one_place(kenkos)
     pm.insert_one_place(panera)
     pm.insert_one_place(chipotle)
+    pm.insert_one_place(create_chipotle2())
+    pm.insert_one_place(create_pacific_east())
+
 
 
 if __name__ == '__main__':

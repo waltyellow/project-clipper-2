@@ -201,7 +201,7 @@
         if (length > 2000000) {
             length = 2000000
         }
-        var h_limit = 60;
+        var h_limit = 40;
         if (h > h_limit) {
             h = h_limit
         }
@@ -237,13 +237,13 @@
     }
 
     function move_north() {
-        diff = 0.2 * parseFloat(length) / 110574
+        diff = 0.4 * parseFloat(length) / 110574
         lat = (parseFloat(lat) + diff).toFixed(7)
         window.location = get_url();
     }
 
     function move_south() {
-        diff = 0.2 * parseFloat(length) / 110574
+        diff = 0.4 * parseFloat(length) / 110574
         lat = (parseFloat(lat) - diff).toFixed(7)
         window.location = get_url();
     }
