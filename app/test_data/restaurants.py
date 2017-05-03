@@ -124,7 +124,6 @@ def create_all_restaurants():
     pm.insert_one_place(kenkos)
     pm.insert_one_place(panera)
     pm.insert_one_place(chipotle)
-    pm.insert_one_place(create_chipotle2())
     pm.insert_one_place(create_pacific_east())
 
 

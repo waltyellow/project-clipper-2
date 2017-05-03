@@ -74,7 +74,7 @@ def webhook():
         if not place:
             reply = "sorry, I did not understand where you are looking at"
 
-        messages = MessageDataManager().find_messages_by_filter({'parent' : place['place_id']})
+        messages = MessageDataManager().find_messages_by_filter({'parent': place['place_id']})
         reply = reply_comments(messages, place['name'])
 
         # find nearby events
@@ -198,6 +198,7 @@ def serialize_event(event: dict, seq: str = 'next'):
         reply += "In terms of food, there is also {0} offered there.".format(event['food'])
     return reply
 
+
 def reply_comments(comments: [dict], location_name: str):
     first_string = 'first '
     if len(comments) == 0:
@@ -217,6 +218,7 @@ def reply_comments(comments: [dict], location_name: str):
         else:
             reply += serialize_event(comment, 'next ')
     return reply
+
 
 def serialize_comment(comment: dict, seq: str = 'next'):
     body = comment['body']
