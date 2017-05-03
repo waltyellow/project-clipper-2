@@ -4,6 +4,7 @@ from app.data_managers import common
 
 from app.data_managers.event_data_manager import EventDataManager
 from app.data_managers.places_data_manager import PlaceDataManager
+from app.data_managers.message_data_manager import MessageDataManager
 from app.utility import action_handler
 import json
 import geojson
@@ -64,6 +65,20 @@ def webhook():
             return 'permission_failed'
         reply = reply_for_events_exact_coordinates(long=long, lat=lat, location_name='you')
         # find nearby events
+
+    elif action == 'get_messages_for_place':
+        try:
+            location, place = find_location_and_place(data_object)
+        except KeyError:
+            return 'failed lookup'
+        if not place:
+            reply = "sorry, I did not understand where you are looking at"
+
+        messages = MessageDataManager().find_messages_by_filter({'parent' : place['place_id']})
+        reply = reply_comments(messages, place['name'])
+
+        # find nearby events
+
     elif action == 'create_event_yes':
         try:
             location, place = find_location_and_place(data_object)
@@ -181,6 +196,32 @@ def serialize_event(event: dict, seq: str = 'next'):
 
     if 'food' in event and event['food'] != '':
         reply += "In terms of food, there is also {0} offered there.".format(event['food'])
+    return reply
+
+def reply_comments(comments: [dict], location_name: str):
+    first_string = 'first '
+    if len(comments) == 0:
+        reply = "sorry, we cannot find any comments at {0}.".format(location_name)
+    else:
+        if len(comments) == 1:
+            reply = "I found one event at {0}. ".format(location_name)
+            first_string = ''
+        else:
+            reply = "Here are the {0} events. ".format(len(events))
+    print(reply)
+    first = False
+    for comment in comments:
+        if not first:
+            reply += serialize_event(comment, first_string)
+            first = True
+        else:
+            reply += serialize_event(comment, 'next ')
+    return reply
+
+def serialize_comment(comment: dict, seq: str = 'next'):
+    body = comment['body']
+
+    reply = "The {0} comment says {1}. ".format(seq, body)
     return reply
 
 

@@ -4,7 +4,7 @@ from pymongo.collection import ReturnDocument
 from bson.objectid import ObjectId
 import base64, time
 from typing import Any
-from app.utility import geo, action_handler
+from app.utility import geo
 from app.data_managers import places_data_manager
 import app.data_managers.common as common
 
@@ -150,17 +150,6 @@ def test():
     for e in es:
         print(e)
 
-
-def test2():
-    parent = 'ev-WQEHXE9tc1py6OPs'
-    message = min_message_dict.copy()
-    message['type'] = 'comment'
-    message['body'] = 'I love football'
-    message['parent'] = parent
-    action_handler.process_message(message)
-    MessageDataManager().insert_message_one(message)
-    action_handler.on_message_received_for_event(event_id=parent, message=message)
-    print(message)
 
 
 if __name__ == '__main__':
