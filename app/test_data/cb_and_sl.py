@@ -42,8 +42,8 @@ def create_nord():
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.607824, 41.502485))
     place['senti_score'] = 8.66
-    place['rating_average'] = 4.7
-    place['rating_count'] = 43
+    place['rating_average'] = 0
+    place['rating_count'] = 0
     return place
 
 def create_white():
@@ -56,7 +56,7 @@ def create_white():
     place['geo_coordinates'] = Point((-81.607416, 41.501922))
     place['senti_score'] = 4.20
     place['rating_average'] = 2.6
-    place['rating_count'] = 33
+    place['rating_count'] = 5
     return place
 
 def create_glennan():
@@ -68,8 +68,8 @@ def create_glennan():
     place['type'] = 'CampusBuilding'
     place['geo_coordinates'] = Point((-81.606998, 41.501553))
     place['senti_score'] = 5
-    place['rating_average'] = 3.7
-    place['rating_count'] = 42
+    place['rating_average'] = 0
+    place['rating_count'] = 0
     return place
 
 def create_bingham():
