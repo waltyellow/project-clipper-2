@@ -20,37 +20,41 @@ def here():
 
 @server.route(rule='/global', endpoint='get_map', methods=['GET'])
 def get_map():
-    length = float(request.args['length'])
+    horizontal_distance = float(request.args['length'])
+    vertical_distance = 2.5*horizontal_distance
     long = float(request.args['long'])
     lat = float(request.args['lat'])
-    radius = 0.45 * length
+    radius = 0.15 * horizontal_distance
 
     if 'radius' in request.args:
         radius = float(request.args['radius'])
 
     nearby_events = edm.EventDataManager().find_events_near(long=long,
-                                                            lat=lat, radius=radius + length * math.sqrt(2))
-    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + length * math.sqrt(2))
+                                                            lat=lat, radius=radius + 0.5*horizontal_distance * math.sqrt(3))
+    nearby_places = pdm.PlaceDataManager().find_places_near(long=long, lat=lat, radius=radius + 0.5*horizontal_distance * math.sqrt(3))
 
-    h = int(request.args['h'])
-    if h > 30:
-        h = 30
-    w = h * 2
-    xstep = (length / 110574) / w
-    ystep = (0.5 * length / (111320 * math.cos(math.radians(lat)))) / h
-    x_left = long - (w / 2) * xstep
-    x_right = x_left + w * xstep
-    print(('x', x_left, x_right))
+    vertical_resolution = int(request.args['h'])
+    if vertical_resolution > 30:
+        vertical_resolution = 30
+    horizontal_resolution = vertical_resolution * 2
+    meters_per_degree_longitude = (111320 * math.cos(math.radians(lat)))
+    xstep = ((horizontal_distance/horizontal_resolution) / meters_per_degree_longitude)
+    meters_per_degree_latitude = 110574
+    ystep = ((vertical_distance/vertical_resolution) / meters_per_degree_latitude)
 
-    y_top = lat + (h / 2) * ystep
-    y_bottom = y_top - h * ystep
-    print(('y', y_top, y_bottom))
+    x_left = long - (horizontal_resolution / 2) * xstep
+    x_right = x_left + horizontal_resolution * xstep
+    print(('x range, x diff, ', x_left, x_right), x_right-x_left)
+
+    y_top = lat + (vertical_resolution / 2) * ystep
+    y_bottom = y_top - vertical_resolution * ystep
+    print(('y range, y diff', y_top, y_bottom), y_top-y_bottom)
 
     data_points = []
-    for i in range(0, h):
+    for i in range(0, vertical_resolution):
         y = y_top - i * ystep
         row = []
-        for j in range(0, w):
+        for j in range(0, horizontal_resolution):
             x = x_left + j * xstep
             score = action_handler.get_dynamic_score_for_heatmap_efficient(x, y, radius=radius,
                                                                            nearby_events=nearby_events,
@@ -90,9 +94,9 @@ def get_map():
                            "type": "place",
                            "id": place['place_id'],
                            "score": place['senti_score']})
-        print(place)
+        #print(place)
 
-    volcano = {"width": w, "height": h, 'values': data_points}
+    volcano = {"width": horizontal_resolution, "height": vertical_resolution, 'values': data_points}
 
     # return json.dumps(
     #    {"width":w, "height": h, 'values': data_points})
@@ -100,4 +104,4 @@ def get_map():
                            entities=out_events + out_places,
                            min_value=min_score, max_value=max_score,
                            long_left=x_left, long_right=x_right, lat_top=y_top, lat_bottom=y_bottom,
-                           w=w, h=h)
+                           w=horizontal_resolution, h=vertical_resolution, vdist=vertical_distance)

@@ -120,10 +120,10 @@ def aggregate_raw_score_from_entities_distance_based_efficient(entities, lifetim
 def entity_to_geo_score(entity, center_loc, radius):
     entity_loc = (entity['geo_coordinates']['coordinates'][0], entity['geo_coordinates']['coordinates'][1])
     distance = great_circle(entity_loc, center_loc).meters
+    if distance > radius:
+        return 0
     fraction = (1 - distance / radius)
-    if fraction < 0:
-        fraction = 0
-    single_score = entity['senti_score'] * fraction * fraction
+    single_score = entity['senti_score'] * math.pow(fraction, 2)
     return single_score
 
 

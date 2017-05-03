@@ -16,7 +16,7 @@ def create_cs_presentation(place):
     event['location'] = 'Nord'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
-    event['senti_score'] = 10
+    event['senti_score'] = 12
     return event
 
 def create_bio_presentation(place):
@@ -29,7 +29,7 @@ def create_bio_presentation(place):
     event['location'] = 'Bingham'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
-    event['senti_score'] = 8
+    event['senti_score'] = -14
     return event
 
 def create_basketball_game(place):
@@ -55,7 +55,7 @@ def create_lecture(place):
     event['location'] = 'Strosacker'
     event['description'] =  'Free food for CWRU Students'
     event['place_id'] = place['place_id']
-    event['senti_score'] = 6
+    event['senti_score'] = -5
     return event
 
 def create_undergrad(place):

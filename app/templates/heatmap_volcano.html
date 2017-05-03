@@ -57,7 +57,8 @@
         long_right = {{ long_right }},
         lat_top = {{ lat_top }},
         lat_bottom = {{ lat_bottom }},
-        radius = 0.45 * length,
+        vertical_distance = {{ vdist }}
+        radius = 500,
         sigma = 3,
         steps = 200,
         mean = {{ mean }};
@@ -72,12 +73,12 @@
     find_ratio()
     resize()
 
-    var i0 = d3.interpolateHsvLong(d3.hsv(140, 0.2, 0.5), d3.hsv(60, 0.9, 0.9)),
-        i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0, 0.9))
+    var i0 = d3.interpolateHsvLong(d3.hsv(160, 0.4, 0.4), d3.hsv(60, 0.9, 0.9)),
+        i1 = d3.interpolateHsvLong(d3.hsv(60, 0.9, 0.9), d3.hsv(0, 0.25, 1))
     var entities = {{ entities|tojson|safe }};
 
-    var lowerbound = mean - sigma * stdev - 0.01 + 1.5 * stdev,
-        upperbound = mean + sigma * stdev + 0.02 + 1.5 * stdev;
+    var lowerbound = min_value,
+        upperbound = max_value;
 
     function calculate_color_bounds() {
         lowerbound = mean - sigma * stdev - 0.01,
@@ -96,40 +97,11 @@
     },
         color = d3.scaleSequential(interpolateTerrain).domain([lowerbound, upperbound]);
 
-    function compute_heatmap() {
-        w = h * 2
-        var xstep = (length / 110574) / w
-        var ystep = (0.5 * length / (111320 * Math.cos((0.0174533 * lat)))) / h
-        var x_left = long - (w / 2) * xstep
-        var x_right = x_left + w * xstep
-
-        var y_top = lat + (h / 2) * ystep
-        var y_bottom = y_top - h * ystep
-        var min_score = 0
-        var max_score = 0
-        var data_points = []
-        for (var i = 0; i < h; i++) {
-            var y = y_top - i * ystep
-            for (var j = 0; j < w; j++) {
-                var x = x_left + j * xstep
-                score = 1;
-                if (score < min_score) {
-                    min_score = score
-                } else if (score > max_score) {
-                    max_score = score
-                }
-            }
-            data_points.insert(len(data_points), score)
-            stdev = statistics.stdev(data_points)
-            mean = statistics.mean(data_points)
-        }
-    }
-
     function draw(volcano) {
         svg.selectAll("path")
             .data(d3.contours()
                 .size([volcano.width, volcano.height])
-                .thresholds(d3.range(min_value - 0.01, max_value + 0.01, stdev / 100 + 0.0001))
+                .thresholds(d3.range(min_value - 0.01, max_value + 0.01, stdev / 12 + 0.0001))
                 (volcano.values))
             .enter().append("path")
             .attr("d", d3.geoPath(d3.geoIdentity().scale(width / volcano.width)))
@@ -187,7 +159,7 @@
     }
 
     function reset() {
-        radius = length * 0.45
+        radius = 500
         window.location = get_url()
     }
 
@@ -214,7 +186,7 @@
     var mx = getParameterByName("mx");
     var my = getParameterByName("my");
     if ((radius == null) || (radius == '') || (isNaN(radius))) {
-        radius = 0.45 * length
+        radius = 500
     }
     if ((mx == null) || (mx == '') || (isNaN(mx)) || (my == null) || (my == '') || (isNaN(my))) {
         mouse_position = [width / 2, height / 2]
@@ -229,8 +201,8 @@
         if (length > 2000000) {
             length = 2000000
         }
-        if (h > 20) {
-            h = 20
+        if (h > 24) {
+            h = 24
         }
         if (h < 5) {
             h = 5
@@ -251,25 +223,25 @@
     get_url();
 
     function move_east() {
-        diff = (0.25 * parseFloat(length)) / 110574
+        diff = (0.2 * parseFloat(length)) / (111320 * Math.cos((0.0174533 * parseFloat(lat))))
         long = (parseFloat(long) + diff).toFixed(7)
         window.location = get_url();
     }
 
     function move_west() {
-        diff = (0.25 * parseFloat(length)) / 110574
+        diff = (0.2 * parseFloat(length)) / (111320 * Math.cos((0.0174533 * parseFloat(lat))))
         long = (parseFloat(long) - diff).toFixed(7)
         window.location = get_url();
     }
 
     function move_north() {
-        diff = 0.25 * parseFloat(length) / (111320 * Math.cos((0.0174533 * parseFloat(lat))))
+        diff = 0.2 * parseFloat(length) / 110574
         lat = (parseFloat(lat) + diff).toFixed(7)
         window.location = get_url();
     }
 
     function move_south() {
-        diff = 0.25 * parseFloat(length) / (111320 * Math.cos((0.0174533 * parseFloat(lat))))
+        diff = 0.2 * parseFloat(length) / 110574
         lat = (parseFloat(lat) - diff).toFixed(7)
         window.location = get_url();
     }
@@ -282,7 +254,6 @@
         if (is_wheel) {
             set_coordinate_to_mouse((1 / 1.4));
         }
-        radius = length * 0.45
         width = width * 1.2
         height = height * 1.2
         //redraw()
@@ -297,7 +268,6 @@
         if (is_wheel) {
             set_coordinate_to_mouse(1.4);
         }
-        radius = length * 0.45
 
         window.location = get_url();
     }
@@ -508,20 +478,35 @@
         .attr("fill", "#333");
 
 
-    var ruler = svg.append("line")
-        .attr("x1", width - 250)
-        .attr("y1", 50)
-        .attr("x2", width - 50)
-        .attr("y2", 50)
-        .attr('stroke', "gray")
-        .attr("stroke-width", 5);
-
-    var ruler_scale = svg.append("text").attr("x", width - 180)
-        .attr("y", 40)
-        .text((length / 8).toFixed(1) + "meters")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "12px")
-        .attr("fill", "#333");
+{#    var ruler = svg.append("line")#}
+{#        .attr("x1", width - 250)#}
+{#        .attr("y1", 50)#}
+{#        .attr("x2", width - 50)#}
+{#        .attr("y2", 50)#}
+{#        .attr('stroke', "gray")#}
+{#        .attr("stroke-width", 5);#}
+{##}
+{#    var ruler_scale = svg.append("text").attr("x", width - 180)#}
+{#        .attr("y", 40)#}
+{#        .text((length * 200 /width).toFixed(1) + "meters")#}
+{#        .attr("font-family", "sans-serif")#}
+{#        .attr("font-size", "12px")#}
+{#        .attr("fill", "#333");#}
+{##}
+{#    var ruler_v = svg.append("line")#}
+{#        .attr("x1", width - 50)#}
+{#        .attr("y1", 50)#}
+{#        .attr("x2", width - 50)#}
+{#        .attr("y2", 150)#}
+{#        .attr('stroke', "gray")#}
+{#        .attr("stroke-width", 5);#}
+{##}
+{#    var ruler_scale_V = svg.append("text").attr("x", width - 100)#}
+{#        .attr("y", 100)#}
+{#        .text((vertical_distance * 100 /height).toFixed(1) + "meters")#}
+{#        .attr("font-family", "sans-serif")#}
+{#        .attr("font-size", "12px")#}
+{#        .attr("fill", "#333");#}
     function calculate_mouse_positions() {
         var mouse_x_percentage = (mouse_position[0] / width);
         var mouse_y_percentage = (mouse_position[1] / height);
