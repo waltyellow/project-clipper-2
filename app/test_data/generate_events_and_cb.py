@@ -11,10 +11,10 @@ def create_cs_presentation(place):
     event_proto = event_data_manager.min_event_dict
 
     event = proto.copy()
-    event['name'] = 'CS Capstone Presentations'
+    event['name'] = 'CS Senior Project Presentations'
     event['geo_coordinates'] = place['geo_coordinates']
-    event['location'] = 'Nord'
-    event['description'] =  'Free food for CWRU Students'
+    event['location'] = 'White Building'
+    event['description'] =  'EECS 395 Computer Science senior project presentations, from students hard work.'
     event['place_id'] = place['place_id']
     event['senti_score'] = 12
     return event
@@ -26,8 +26,8 @@ def create_bio_presentation(place):
     event = proto.copy()
     event['name'] = 'Bio Capstone Presentations'
     event['geo_coordinates'] = place['geo_coordinates']
-    event['location'] = 'Bingham'
-    event['description'] =  'Free food for CWRU Students'
+    event['location'] = 'Bingham Building'
+    event['description'] =  'Biology senior capstone presentation'
     event['place_id'] = place['place_id']
     event['senti_score'] = -14
     return event

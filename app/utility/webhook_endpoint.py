@@ -151,10 +151,10 @@ def reply_for_events(events: [dict], location_name: str):
         reply = "sorry, we cannot find any events at {0}.".format(location_name)
     else:
         if len(events) == 1:
-            reply = "I found one event. The event is ".format(len(events))
+            reply = "I found one event at {0}. ".format(location_name)
             first_string = ''
         else:
-            reply = "Here are the {0} events at {1}. ".format(len(events), location_name)
+            reply = "Here are the {0} events. ".format(len(events))
     print(reply)
     first = False
     for event in events:
